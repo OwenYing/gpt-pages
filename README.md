@@ -4,10 +4,12 @@ Loading is bit slow
 Can pin a tool
 create a issue for bugs, gpt will fix it
 Redo the footer. 
+Redo readme page
+Add sponsorship at the footer
 
 "Can you brainstorm 100 useful ideas that can be used via 1-page static pages? "
 "Can you implement each of them as a 1-pager static page?"
-"Keep implementing this list, if it doesn't exist already, in the same way, until all finishes. Don't ask me in between"
+"Keep implementing this list, if it doesn't exist already, in the same way as the old pages, until all finishes. Don't ask me in between"
 
 ```
 Personal Tools
