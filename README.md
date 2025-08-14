@@ -131,24 +131,24 @@ Fun & Entertainment
 	82.	✅Random joke generator
 	83.	✅Simple meme maker
 	84.	✅Movie night picker
-	85.	Book recommendation randomizer
-	86.	Song lyric finder
-	87.	Quote of the day
-	88.	Random “Would You Rather” question
-	89.	Party game rules quick reference
-	90.	Mini pixel art drawing canvas
+	85.	✅Book recommendation randomizer
+	86.	✅Song lyric finder
+	87.	✅Quote of the day
+	88.	✅Random “Would You Rather” question
+	89.	✅Party game rules quick reference
+	90.	✅Mini pixel art drawing canvas
 
 ⸻
 
 Tech & Coding
-	91.	QR code generator
-	92.	URL shortener
-	93.	Regex tester
-	94.	JSON formatter
-	95.	HTML color code picker
-	96.	Git command cheatsheet
-	97.	HTTP status code reference
-	98.	CSS gradient generator
-	99.	ASCII art generator
-	100.	Password strength tester
+	91.	✅QR code generator
+	92.	✅URL shortener
+	93.	✅Regex tester
+	94.	✅JSON formatter
+	95.	✅HTML color code picker
+	96.	✅Git command cheatsheet
+	97.	✅HTTP status code reference
+	98.	✅CSS gradient generator
+	99.	✅ASCII art generator
+	100.✅Password strength tester
 ```

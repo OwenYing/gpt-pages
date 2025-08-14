@@ -96,6 +96,7 @@ const pagesData = [
     { id: 79, title: "Pantry Inventory List", description: "Track pantry items and expiration dates", category: "lifestyle", tags: ["Pantry Inventory", "Food Storage", "Expiration", "Organization"] },
     { id: 80, title: "Household Bill Split Calculator", description: "Calculate how to split household bills between roommates", category: "lifestyle", tags: ["Bill Splitter", "Roommates", "Calculator", "Finance"] },
     { id: 81, title: "Daily Trivia Question", description: "Random daily trivia questions with answers", category: "entertainment", tags: ["Trivia", "Daily Question", "Fun", "Learning"] },
+    { id: 82, title: "QR Code Generator", description: "Generate QR codes for URLs, text, and contact information", category: "tech", tags: ["QR Code", "Generator", "Barcode", "Tech"] },
     { id: 83, title: "Random Joke Generator", description: "Generate random jokes for entertainment", category: "entertainment", tags: ["Jokes", "Random Generator", "Fun", "Entertainment"] },
     { id: 84, title: "Simple Meme Maker", description: "Create simple memes with text overlays", category: "entertainment", tags: ["Meme Maker", "Fun", "Creativity", "Entertainment"] },
     { id: 85, title: "Movie Night Picker", description: "Random movie picker for movie night decisions", category: "entertainment", tags: ["Movie Picker", "Random", "Entertainment", "Decision Making"] },
@@ -104,7 +105,18 @@ const pagesData = [
     { id: 88, title: "Random Would You Rather Question", description: "Generate random 'Would You Rather' questions for fun discussions", category: "entertainment", tags: ["Would You Rather", "Questions", "Fun", "Discussion"] },
     { id: 89, title: "Party Game Rules Quick Reference", description: "Quick reference guide for popular party games and rules", category: "entertainment", tags: ["Party Game Rules", "Reference", "Entertainment", "Party"] },
     { id: 90, title: "Mini Pixel Art Drawing Canvas", description: "Simple pixel art drawing tool for creating digital artwork", category: "creative", tags: ["Pixel Art", "Drawing", "Canvas", "Creativity"] },
-    { id: 91, title: "Song Lyric Finder", description: "Find and display song lyrics with search functionality", category: "entertainment", tags: ["Song Lyrics", "Music", "Search", "Entertainment"] }
+    { id: 91, title: "Song Lyric Finder", description: "Find and display song lyrics with search functionality", category: "entertainment", tags: ["Song Lyrics", "Music", "Search", "Entertainment"] },
+    
+    // Tech & Coding Category
+    { id: 92, title: "URL Shortener", description: "Shorten long URLs for easier sharing and tracking", category: "tech", tags: ["URL Shortener", "Links", "Sharing", "Tech"] },
+    { id: 93, title: "Regex Tester", description: "Test and debug regular expressions with live matching", category: "tech", tags: ["Regex", "Regular Expressions", "Testing", "Programming"] },
+    { id: 94, title: "JSON Formatter", description: "Format and validate JSON data with syntax highlighting", category: "tech", tags: ["JSON", "Formatter", "Validation", "Programming"] },
+    { id: 95, title: "HTML Color Code Picker", description: "Pick colors and get HTML color codes for web development", category: "tech", tags: ["Color Picker", "HTML Colors", "Web Design", "Development"] },
+    { id: 96, title: "Git Command Cheatsheet", description: "Quick reference for common Git commands and workflows", category: "tech", tags: ["Git", "Commands", "Cheatsheet", "Version Control"] },
+    { id: 97, title: "HTTP Status Code Reference", description: "Complete reference for HTTP status codes and their meanings", category: "tech", tags: ["HTTP", "Status Codes", "Reference", "Web Development"] },
+    { id: 98, title: "CSS Gradient Generator", description: "Create beautiful CSS gradients with visual preview", category: "tech", tags: ["CSS", "Gradients", "Generator", "Web Design"] },
+    { id: 99, title: "ASCII Art Generator", description: "Convert text to ASCII art with various font styles", category: "tech", tags: ["ASCII Art", "Text Art", "Generator", "Creativity"] },
+    { id: 100, title: "Password Strength Tester", description: "Test password strength and get security recommendations", category: "tech", tags: ["Password", "Security", "Strength Tester", "Safety"] }
 ];
 
 // Extensibility functions for unlimited pages
@@ -275,7 +287,7 @@ async function filterExistingPages() {
     // Fallback to hardcoded list if auto-detection didn't work
     if (!autoDetected || existingPages.length === 0) {
         console.log('Using fallback list of existing pages...');
-        const existingPageIds = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 83, 84, 85, 86, 87, 88, 89, 90, 91]; // All existing pages (1-81, 83-91)
+        const existingPageIds = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100]; // All existing pages (1-100)
         
         for (const page of pagesData) {
             if (existingPageIds.includes(page.id)) {
