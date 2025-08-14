@@ -1,14 +1,15 @@
 # 🚀 GPT Ideas Hub
 
 "Can you brainstorm 100 useful ideas that can be used via 1-page static pages? "
+"Can you implement each of them as a 1-pager static page?"
 
 ```
 Personal Tools
-	1.	Daily mood tracker with exportable CSV
-	2.	Simple gratitude journal template
-	3.	BMI calculator
-	4.	Countdown timer for events
-	5.	Age calculator from birthdate
+	1.	✅Daily mood tracker with exportable CSV
+	2.	✅Simple gratitude journal template
+	3.	✅BMI calculator
+	4.	✅Countdown timer for events
+	5.	✅Age calculator from birthdate
 	6.	Tip calculator
 	7.	Loan repayment calculator
 	8.	Daily habit checklist
