@@ -21,16 +21,17 @@ const pagesData = [
     { id: 16, title: "Savings Goal Tracker", description: "Track progress toward savings goals with timeline visualization", category: "finance", tags: ["Savings", "Goals", "Tracker", "Finance"] },
     { id: 17, title: "Cost Per Use Calculator", description: "Calculate cost per use for purchases to make informed decisions", category: "finance", tags: ["Cost Analysis", "Purchases", "Calculator", "Smart Spending"] },
     { id: 18, title: "Inflation-Adjusted Value Calculator", description: "Calculate real value of money accounting for inflation", category: "finance", tags: ["Inflation", "Value Calculator", "Economics", "Finance"] },
-    { id: 20, title: "Retirement Savings Projection", description: "Project retirement savings needs and growth over time", category: "finance", tags: ["Retirement", "Savings", "Projection", "Financial Planning"] },
-    { id: 21, title: "Side-Hustle Income Tracker", description: "Track income from multiple sources and side projects", category: "finance", tags: ["Side Hustle", "Income Tracking", "Multiple Sources", "Finance"] },
+    { id: 19, title: "Side-Hustle Income Tracker", description: "Track income from multiple sources and side projects", category: "finance", tags: ["Side Hustle", "Income Tracking", "Multiple Sources", "Finance"] },
+    { id: 20, title: "Calorie Needs Calculator", description: "Calculate daily calorie needs based on TDEE and activity level", category: "health", tags: ["Calories", "TDEE", "Nutrition", "Fitness"] },
+    { id: 21, title: "Retirement Savings Projection", description: "Project retirement savings needs and growth over time", category: "finance", tags: ["Retirement", "Savings", "Projection", "Financial Planning"] },
     
     // Health & Fitness Category
-    { id: 22, title: "Calorie Needs Calculator", description: "Calculate daily calorie needs based on TDEE and activity level", category: "health", tags: ["Calories", "TDEE", "Nutrition", "Fitness"] },
-    { id: 23, title: "Simple Workout Generator", description: "Generate randomized workouts for different fitness levels", category: "health", tags: ["Workout Generator", "Exercise", "Random", "Fitness"] },
-    { id: 24, title: "Water Intake Tracker", description: "Track daily water consumption and hydration goals", category: "health", tags: ["Water Intake", "Hydration", "Health", "Tracker"] },
-    { id: 25, title: "Step Goal Visualizer", description: "Visualize step goals and daily walking progress", category: "health", tags: ["Step Counter", "Walking", "Goals", "Visualization"] },
-    { id: 26, title: "Sleep Debt Calculator", description: "Calculate sleep debt and optimal sleep schedule", category: "health", tags: ["Sleep", "Sleep Debt", "Health", "Calculator"] },
-    { id: 27, title: "Heart Rate Zone Calculator", description: "Calculate target heart rate zones for different training intensities", category: "health", tags: ["Heart Rate", "Training Zones", "Exercise", "Health"] },
+    { id: 22, title: "Simple Workout Generator", description: "Generate randomized workouts for different fitness levels", category: "health", tags: ["Workout Generator", "Exercise", "Random", "Fitness"] },
+    { id: 23, title: "Water Intake Tracker", description: "Track daily water consumption and hydration goals", category: "health", tags: ["Water Intake", "Hydration", "Health", "Tracker"] },
+    { id: 24, title: "Step Goal Visualizer", description: "Visualize step goals and daily walking progress", category: "health", tags: ["Step Counter", "Walking", "Goals", "Visualization"] },
+    { id: 25, title: "Sleep Debt Calculator", description: "Calculate sleep debt and optimal sleep schedule", category: "health", tags: ["Sleep", "Sleep Debt", "Health", "Calculator"] },
+    { id: 26, title: "Heart Rate Zone Calculator", description: "Calculate target heart rate zones for different training intensities", category: "health", tags: ["Heart Rate", "Training Zones", "Exercise", "Health"] },
+    { id: 27, title: "Macro Nutrient Calculator", description: "Calculate daily macro nutrient needs based on goals and activity", category: "health", tags: ["Macro Nutrients", "Nutrition", "Calculator", "Health"] },
     { id: 28, title: "Simple Yoga Pose Library", description: "Library of basic yoga poses with instructions and benefits", category: "health", tags: ["Yoga", "Poses", "Flexibility", "Wellness"] },
     { id: 29, title: "Stretch Reminder Timer", description: "Timer with reminders for regular stretching breaks", category: "health", tags: ["Stretching", "Timer", "Reminders", "Health"] },
     { id: 30, title: "Exercise Log Sheet", description: "Track workouts, sets, reps, and progress over time", category: "health", tags: ["Exercise Log", "Workout Tracking", "Progress", "Fitness"] },
@@ -289,7 +290,7 @@ async function filterExistingPages() {
             // Fallback to hardcoded list if auto-detection didn't work
         if (!autoDetected || existingPages.length === 0) {
             console.log('Using fallback list of existing pages...');
-                           const existingPageIds = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 20, 21]; // Daily Mood Tracker (ID 1), Compare Text Diff (ID 2), BMI Calculator (ID 3), Gratitude Journal Template (ID 4), Countdown Timer (ID 5), Age Calculator (ID 6), Tip Calculator (ID 7), Loan Repayment Calculator (ID 8), Daily Habit Checklist (ID 9), Time Zone Converter (ID 10), Currency Converter (ID 11), Compound Interest Calculator (ID 12), Paycheck Tax Estimator (ID 13), Credit Card Payoff Calculator (ID 14), Budget Allocation Pie Chart (ID 15), Savings Goal Tracker (ID 16), Cost Per Use Calculator (ID 17), Inflation-Adjusted Value Calculator (ID 18), Retirement Savings Projection (ID 20), Side-Hustle Income Tracker (ID 21)
+                           const existingPageIds = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27]; // Daily Mood Tracker (ID 1), Compare Text Diff (ID 2), BMI Calculator (ID 3), Gratitude Journal Template (ID 4), Countdown Timer (ID 5), Age Calculator (ID 6), Tip Calculator (ID 7), Loan Repayment Calculator (ID 8), Daily Habit Checklist (ID 9), Time Zone Converter (ID 10), Currency Converter (ID 11), Compound Interest Calculator (ID 12), Paycheck Tax Estimator (ID 13), Credit Card Payoff Calculator (ID 14), Budget Allocation Pie Chart (ID 15), Savings Goal Tracker (ID 16), Cost Per Use Calculator (ID 17), Inflation-Adjusted Value Calculator (ID 18), Retirement Savings Projection (ID 20), Side-Hustle Income Tracker (ID 21)
             
             for (const page of pagesData) {
                 if (existingPageIds.includes(page.id)) {

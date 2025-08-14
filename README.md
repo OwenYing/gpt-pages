@@ -7,6 +7,7 @@ Redo the footer.
 
 "Can you brainstorm 100 useful ideas that can be used via 1-page static pages? "
 "Can you implement each of them as a 1-pager static page?"
+"Keep implementing this list, if it doesn't exist already, in the same way, until all finishes. Don't ask me in between"
 
 ```
 Personal Tools
@@ -32,18 +33,18 @@ Finance & Money
 	16.	✅Savings goal tracker
 	17.	✅Cost per use calculator (for purchases)
 	18.	✅Inflation-adjusted value calculator
-	19.	Retirement savings projection tool
-	20.	Side-hustle income tracker
+	19.	✅Retirement savings projection tool
+	20.	✅Side-hustle income tracker
 
 ⸻
 
 Health & Fitness
-	21.	Calorie needs calculator (TDEE)
-	22.	Simple workout generator (randomized)
-	23.	Water intake tracker
-	24.	Step goal visualizer
-	25.	Sleep debt calculator
-	26.	Heart rate zone calculator
+	21.	✅Calorie needs calculator (TDEE)
+	22.	✅Simple workout generator (randomized)
+	23.	✅Water intake tracker
+	24.	✅Step goal visualizer
+	25.	✅Sleep debt calculator
+	26.	✅Heart rate zone calculator
 	27.	Simple yoga pose library
 	28.	Stretch reminder timer
 	29.	Exercise log sheet
