@@ -1,8 +1,9 @@
 # 🚀 GPT Ideas Hub
 
-Add github link, linked in. Loading is bit slow
+Loading is bit slow
 Can pin a tool
-create a issue if you want some page
+create a issue for bugs, gpt will fix it
+Redo the footer. 
 
 "Can you brainstorm 100 useful ideas that can be used via 1-page static pages? "
 "Can you implement each of them as a 1-pager static page?"
@@ -23,14 +24,14 @@ Personal Tools
 ⸻
 
 Finance & Money
-	11.	Currency converter
-	12.	Compound interest calculator
-	13.	Paycheck tax estimator
-	14.	Credit card payoff calculator
-	15.	Budget allocation pie chart tool
-	16.	Savings goal tracker
-	17.	Cost per use calculator (for purchases)
-	18.	Inflation-adjusted value calculator
+	11.	✅Currency converter
+	12.	✅Compound interest calculator
+	13.	✅Paycheck tax estimator
+	14.	✅Credit card payoff calculator
+	15.	✅Budget allocation pie chart tool
+	16.	✅Savings goal tracker
+	17.	✅Cost per use calculator (for purchases)
+	18.	✅Inflation-adjusted value calculator
 	19.	Retirement savings projection tool
 	20.	Side-hustle income tracker
 

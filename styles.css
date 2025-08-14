@@ -99,6 +99,58 @@ body {
     font-size: 1.25rem;
     color: rgba(255, 255, 255, 0.9);
     font-weight: 400;
+    margin-bottom: 20px;
+}
+
+.social-links {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+
+.social-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 20px;
+    background: rgba(255, 255, 255, 0.15);
+    color: white;
+    text-decoration: none;
+    border-radius: 25px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: var(--transition);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.social-link:hover {
+    background: rgba(255, 255, 255, 0.25);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+.social-link i {
+    font-size: 1.1rem;
+}
+
+.github-link {
+    background: rgba(0, 0, 0, 0.2);
+}
+
+.github-link:hover {
+    background: rgba(0, 0, 0, 0.3);
+}
+
+.linkedin-link {
+    background: rgba(0, 119, 181, 0.2);
+}
+
+.linkedin-link:hover {
+    background: rgba(0, 119, 181, 0.3);
 }
 
 @keyframes bounce {

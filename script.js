@@ -15,12 +15,12 @@ const pagesData = [
     
     // Finance & Money Category
     { id: 12, title: "Compound Interest Calculator", description: "Calculate compound interest growth over time", category: "finance", tags: ["Compound Interest", "Investing", "Calculator", "Growth"] },
-    { id: 14, title: "Paycheck Tax Estimator", description: "Estimate take-home pay after taxes and deductions", category: "finance", tags: ["Tax Calculator", "Paycheck", "Income", "Deductions"] },
-    { id: 15, title: "Credit Card Payoff Calculator", description: "Plan credit card debt payoff with different strategies", category: "finance", tags: ["Credit Card", "Debt Payoff", "Calculator", "Finance"] },
-    { id: 16, title: "Budget Allocation Pie Chart", description: "Visualize budget allocation with interactive pie charts", category: "finance", tags: ["Budget", "Pie Chart", "Visualization", "Finance"] },
-    { id: 17, title: "Savings Goal Tracker", description: "Track progress toward savings goals with timeline visualization", category: "finance", tags: ["Savings", "Goals", "Tracker", "Finance"] },
-    { id: 18, title: "Cost Per Use Calculator", description: "Calculate cost per use for purchases to make informed decisions", category: "finance", tags: ["Cost Analysis", "Purchases", "Calculator", "Smart Spending"] },
-    { id: 19, title: "Inflation-Adjusted Value Calculator", description: "Calculate real value of money accounting for inflation", category: "finance", tags: ["Inflation", "Value Calculator", "Economics", "Finance"] },
+    { id: 13, title: "Paycheck Tax Estimator", description: "Estimate take-home pay after taxes and deductions", category: "finance", tags: ["Tax Calculator", "Paycheck", "Income", "Deductions"] },
+    { id: 14, title: "Credit Card Payoff Calculator", description: "Plan credit card debt payoff with different strategies", category: "finance", tags: ["Credit Card", "Debt Payoff", "Calculator", "Finance"] },
+    { id: 15, title: "Budget Allocation Pie Chart", description: "Visualize budget allocation with interactive pie charts", category: "finance", tags: ["Budget", "Pie Chart", "Visualization", "Finance"] },
+    { id: 16, title: "Savings Goal Tracker", description: "Track progress toward savings goals with timeline visualization", category: "finance", tags: ["Savings", "Goals", "Tracker", "Finance"] },
+    { id: 17, title: "Cost Per Use Calculator", description: "Calculate cost per use for purchases to make informed decisions", category: "finance", tags: ["Cost Analysis", "Purchases", "Calculator", "Smart Spending"] },
+    { id: 18, title: "Inflation-Adjusted Value Calculator", description: "Calculate real value of money accounting for inflation", category: "finance", tags: ["Inflation", "Value Calculator", "Economics", "Finance"] },
     { id: 20, title: "Retirement Savings Projection", description: "Project retirement savings needs and growth over time", category: "finance", tags: ["Retirement", "Savings", "Projection", "Financial Planning"] },
     { id: 21, title: "Side-Hustle Income Tracker", description: "Track income from multiple sources and side projects", category: "finance", tags: ["Side Hustle", "Income Tracking", "Multiple Sources", "Finance"] },
     
@@ -289,7 +289,7 @@ async function filterExistingPages() {
             // Fallback to hardcoded list if auto-detection didn't work
         if (!autoDetected || existingPages.length === 0) {
             console.log('Using fallback list of existing pages...');
-                           const existingPageIds = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]; // Daily Mood Tracker (ID 1), Compare Text Diff (ID 2), BMI Calculator (ID 3), Gratitude Journal Template (ID 4), Countdown Timer (ID 5), Age Calculator (ID 6), Tip Calculator (ID 7), Loan Repayment Calculator (ID 8), Daily Habit Checklist (ID 9), Time Zone Converter (ID 10), Currency Converter (ID 11), Compound Interest Calculator (ID 12)
+                           const existingPageIds = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 20, 21]; // Daily Mood Tracker (ID 1), Compare Text Diff (ID 2), BMI Calculator (ID 3), Gratitude Journal Template (ID 4), Countdown Timer (ID 5), Age Calculator (ID 6), Tip Calculator (ID 7), Loan Repayment Calculator (ID 8), Daily Habit Checklist (ID 9), Time Zone Converter (ID 10), Currency Converter (ID 11), Compound Interest Calculator (ID 12), Paycheck Tax Estimator (ID 13), Credit Card Payoff Calculator (ID 14), Budget Allocation Pie Chart (ID 15), Savings Goal Tracker (ID 16), Cost Per Use Calculator (ID 17), Inflation-Adjusted Value Calculator (ID 18), Retirement Savings Projection (ID 20), Side-Hustle Income Tracker (ID 21)
             
             for (const page of pagesData) {
                 if (existingPageIds.includes(page.id)) {
