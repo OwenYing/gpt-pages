@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inflation-Adjusted Value Calculator - GPT Ideas Hub</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .page-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        .page-header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 40px 0;
+            background: var(--gradient-primary);
+            color: white;
+            border-radius: var(--border-radius);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .page-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="75" cy="75" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="50" cy="10" r="0.5" fill="rgba(255,255,255,0.1)"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+            opacity: 0.3;
+        }
+        
+        .page-header-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .page-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+            font-family: 'Space Grotesk', sans-serif;
+        }
+        
+        .page-meta {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .page-category-badge {
+            padding: 8px 16px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+        
+        .page-number-badge {
+            padding: 8px 16px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+        
+        .back-button {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: var(--primary-color);
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: var(--border-radius);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .back-button:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .content-section {
+            background: white;
+            padding: 30px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-md);
+            margin-bottom: 30px;
+        }
+        
+        .calculator-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-top: 30px;
+        }
+        
+        .input-section, .results-section {
+            background: var(--bg-secondary);
+            padding: 25px;
+            border-radius: var(--border-radius);
+            border: 1px solid var(--border-color);
+        }
+        
+        .input-group {
+            margin-bottom: 20px;
+        }
+        
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        
+        .input-group input, .input-group select {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid var(--border-color);
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+        
+        .input-group input:focus, .input-group select:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+        }
+        
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .btn-primary {
+            background: var(--primary-color);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .btn-secondary {
+            background: var(--bg-tertiary);
+            color: var(--text-primary);
+            border: 2px solid var(--border-color);
+            border-radius: var(--border-radius);
+        }
+        
+        .btn-secondary:hover {
+            background: var(--border-color);
+        }
+        
+        .btn-success {
+            background: var(--success-color);
+            color: white;
+        }
+        
+        .btn-success:hover {
+            background: #059669;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .results-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .result-item {
+            background: white;
+            padding: 20px;
+            border-radius: var(--border-radius);
+            border: 1px solid var(--border-color);
+            text-align: center;
+        }
+        
+        .result-label {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+            display: block;
+        }
+        
+        .result-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+        
+        .chart-container {
+            height: 300px;
+            margin: 20px 0;
+        }
+        
+        .value-comparison {
+            margin-top: 30px;
+            padding: 20px;
+            background: var(--bg-tertiary);
+            border-radius: var(--border-radius);
+            border: 1px solid var(--border-color);
+        }
+        
+        .comparison-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .comparison-item:last-child {
+            border-bottom: none;
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: var(--primary-color);
+        }
+        
+        .comparison-label {
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        
+        .comparison-value {
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+        
+        .purchasing-power {
+            margin-top: 30px;
+            padding: 20px;
+            background: white;
+            border-radius: var(--border-radius);
+            border: 1px solid var(--border-color);
+        }
+        
+        .power-indicator {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .power-bar {
+            flex: 1;
+            height: 20px;
+            background: var(--bg-tertiary);
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .power-fill {
+            height: 100%;
+            background: var(--gradient-success);
+            transition: width 0.5s ease;
+            border-radius: 10px;
+        }
+        
+        .power-text {
+            font-weight: 700;
+            color: var(--primary-color);
+            min-width: 80px;
+            text-align: right;
+        }
+        
+        .historical-data {
+            margin-top: 30px;
+            padding: 20px;
+            background: var(--bg-secondary);
+            border-radius: var(--border-radius);
+            border: 1px solid var(--border-color);
+        }
+        
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        
+        .data-table th {
+            background: var(--primary-color);
+            color: white;
+            padding: 12px 10px;
+            text-align: left;
+            font-weight: 600;
+        }
+        
+        .data-table td {
+            padding: 10px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .data-table tr:nth-child(even) {
+            background: white;
+        }
+        
+        .data-table tr:hover {
+            background: var(--bg-tertiary);
+        }
+        
+        .examples-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .example-card {
+            background: var(--bg-secondary);
+            padding: 20px;
+            border-radius: var(--border-radius);
+            border: 1px solid var(--border-color);
+        }
+        
+        .example-card h4 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .example-calculation {
+            background: white;
+            padding: 15px;
+            border-radius: var(--border-radius);
+            border: 1px solid var(--border-color);
+            margin-top: 15px;
+            font-family: monospace;
+            font-size: 0.9rem;
+        }
+        
+        .tips-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .tip-card {
+            background: var(--bg-secondary);
+            padding: 20px;
+            border-radius: var(--border-radius);
+            border: 1px solid var(--border-color);
+        }
+        
+        .tip-card h4 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        @media (max-width: 768px) {
+            .calculator-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .results-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .page-title {
+                font-size: 2rem;
+            }
+            
+            .examples-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="../index.html" class="back-button">
+        <i class="fas fa-arrow-left"></i>
+        Back to Hub
+    </a>
+
+    <div class="page-content">
+        <!-- Page Header -->
+        <header class="page-header">
+            <div class="page-header-content">
+                <h1 class="page-title">📈 Inflation-Adjusted Value Calculator</h1>
+                <div class="page-meta">
+                    <span class="page-category-badge">Finance & Money</span>
+                    <span class="page-number-badge">Page 18</span>
+                </div>
+                <p style="margin-top: 20px; font-size: 1.1rem; opacity: 0.9;">
+                    Calculate real value of money accounting for inflation
+                </p>
+            </div>
+        </header>
+
+        <!-- Main Calculator -->
+        <div class="content-section">
+            <h2>Calculate Real Money Value</h2>
+            <p>See how inflation affects the purchasing power of your money over time. Understand the real value of historical amounts and plan for future financial decisions.</p>
+            
+            <div class="calculator-grid">
+                <div class="input-section">
+                    <h3>Value Information</h3>
+                    
+                    <div class="input-group">
+                        <label for="originalAmount">Original Amount ($)</label>
+                        <input type="number" id="originalAmount" placeholder="1000" min="0" step="0.01">
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="originalYear">Original Year</label>
+                        <input type="number" id="originalYear" placeholder="1990" min="1900" max="2030" step="1">
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="targetYear">Target Year</label>
+                        <input type="number" id="targetYear" placeholder="2024" min="1900" max="2030" step="1">
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="inflationRate">Custom Inflation Rate (%)</label>
+                        <input type="number" id="inflationRate" placeholder="3.0" min="0" max="100" step="0.1">
+                        <small style="color: var(--text-secondary); margin-top: 5px; display: block;">
+                            Leave empty to use historical average (3.24%)
+                        </small>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="calculationType">Calculation Type</label>
+                        <select id="calculationType">
+                            <option value="forward">Forward (Past to Present)</option>
+                            <option value="backward">Backward (Present to Past)</option>
+                            <option value="future">Future Projection</option>
+                        </select>
+                    </div>
+                    
+                    <button class="btn btn-primary" onclick="calculateInflation()">
+                        <i class="fas fa-calculator"></i>
+                        Calculate Real Value
+                    </button>
+                    
+                    <button class="btn btn-secondary" onclick="resetCalculator()" style="margin-left: 10px;">
+                        <i class="fas fa-undo"></i>
+                        Reset
+                    </button>
+                    
+                    <button class="btn btn-success" onclick="addToHistory()" style="margin-left: 10px;">
+                        <i class="fas fa-save"></i>
+                        Save to History
+                    </button>
+                </div>
+                
+                <div class="results-section">
+                    <h3>Inflation Analysis Results</h3>
+                    
+                    <div class="results-grid">
+                        <div class="result-item">
+                            <span class="result-label">Original Value</span>
+                            <div class="result-value" id="originalValue">--</div>
+                        </div>
+                        
+                        <div class="result-item">
+                            <span class="result-label">Adjusted Value</span>
+                            <div class="result-value" id="adjustedValue">--</div>
+                        </div>
+                        
+                        <div class="result-item">
+                            <span class="result-label">Inflation Rate</span>
+                            <div class="result-value" id="effectiveInflationRate">--</div>
+                        </div>
+                        
+                        <div class="result-item">
+                            <span class="result-label">Purchasing Power</span>
+                            <div class="result-value" id="purchasingPower">--</div>
+                        </div>
+                    </div>
+                    
+                    <div class="value-comparison">
+                        <h4>Value Comparison</h4>
+                        <div id="valueComparison">
+                            <p style="text-align: center; color: var(--text-muted);">Enter values and click calculate to see comparison</p>
+                        </div>
+                    </div>
+                    
+                    <div class="purchasing-power">
+                        <h4>Purchasing Power Change</h4>
+                        <div class="power-indicator">
+                            <span>100%</span>
+                            <div class="power-bar">
+                                <div class="power-fill" id="powerFill" style="width: 100%"></div>
+                            </div>
+                            <span class="power-text" id="powerText">100%</span>
+                        </div>
+                        <p style="text-align: center; color: var(--text-secondary); font-size: 0.9rem;">
+                            Shows how much purchasing power you've retained
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Historical Data -->
+        <div class="content-section">
+            <h2>Historical Inflation Data</h2>
+            <p>View historical inflation rates and their impact on purchasing power.</p>
+            
+            <div class="historical-data">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Decade</th>
+                            <th>Average Annual Inflation</th>
+                            <th>Total Inflation</th>
+                            <th>Purchasing Power Lost</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1970s</td>
+                            <td>7.25%</td>
+                            <td>100.7%</td>
+                            <td>50.2%</td>
+                        </tr>
+                        <tr>
+                            <td>1980s</td>
+                            <td>5.82%</td>
+                            <td>75.8%</td>
+                            <td>43.1%</td>
+                        </tr>
+                        <tr>
+                            <td>1990s</td>
+                            <td>3.02%</td>
+                            <td>34.8%</td>
+                            <td>25.8%</td>
+                        </tr>
+                        <tr>
+                            <td>2000s</td>
+                            <td>2.54%</td>
+                            <td>28.5%</td>
+                            <td>22.2%</td>
+                        </tr>
+                        <tr>
+                            <td>2010s</td>
+                            <td>1.76%</td>
+                            <td>19.1%</td>
+                            <td>16.0%</td>
+                        </tr>
+                        <tr>
+                            <td>2020s (so far)</td>
+                            <td>4.12%</td>
+                            <td>18.7%</td>
+                            <td>15.7%</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Examples -->
+        <div class="content-section">
+            <h2>Real-World Examples</h2>
+            <p>See how inflation affects common purchases and historical amounts.</p>
+            
+            <div class="examples-grid">
+                <div class="example-card">
+                    <h4><i class="fas fa-home" style="color: var(--primary-color);"></i>Housing Prices</h4>
+                    <p>Average home price in 1980: $47,200</p>
+                    <div class="example-calculation">
+                        Original: $47,200 (1980)<br>
+                        Inflation-adjusted: $175,800 (2024)<br>
+                        <strong>Real increase: 272%</strong>
+                    </div>
+                </div>
+                
+                <div class="example-card">
+                    <h4><i class="fas fa-graduation-cap" style="color: var(--success-color);"></i>College Tuition</h4>
+                    <p>Public university tuition in 1990: $1,908</p>
+                    <div class="example-calculation">
+                        Original: $1,908 (1990)<br>
+                        Inflation-adjusted: $4,500 (2024)<br>
+                        <strong>Real increase: 136%</strong>
+                    </div>
+                </div>
+                
+                <div class="example-card">
+                    <h4><i class="fas fa-car" style="color: var(--warning-color);"></i>Car Prices</h4>
+                    <p>Average new car price in 1970: $3,900</p>
+                    <div class="example-calculation">
+                        Original: $3,900 (1970)<br>
+                        Inflation-adjusted: $30,200 (2024)<br>
+                        <strong>Real increase: 674%</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Inflation Tips -->
+        <div class="content-section">
+            <h2>Understanding Inflation</h2>
+            <div class="tips-grid">
+                <div class="tip-card">
+                    <h4><i class="fas fa-chart-line" style="color: var(--primary-color);"></i>What is Inflation?</h4>
+                    <p>Inflation is the general increase in prices over time, which decreases the purchasing power of money.</p>
+                </div>
+                
+                <div class="tip-card">
+                    <h4><i class="fas fa-piggy-bank" style="color: var(--success-color);"></i>Impact on Savings</h4>
+                    <p>Money saved today will buy less in the future due to inflation. Consider inflation when planning long-term savings.</p>
+                </div>
+                
+                <div class="tip-card">
+                    <h4><i class="fas fa-investment" style="color: var(--accent-color);"></i>Investment Strategy</h4>
+                    <p>Investments should aim to outpace inflation to maintain or increase real purchasing power over time.</p>
+                </div>
+                
+                <div class="tip-card">
+                    <h4><i class="fas fa-calculator" style="color: var(--warning-color);"></i>Planning for Retirement</h4>
+                    <p>Factor in inflation when calculating retirement needs. $1 million today won't have the same purchasing power in 20 years.</p>
+                </div>
+                
+                <div class="tip-card">
+                    <h4><i class="fas fa-balance-scale" style="color: var(--secondary-color);"></i>Salary Negotiations</h4>
+                    <p>Annual raises should at least match inflation to maintain your real income level.</p>
+                </div>
+                
+                <div class="tip-card">
+                    <h4><i class="fas fa-eye" style="color: var(--error-color);"></i>Hidden Costs</h4>
+                    <p>Inflation affects not just prices but also interest rates, investment returns, and economic policies.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let calculationHistory = [];
+        let inflationChart = null;
+
+        function calculateInflation() {
+            const originalAmount = parseFloat(document.getElementById('originalAmount').value);
+            const originalYear = parseInt(document.getElementById('originalYear').value);
+            const targetYear = parseInt(document.getElementById('targetYear').value);
+            const customInflationRate = parseFloat(document.getElementById('inflationRate').value);
+            const calculationType = document.getElementById('calculationType').value;
+
+            if (!originalAmount || !originalYear || !targetYear) {
+                alert('Please enter original amount, original year, and target year.');
+                return;
+            }
+
+            if (originalYear === targetYear) {
+                alert('Original year and target year must be different.');
+                return;
+            }
+
+            // Use custom rate or historical average
+            const inflationRate = customInflationRate || 3.24;
+            const years = Math.abs(targetYear - originalYear);
+            
+            let adjustedAmount, purchasingPower, powerPercentage;
+            
+            if (calculationType === 'forward' || (calculationType === 'future' && targetYear > originalYear)) {
+                // Calculate future value (past to present/future)
+                adjustedAmount = originalAmount * Math.pow(1 + inflationRate / 100, years);
+                purchasingPower = originalAmount;
+                powerPercentage = (originalAmount / adjustedAmount) * 100;
+            } else if (calculationType === 'backward' || (calculationType === 'future' && targetYear < originalYear)) {
+                // Calculate past value (present to past)
+                adjustedAmount = originalAmount / Math.pow(1 + inflationRate / 100, years);
+                purchasingPower = adjustedAmount;
+                powerPercentage = (adjustedAmount / originalAmount) * 100;
+            }
+
+            // Update display
+            document.getElementById('originalValue').textContent = formatCurrency(originalAmount);
+            document.getElementById('adjustedValue').textContent = formatCurrency(adjustedAmount);
+            document.getElementById('effectiveInflationRate').textContent = inflationRate.toFixed(2) + '%';
+            document.getElementById('purchasingPower').textContent = formatCurrency(purchasingPower);
+            
+            // Update purchasing power bar
+            document.getElementById('powerFill').style.width = powerPercentage + '%';
+            document.getElementById('powerText').textContent = powerPercentage.toFixed(1) + '%';
+            
+            // Update value comparison
+            updateValueComparison({
+                originalAmount,
+                originalYear,
+                targetYear,
+                adjustedAmount,
+                inflationRate,
+                years,
+                calculationType
+            });
+        }
+
+        function updateValueComparison(data) {
+            const comparison = document.getElementById('valueComparison');
+            
+            const yearLabel = data.calculationType === 'backward' ? 'Past' : 'Present/Future';
+            const amountLabel = data.calculationType === 'backward' ? 'Past Value' : 'Adjusted Value';
+            
+            comparison.innerHTML = `
+                <div class="comparison-item">
+                    <span class="comparison-label">Original Amount (${data.originalYear})</span>
+                    <span class="comparison-value">${formatCurrency(data.originalAmount)}</span>
+                </div>
+                <div class="comparison-item">
+                    <span class="comparison-label">${amountLabel} (${data.targetYear})</span>
+                    <span class="comparison-value">${formatCurrency(data.adjustedAmount)}</span>
+                </div>
+                <div class="comparison-item">
+                    <span class="comparison-label">Time Period</span>
+                    <span class="comparison-value">${data.years} years</span>
+                </div>
+                <div class="comparison-item">
+                    <span class="comparison-label">Annual Inflation Rate</span>
+                    <span class="comparison-value">${data.inflationRate.toFixed(2)}%</span>
+                </div>
+                <div class="comparison-item">
+                    <span class="comparison-label">Total Inflation</span>
+                    <span class="comparison-value">${((Math.pow(1 + data.inflationRate / 100, data.years) - 1) * 100).toFixed(1)}%</span>
+                </div>
+                <div class="comparison-item">
+                    <span class="comparison-label">Real Value Change</span>
+                    <span class="comparison-value">${data.calculationType === 'backward' ? 
+                        formatCurrency(data.adjustedAmount - data.originalAmount) : 
+                        formatCurrency(data.adjustedAmount - data.originalAmount)}</span>
+                </div>
+            `;
+        }
+
+        function addToHistory() {
+            const originalAmount = parseFloat(document.getElementById('originalAmount').value);
+            const originalYear = parseInt(document.getElementById('originalYear').value);
+            const targetYear = parseInt(document.getElementById('targetYear').value);
+            const customInflationRate = parseFloat(document.getElementById('inflationRate').value);
+            
+            if (!originalAmount || !originalYear || !targetYear) {
+                alert('Please calculate inflation first before saving to history.');
+                return;
+            }
+
+            const inflationRate = customInflationRate || 3.24;
+            const years = Math.abs(targetYear - originalYear);
+            const adjustedAmount = originalAmount * Math.pow(1 + inflationRate / 100, years);
+
+            const historyItem = {
+                id: Date.now(),
+                originalAmount: originalAmount,
+                originalYear: originalYear,
+                targetYear: targetYear,
+                adjustedAmount: adjustedAmount,
+                inflationRate: inflationRate,
+                years: years,
+                timestamp: new Date().toISOString()
+            };
+
+            calculationHistory.push(historyItem);
+            saveHistory();
+            alert('Calculation saved to history!');
+        }
+
+        function saveHistory() {
+            localStorage.setItem('inflationHistory', JSON.stringify(calculationHistory));
+        }
+
+        function loadHistory() {
+            const saved = localStorage.getItem('inflationHistory');
+            if (saved) {
+                try {
+                    calculationHistory = JSON.parse(saved);
+                } catch (e) {
+                    console.log('Error loading history');
+                }
+            }
+        }
+
+        function resetCalculator() {
+            document.getElementById('originalAmount').value = '';
+            document.getElementById('originalYear').value = '';
+            document.getElementById('targetYear').value = '';
+            document.getElementById('inflationRate').value = '';
+            document.getElementById('calculationType').value = 'forward';
+            
+            // Reset results
+            document.getElementById('originalValue').textContent = '--';
+            document.getElementById('adjustedValue').textContent = '--';
+            document.getElementById('effectiveInflationRate').textContent = '--';
+            document.getElementById('purchasingPower').textContent = '--';
+            
+            document.getElementById('valueComparison').innerHTML = 
+                '<p style="text-align: center; color: var(--text-muted);">Enter values and click calculate to see comparison</p>';
+            
+            document.getElementById('powerFill').style.width = '100%';
+            document.getElementById('powerText').textContent = '100%';
+        }
+
+        function formatCurrency(amount) {
+            return new Intl.NumberFormat('en-US', {
+                style: 'currency',
+                currency: 'USD',
+                minimumFractionDigits: 0,
+                maximumFractionDigits: 0
+            }).format(amount);
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            loadHistory();
+            
+            // Set default years
+            const currentYear = new Date().getFullYear();
+            document.getElementById('originalYear').value = currentYear - 30;
+            document.getElementById('targetYear').value = currentYear;
+        });
+    </script>
+</body>
+</html>
