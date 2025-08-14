@@ -1,114 +1,124 @@
-// Page data structure with 100 creative pages
+// Page data structure with 100 practical tool pages
 const pagesData = [
-    // Technology Category
-    { id: 1, title: "Compare Text Diff", description: "Interactive tool to compare differences between two pieces of text with highlighted changes", category: "tech", tags: ["Text Comparison", "Diff Tool", "Code Review", "Document Editing"] },
-    { id: 2, title: "Blockchain Beyond Cryptocurrency", description: "Real-world applications of blockchain technology in supply chain and voting systems", category: "tech", tags: ["Blockchain", "Supply Chain", "Voting"] },
-    { id: 3, title: "Quantum Computing Explained", description: "Understanding the principles and potential of quantum computing for everyday developers", category: "tech", tags: ["Quantum", "Computing", "Physics"] },
-    { id: 4, title: "The Rise of Edge Computing", description: "How edge computing is changing the landscape of data processing and IoT", category: "tech", tags: ["Edge Computing", "IoT", "Data"] },
-    { id: 5, title: "Cybersecurity in the Age of AI", description: "Modern security challenges and AI-powered defense mechanisms", category: "tech", tags: ["Security", "AI", "Cyber"] },
-    { id: 6, title: "Sustainable Tech Solutions", description: "Green technology innovations for a more sustainable future", category: "tech", tags: ["Sustainability", "Green Tech", "Innovation"] },
-    { id: 7, title: "The Metaverse Revolution", description: "Understanding virtual worlds and their impact on society and business", category: "tech", tags: ["Metaverse", "VR", "Social"] },
-    { id: 8, title: "5G and Beyond", description: "Next-generation wireless technology and its transformative potential", category: "tech", tags: ["5G", "Wireless", "Connectivity"] },
-    { id: 9, title: "Machine Learning for Beginners", description: "A comprehensive guide to getting started with machine learning", category: "tech", tags: ["ML", "Beginner", "Guide"] },
-    { id: 10, title: "The Internet of Things", description: "How connected devices are reshaping our homes and cities", category: "tech", tags: ["IoT", "Smart Home", "Cities"] },
-    { id: 11, title: "Cloud Computing Strategies", description: "Best practices for cloud migration and optimization", category: "tech", tags: ["Cloud", "Migration", "Strategy"] },
-    { id: 12, title: "Data Science Fundamentals", description: "Essential concepts and tools for modern data analysis", category: "tech", tags: ["Data Science", "Analysis", "Tools"] },
-    { id: 13, title: "DevOps Best Practices", description: "Streamlining software development and deployment processes", category: "tech", tags: ["DevOps", "Development", "Deployment"] },
-    { id: 14, title: "API Design Principles", description: "Creating robust and user-friendly application programming interfaces", category: "tech", tags: ["API", "Design", "Development"] },
-    { id: 15, title: "Mobile App Development Trends", description: "Latest innovations in mobile application development", category: "tech", tags: ["Mobile", "Apps", "Trends"] },
-    { id: 16, title: "Web3 and Decentralization", description: "The future of the internet and decentralized applications", category: "tech", tags: ["Web3", "Decentralized", "Internet"] },
-    { id: 17, title: "Augmented Reality Applications", description: "Real-world uses of AR in education, healthcare, and entertainment", category: "tech", tags: ["AR", "Education", "Healthcare"] },
-    { id: 18, title: "Natural Language Processing", description: "How computers understand and process human language", category: "tech", tags: ["NLP", "Language", "AI"] },
-    { id: 19, title: "Computer Vision Advances", description: "Latest developments in image recognition and computer vision", category: "tech", tags: ["Computer Vision", "Image Recognition", "AI"] },
-    { id: 20, title: "Robotics and Automation", description: "The future of work and automated systems", category: "tech", tags: ["Robotics", "Automation", "Future of Work"] },
-
-    // Creative Category
-    { id: 21, title: "Digital Art Revolution", description: "How technology is transforming artistic expression and creativity", category: "creative", tags: ["Digital Art", "Creativity", "Technology"] },
-    { id: 22, title: "Creative Writing in the AI Era", description: "Balancing human creativity with AI-assisted writing tools", category: "creative", tags: ["Writing", "AI", "Creativity"] },
-    { id: 23, title: "Music Production with AI", description: "Exploring AI-powered music creation and production techniques", category: "creative", tags: ["Music", "AI", "Production"] },
-    { id: 24, title: "Photography in the Digital Age", description: "Modern photography techniques and post-processing workflows", category: "creative", tags: ["Photography", "Digital", "Techniques"] },
-    { id: 25, title: "Graphic Design Trends", description: "Current and emerging trends in visual design and branding", category: "creative", tags: ["Design", "Trends", "Branding"] },
-    { id: 26, title: "Animation and Motion Graphics", description: "Creating compelling animated content for modern media", category: "creative", tags: ["Animation", "Motion Graphics", "Media"] },
-    { id: 27, title: "Creative Problem Solving", description: "Innovative approaches to complex challenges and design thinking", category: "creative", tags: ["Problem Solving", "Innovation", "Design Thinking"] },
-    { id: 28, title: "Storytelling in Marketing", description: "Crafting compelling narratives that connect with audiences", category: "creative", tags: ["Storytelling", "Marketing", "Narrative"] },
-    { id: 29, title: "Color Theory in Design", description: "Understanding color psychology and effective color combinations", category: "creative", tags: ["Color Theory", "Psychology", "Design"] },
-    { id: 30, title: "Typography and Readability", description: "The art of choosing and arranging type for maximum impact", category: "creative", tags: ["Typography", "Readability", "Design"] },
-    { id: 31, title: "Creative Collaboration Tools", description: "Digital platforms that enhance team creativity and productivity", category: "creative", tags: ["Collaboration", "Tools", "Productivity"] },
-    { id: 32, title: "Visual Storytelling", description: "Using images and graphics to tell compelling stories", category: "creative", tags: ["Visual", "Storytelling", "Graphics"] },
-    { id: 33, title: "Creative Entrepreneurship", description: "Turning creative ideas into successful business ventures", category: "creative", tags: ["Entrepreneurship", "Business", "Creativity"] },
-    { id: 34, title: "Art and Technology Fusion", description: "Where traditional art meets cutting-edge technology", category: "creative", tags: ["Art", "Technology", "Fusion"] },
-    { id: 35, title: "Creative Content Strategy", description: "Planning and executing engaging content across platforms", category: "creative", tags: ["Content Strategy", "Planning", "Execution"] },
-    { id: 36, title: "Design Systems", description: "Creating consistent and scalable design frameworks", category: "creative", tags: ["Design Systems", "Frameworks", "Consistency"] },
-    { id: 37, title: "Creative Portfolio Building", description: "Showcasing your creative work effectively online", category: "creative", tags: ["Portfolio", "Showcase", "Online"] },
-    { id: 38, title: "Creative Inspiration Sources", description: "Finding and cultivating creative ideas and motivation", category: "creative", tags: ["Inspiration", "Ideas", "Motivation"] },
-    { id: 39, title: "Creative Time Management", description: "Balancing creativity with productivity and deadlines", category: "creative", tags: ["Time Management", "Productivity", "Creativity"] },
-    { id: 40, title: "Creative Feedback and Critique", description: "Giving and receiving constructive creative feedback", category: "creative", tags: ["Feedback", "Critique", "Growth"] },
-
-    // Business Category
-    { id: 41, title: "Startup Success Strategies", description: "Essential steps for launching and growing a successful startup", category: "business", tags: ["Startup", "Success", "Growth"] },
-    { id: 42, title: "Digital Marketing Mastery", description: "Comprehensive guide to modern digital marketing strategies", category: "business", tags: ["Digital Marketing", "Strategy", "Online"] },
-    { id: 43, title: "Customer Experience Design", description: "Creating exceptional customer journeys and experiences", category: "business", tags: ["Customer Experience", "Design", "Journey"] },
-    { id: 44, title: "Business Model Innovation", description: "Redesigning business models for the digital economy", category: "business", tags: ["Business Model", "Innovation", "Digital"] },
-    { id: 45, title: "Remote Team Management", description: "Leading and managing distributed teams effectively", category: "business", tags: ["Remote Work", "Management", "Teams"] },
-    { id: 46, title: "Data-Driven Decision Making", description: "Using analytics and insights to inform business strategy", category: "business", tags: ["Data", "Analytics", "Strategy"] },
-    { id: 47, title: "Sustainable Business Practices", description: "Implementing eco-friendly and socially responsible business operations", category: "business", tags: ["Sustainability", "Responsibility", "Operations"] },
-    { id: 48, title: "Financial Planning for Entrepreneurs", description: "Essential financial management for business owners", category: "business", tags: ["Financial Planning", "Entrepreneurs", "Management"] },
-    { id: 49, title: "Brand Building Strategies", description: "Creating memorable and valuable brand identities", category: "business", tags: ["Branding", "Identity", "Strategy"] },
-    { id: 50, title: "Sales Psychology and Techniques", description: "Understanding customer behavior and improving sales performance", category: "business", tags: ["Sales", "Psychology", "Performance"] },
-    { id: 51, title: "Supply Chain Optimization", description: "Streamlining operations and reducing costs in supply chains", category: "business", tags: ["Supply Chain", "Optimization", "Operations"] },
-    { id: 52, title: "Business Process Automation", description: "Using technology to automate repetitive business tasks", category: "business", tags: ["Automation", "Processes", "Technology"] },
-    { id: 53, title: "International Business Expansion", description: "Strategies for expanding business operations globally", category: "business", tags: ["International", "Expansion", "Global"] },
-    { id: 54, title: "Crisis Management", description: "Preparing for and responding to business crises effectively", category: "business", tags: ["Crisis Management", "Preparedness", "Response"] },
-    { id: 55, title: "Employee Engagement", description: "Building motivated and productive workplace cultures", category: "business", tags: ["Employee Engagement", "Culture", "Productivity"] },
-    { id: 56, title: "Strategic Planning", description: "Long-term planning and goal setting for business success", category: "business", tags: ["Strategic Planning", "Goals", "Success"] },
-    { id: 57, title: "Business Intelligence", description: "Leveraging data for competitive advantage and insights", category: "business", tags: ["Business Intelligence", "Data", "Insights"] },
-    { id: 58, title: "Partnership Development", description: "Building strategic partnerships and business relationships", category: "business", tags: ["Partnerships", "Relationships", "Strategy"] },
-    { id: 59, title: "Innovation Management", description: "Fostering creativity and managing innovation processes", category: "business", tags: ["Innovation", "Creativity", "Management"] },
-    { id: 60, title: "Business Ethics and Compliance", description: "Maintaining ethical standards and regulatory compliance", category: "business", tags: ["Ethics", "Compliance", "Standards"] },
-
-    // Lifestyle Category
-    { id: 61, title: "Mindful Living Practices", description: "Incorporating mindfulness into daily life for better well-being", category: "lifestyle", tags: ["Mindfulness", "Well-being", "Daily Life"] },
-    { id: 62, title: "Sustainable Living Guide", description: "Practical steps for reducing environmental impact in everyday life", category: "lifestyle", tags: ["Sustainability", "Environment", "Practical"] },
-    { id: 63, title: "Digital Wellness", description: "Balancing technology use with mental and physical health", category: "lifestyle", tags: ["Digital Wellness", "Health", "Balance"] },
-    { id: 64, title: "Home Organization Systems", description: "Creating organized and functional living spaces", category: "lifestyle", tags: ["Organization", "Home", "Functionality"] },
-    { id: 65, title: "Healthy Eating Habits", description: "Building sustainable and nutritious eating patterns", category: "lifestyle", tags: ["Nutrition", "Habits", "Health"] },
-    { id: 66, title: "Fitness for Busy People", description: "Efficient workout routines for hectic schedules", category: "lifestyle", tags: ["Fitness", "Workouts", "Busy Schedule"] },
-    { id: 67, title: "Sleep Optimization", description: "Improving sleep quality for better health and productivity", category: "lifestyle", tags: ["Sleep", "Health", "Productivity"] },
-    { id: 68, title: "Stress Management Techniques", description: "Effective strategies for managing daily stress and anxiety", category: "lifestyle", tags: ["Stress Management", "Anxiety", "Techniques"] },
-    { id: 69, title: "Time Management for Life", description: "Balancing work, personal life, and self-care effectively", category: "lifestyle", tags: ["Time Management", "Work-Life Balance", "Self-Care"] },
-    { id: 70, title: "Personal Finance Basics", description: "Essential money management skills for financial security", category: "lifestyle", tags: ["Personal Finance", "Money Management", "Security"] },
-    { id: 71, title: "Travel Planning Tips", description: "Smart strategies for planning memorable and affordable trips", category: "lifestyle", tags: ["Travel", "Planning", "Affordable"] },
-    { id: 72, title: "Social Media Balance", description: "Using social media mindfully and maintaining real connections", category: "lifestyle", tags: ["Social Media", "Mindfulness", "Connections"] },
-    { id: 73, title: "Creative Hobbies", description: "Finding and developing creative interests for personal growth", category: "lifestyle", tags: ["Hobbies", "Creativity", "Personal Growth"] },
-    { id: 74, title: "Relationship Building", description: "Developing meaningful connections with family, friends, and colleagues", category: "lifestyle", tags: ["Relationships", "Connections", "Social Skills"] },
-    { id: 75, title: "Personal Development", description: "Continuous learning and self-improvement strategies", category: "lifestyle", tags: ["Personal Development", "Learning", "Self-Improvement"] },
-    { id: 76, title: "Work-Life Integration", description: "Creating harmony between professional and personal responsibilities", category: "lifestyle", tags: ["Work-Life Integration", "Harmony", "Balance"] },
-    { id: 77, title: "Mental Health Awareness", description: "Understanding and supporting mental health in daily life", category: "lifestyle", tags: ["Mental Health", "Awareness", "Support"] },
-    { id: 78, title: "Productivity Systems", description: "Organizing life with effective productivity and organization methods", category: "lifestyle", tags: ["Productivity", "Organization", "Systems"] },
-    { id: 79, title: "Personal Branding", description: "Building and maintaining your personal and professional reputation", category: "lifestyle", tags: ["Personal Branding", "Reputation", "Professional"] },
-    { id: 80, title: "Life Goal Setting", description: "Setting and achieving meaningful life goals and aspirations", category: "lifestyle", tags: ["Goal Setting", "Aspirations", "Achievement"] },
-
-    // Education Category
-    { id: 81, title: "Learning in the Digital Age", description: "Adapting to modern learning methods and online education", category: "education", tags: ["Digital Learning", "Online Education", "Modern Methods"] },
-    { id: 82, title: "Critical Thinking Skills", description: "Developing analytical and logical reasoning abilities", category: "education", tags: ["Critical Thinking", "Analytical", "Reasoning"] },
-    { id: 83, title: "Study Techniques", description: "Effective methods for learning and retaining information", category: "education", tags: ["Study Techniques", "Learning", "Retention"] },
-    { id: 84, title: "Online Course Creation", description: "Designing and delivering effective online learning experiences", category: "education", tags: ["Online Courses", "Design", "Delivery"] },
-    { id: 85, title: "Educational Technology", description: "Innovative tools and platforms for enhanced learning", category: "education", tags: ["EdTech", "Tools", "Innovation"] },
-    { id: 86, title: "Adult Learning Strategies", description: "Effective learning approaches for adult learners", category: "education", tags: ["Adult Learning", "Strategies", "Approaches"] },
-    { id: 87, title: "Memory Improvement", description: "Techniques for enhancing memory and cognitive function", category: "education", tags: ["Memory", "Cognitive Function", "Techniques"] },
-    { id: 88, title: "Language Learning Methods", description: "Efficient approaches to learning new languages", category: "education", tags: ["Language Learning", "Methods", "Efficiency"] },
-    { id: 89, title: "Research Skills", description: "Conducting effective research and evaluating sources", category: "education", tags: ["Research", "Sources", "Evaluation"] },
-    { id: 90, title: "Academic Writing", description: "Improving writing skills for academic and professional contexts", category: "education", tags: ["Academic Writing", "Skills", "Professional"] },
-    { id: 91, title: "Presentation Skills", description: "Delivering engaging and effective presentations", category: "education", tags: ["Presentations", "Communication", "Engagement"] },
-    { id: 92, title: "Time Management for Students", description: "Balancing academic responsibilities with personal life", category: "education", tags: ["Time Management", "Students", "Balance"] },
-    { id: 93, title: "Note-Taking Strategies", description: "Effective methods for capturing and organizing information", category: "education", tags: ["Note-Taking", "Organization", "Information"] },
-    { id: 94, title: "Test Preparation", description: "Strategies for successful test-taking and exam preparation", category: "education", tags: ["Test Preparation", "Exams", "Strategies"] },
-    { id: 95, title: "Learning Disabilities Support", description: "Understanding and supporting diverse learning needs", category: "education", tags: ["Learning Disabilities", "Support", "Diversity"] },
-    { id: 96, title: "Career Development", description: "Planning and advancing your professional career path", category: "education", tags: ["Career Development", "Planning", "Advancement"] },
-    { id: 97, title: "Financial Literacy Education", description: "Teaching essential money management skills", category: "education", tags: ["Financial Literacy", "Money Management", "Skills"] },
-    { id: 98, title: "Digital Citizenship", description: "Responsible and ethical use of technology and the internet", category: "education", tags: ["Digital Citizenship", "Ethics", "Technology"] },
-    { id: 99, title: "Project-Based Learning", description: "Learning through hands-on projects and real-world applications", category: "education", tags: ["Project-Based Learning", "Hands-On", "Real-World"] },
-    { id: 100, title: "Lifelong Learning", description: "Embracing continuous education throughout your life", category: "education", tags: ["Lifelong Learning", "Continuous Education", "Growth"] }
+    // Personal Tools Category
+    { id: 1, title: "Daily Mood Tracker", description: "Track your daily mood with exportable CSV data and mood analytics", category: "personal", tags: ["Mood Tracking", "Mental Health", "Data Export", "Analytics"] },
+    { id: 2, title: "Compare Text Diff", description: "Interactive tool to compare differences between two pieces of text with highlighted changes", category: "tech", tags: ["Text Comparison", "Diff Tool", "Code Review", "Document Editing"] },
+    { id: 3, title: "BMI Calculator", description: "Calculate your Body Mass Index with health category classification", category: "personal", tags: ["BMI", "Health", "Calculator", "Fitness"] },
+    { id: 4, title: "Countdown Timer", description: "Countdown timer for important events and deadlines", category: "personal", tags: ["Timer", "Countdown", "Events", "Productivity"] },
+    { id: 5, title: "Age Calculator", description: "Calculate exact age from birthdate with detailed breakdown", category: "personal", tags: ["Age Calculator", "Birthdate", "Time", "Calculator"] },
+    { id: 6, title: "Tip Calculator", description: "Easy tip calculator for restaurants and service calculations", category: "personal", tags: ["Tip Calculator", "Restaurant", "Service", "Math"] },
+    { id: 7, title: "Loan Repayment Calculator", description: "Calculate loan payments and total interest with amortization schedule", category: "personal", tags: ["Loan Calculator", "Finance", "Payments", "Interest"] },
+    { id: 8, title: "Daily Habit Checklist", description: "Track daily habits and build consistent routines", category: "personal", tags: ["Habits", "Checklist", "Productivity", "Routines"] },
+    { id: 9, title: "Time Zone Converter", description: "Convert between different time zones worldwide", category: "personal", tags: ["Time Zones", "Travel", "Converter", "Global"] },
+    { id: 10, title: "Minimalist To-Do List", description: "Clean, simple to-do list for focused task management", category: "personal", tags: ["To-Do List", "Task Management", "Productivity", "Minimalist"] },
+    
+    // Finance & Money Category
+    { id: 11, title: "Currency Converter", description: "Real-time currency conversion with historical rates", category: "finance", tags: ["Currency", "Converter", "Exchange Rates", "International"] },
+    { id: 12, title: "Compound Interest Calculator", description: "Calculate compound interest growth over time", category: "finance", tags: ["Compound Interest", "Investing", "Calculator", "Growth"] },
+    { id: 13, title: "Paycheck Tax Estimator", description: "Estimate take-home pay after taxes and deductions", category: "finance", tags: ["Tax Calculator", "Paycheck", "Income", "Deductions"] },
+    { id: 14, title: "Credit Card Payoff Calculator", description: "Plan credit card debt payoff with different strategies", category: "finance", tags: ["Credit Card", "Debt Payoff", "Calculator", "Finance"] },
+    { id: 15, title: "Budget Allocation Pie Chart", description: "Visualize budget allocation with interactive pie charts", category: "finance", tags: ["Budget", "Pie Chart", "Visualization", "Finance"] },
+    { id: 16, title: "Savings Goal Tracker", description: "Track progress toward savings goals with timeline visualization", category: "finance", tags: ["Savings", "Goals", "Tracker", "Finance"] },
+    { id: 17, title: "Cost Per Use Calculator", description: "Calculate cost per use for purchases to make informed decisions", category: "finance", tags: ["Cost Analysis", "Purchases", "Calculator", "Smart Spending"] },
+    { id: 18, title: "Inflation-Adjusted Value Calculator", description: "Calculate real value of money accounting for inflation", category: "finance", tags: ["Inflation", "Value Calculator", "Economics", "Finance"] },
+    { id: 19, title: "Retirement Savings Projection", description: "Project retirement savings needs and growth over time", category: "finance", tags: ["Retirement", "Savings", "Projection", "Financial Planning"] },
+    { id: 20, title: "Side-Hustle Income Tracker", description: "Track income from multiple sources and side projects", category: "finance", tags: ["Side Hustle", "Income Tracking", "Multiple Sources", "Finance"] },
+    
+    // Health & Fitness Category
+    { id: 21, title: "Calorie Needs Calculator", description: "Calculate daily calorie needs based on TDEE and activity level", category: "health", tags: ["Calories", "TDEE", "Nutrition", "Fitness"] },
+    { id: 22, title: "Simple Workout Generator", description: "Generate randomized workouts for different fitness levels", category: "health", tags: ["Workout Generator", "Exercise", "Random", "Fitness"] },
+    { id: 23, title: "Water Intake Tracker", description: "Track daily water consumption and hydration goals", category: "health", tags: ["Water Intake", "Hydration", "Health", "Tracker"] },
+    { id: 24, title: "Step Goal Visualizer", description: "Visualize step goals and daily walking progress", category: "health", tags: ["Step Counter", "Walking", "Goals", "Visualization"] },
+    { id: 25, title: "Sleep Debt Calculator", description: "Calculate sleep debt and optimal sleep schedule", category: "health", tags: ["Sleep", "Sleep Debt", "Health", "Calculator"] },
+    { id: 26, title: "Heart Rate Zone Calculator", description: "Calculate target heart rate zones for different training intensities", category: "health", tags: ["Heart Rate", "Training Zones", "Exercise", "Health"] },
+    { id: 27, title: "Simple Yoga Pose Library", description: "Library of basic yoga poses with instructions and benefits", category: "health", tags: ["Yoga", "Poses", "Flexibility", "Wellness"] },
+    { id: 28, title: "Stretch Reminder Timer", description: "Timer with reminders for regular stretching breaks", category: "health", tags: ["Stretching", "Timer", "Reminders", "Health"] },
+    { id: 29, title: "Exercise Log Sheet", description: "Track workouts, sets, reps, and progress over time", category: "health", tags: ["Exercise Log", "Workout Tracking", "Progress", "Fitness"] },
+    { id: 30, title: "Walking Pace Calculator", description: "Calculate walking pace, time, and distance for different speeds", category: "health", tags: ["Walking", "Pace Calculator", "Exercise", "Health"] },
+    
+    // Education & Learning Category
+    { id: 31, title: "Flashcard Study Tool", description: "Create and study flashcards for effective learning", category: "education", tags: ["Flashcards", "Study Tool", "Learning", "Memory"] },
+    { id: 32, title: "Random Vocabulary Word", description: "Learn new vocabulary with random word of the day", category: "education", tags: ["Vocabulary", "Random Words", "Learning", "Language"] },
+    { id: 33, title: "Typing Speed Tester", description: "Test and improve your typing speed and accuracy", category: "education", tags: ["Typing", "Speed Test", "Accuracy", "Skills"] },
+    { id: 34, title: "Reading Time Estimator", description: "Estimate reading time for different text lengths and speeds", category: "education", tags: ["Reading", "Time Estimator", "Speed", "Planning"] },
+    { id: 35, title: "Math Problem Generator", description: "Generate random math problems for practice and learning", category: "education", tags: ["Math", "Problem Generator", "Practice", "Learning"] },
+    { id: 36, title: "Periodic Table Reference", description: "Interactive periodic table with element information", category: "education", tags: ["Periodic Table", "Chemistry", "Elements", "Science"] },
+    { id: 37, title: "Language Pronunciation Guide", description: "Audio pronunciation guide for common words and phrases", category: "education", tags: ["Pronunciation", "Language", "Audio", "Learning"] },
+    { id: 38, title: "Capital Cities Quiz", description: "Interactive quiz to learn world capital cities", category: "education", tags: ["Geography", "Capital Cities", "Quiz", "Learning"] },
+    { id: 39, title: "Historical Timeline Viewer", description: "Browse historical events in interactive timeline format", category: "education", tags: ["History", "Timeline", "Events", "Learning"] },
+    { id: 40, title: "Spaced Repetition Scheduler", description: "Schedule learning reviews using spaced repetition technique", category: "education", tags: ["Spaced Repetition", "Learning", "Review Schedule", "Memory"] },
+    
+    // Writing & Creativity Category
+    { id: 41, title: "Random Writing Prompt Generator", description: "Generate creative writing prompts for inspiration", category: "creative", tags: ["Writing Prompts", "Creativity", "Inspiration", "Writing"] },
+    { id: 42, title: "Character Name Generator", description: "Generate unique character names for stories and games", category: "creative", tags: ["Character Names", "Generator", "Writing", "Creativity"] },
+    { id: 43, title: "Poem or Haiku Creator", description: "Create poems and haikus with guided templates", category: "creative", tags: ["Poetry", "Haiku", "Creative Writing", "Templates"] },
+    { id: 44, title: "Story Plot Idea Generator", description: "Generate story plot ideas and creative writing concepts", category: "creative", tags: ["Story Ideas", "Plot Generator", "Writing", "Creativity"] },
+    { id: 45, title: "Simple Markdown Editor", description: "Basic markdown editor with live preview", category: "creative", tags: ["Markdown", "Editor", "Writing", "Preview"] },
+    { id: 46, title: "Daily Journaling Page", description: "Structured daily journaling template for reflection", category: "creative", tags: ["Journaling", "Daily Reflection", "Writing", "Mindfulness"] },
+    { id: 47, title: "Color Palette Generator", description: "Generate harmonious color palettes for design projects", category: "creative", tags: ["Color Palettes", "Design", "Generator", "Visual"] },
+    { id: 48, title: "Emoji Art Creator", description: "Create art and messages using emoji combinations", category: "creative", tags: ["Emoji Art", "Creativity", "Visual", "Fun"] },
+    { id: 49, title: "Logo Idea Randomizer", description: "Generate random logo ideas and design concepts", category: "creative", tags: ["Logo Ideas", "Design", "Randomizer", "Branding"] },
+    { id: 50, title: "Simple Mood Board Template", description: "Create mood boards for creative projects and inspiration", category: "creative", tags: ["Mood Board", "Inspiration", "Creative Projects", "Visual"] },
+    
+    // Travel & Navigation Category
+    { id: 51, title: "Packing Checklist Generator", description: "Generate customized packing lists for different types of trips", category: "travel", tags: ["Packing", "Checklist", "Travel", "Organization"] },
+    { id: 52, title: "Simple Route Map", description: "Embed Google Maps for simple route planning", category: "travel", tags: ["Route Map", "Google Maps", "Navigation", "Travel"] },
+    { id: 53, title: "World Clock for Travelers", description: "World clock showing multiple time zones for travelers", category: "travel", tags: ["World Clock", "Time Zones", "Travel", "Global"] },
+    { id: 54, title: "Local Weather Forecast", description: "Quick weather snapshot for travel destinations", category: "travel", tags: ["Weather", "Forecast", "Travel", "Local"] },
+    { id: 55, title: "Sunrise/Sunset Time Finder", description: "Find sunrise and sunset times for any location", category: "travel", tags: ["Sunrise", "Sunset", "Time", "Location"] },
+    { id: 56, title: "Currency Cheat Sheet", description: "Quick currency reference for specific countries", category: "travel", tags: ["Currency", "Cheat Sheet", "Travel", "Reference"] },
+    { id: 57, title: "Visa Requirement Checker", description: "Check visa requirements for different countries", category: "travel", tags: ["Visa", "Requirements", "Travel", "International"] },
+    { id: 58, title: "Emergency Contact Sheet", description: "Template for emergency contacts while traveling", category: "travel", tags: ["Emergency Contacts", "Travel Safety", "Template", "Safety"] },
+    { id: 59, title: "Public Transportation Map", description: "Embed public transportation maps for cities", category: "travel", tags: ["Public Transport", "Maps", "Travel", "Navigation"] },
+    { id: 60, title: "Travel Budget Calculator", description: "Calculate and track travel expenses and budget", category: "travel", tags: ["Travel Budget", "Expenses", "Calculator", "Planning"] },
+    
+    // Work & Productivity Category
+    { id: 61, title: "Pomodoro Timer", description: "Focus timer using the Pomodoro Technique for productivity", category: "productivity", tags: ["Pomodoro", "Timer", "Focus", "Productivity"] },
+    { id: 62, title: "Meeting Agenda Template", description: "Professional meeting agenda templates and formats", category: "productivity", tags: ["Meeting Agenda", "Template", "Professional", "Organization"] },
+    { id: 63, title: "Resume/CV PDF Generator", description: "Generate professional resumes from form inputs", category: "productivity", tags: ["Resume", "CV Generator", "PDF", "Professional"] },
+    { id: 64, title: "Simple Invoice Creator", description: "Create professional invoices for freelancers and businesses", category: "productivity", tags: ["Invoice Creator", "Business", "Freelance", "Professional"] },
+    { id: 65, title: "Business Card Quick Design", description: "Quick business card design tool for professionals", category: "productivity", tags: ["Business Card", "Design Tool", "Professional", "Branding"] },
+    { id: 66, title: "Work Hours Tracker", description: "Track work hours, overtime, and project time", category: "productivity", tags: ["Work Hours", "Time Tracking", "Overtime", "Productivity"] },
+    { id: 67, title: "Simple Gantt Chart Generator", description: "Create basic Gantt charts for project planning", category: "productivity", tags: ["Gantt Chart", "Project Planning", "Timeline", "Management"] },
+    { id: 68, title: "Client Onboarding Checklist", description: "Comprehensive checklist for client onboarding process", category: "productivity", tags: ["Client Onboarding", "Checklist", "Process", "Business"] },
+    { id: 69, title: "Idea Backlog Tracker", description: "Track and organize ideas for future development", category: "productivity", tags: ["Idea Backlog", "Organization", "Planning", "Innovation"] },
+    { id: 70, title: "Professional Email Template Library", description: "Library of professional email templates for business", category: "productivity", tags: ["Email Templates", "Professional", "Business", "Communication"] },
+    
+    // Home & Lifestyle Category
+    { id: 71, title: "Weekly Meal Planner", description: "Plan weekly meals with shopping lists and recipes", category: "lifestyle", tags: ["Meal Planning", "Weekly Planner", "Recipes", "Organization"] },
+    { id: 72, title: "Grocery List Generator", description: "Generate organized grocery lists from meal plans", category: "lifestyle", tags: ["Grocery List", "Meal Planning", "Shopping", "Organization"] },
+    { id: 73, title: "Chore Schedule Template", description: "Create and manage household chore schedules", category: "lifestyle", tags: ["Chore Schedule", "Household", "Organization", "Planning"] },
+    { id: 74, title: "Home Budget Tracker", description: "Track household expenses and budget categories", category: "lifestyle", tags: ["Home Budget", "Expenses", "Tracking", "Finance"] },
+    { id: 75, title: "Plant Watering Schedule", description: "Track plant care and watering schedules", category: "lifestyle", tags: ["Plant Care", "Watering Schedule", "Gardening", "Organization"] },
+    { id: 76, title: "Recipe Scaling Calculator", description: "Scale recipe ingredients for different serving sizes", category: "lifestyle", tags: ["Recipe Scaling", "Cooking", "Calculator", "Ingredients"] },
+    { id: 77, title: "Home Maintenance Checklist", description: "Seasonal home maintenance tasks and schedules", category: "lifestyle", tags: ["Home Maintenance", "Checklist", "Seasonal", "Household"] },
+    { id: 78, title: "Pet Care Schedule", description: "Track pet care tasks and veterinary appointments", category: "lifestyle", tags: ["Pet Care", "Schedule", "Veterinary", "Organization"] },
+    { id: 79, title: "Pantry Inventory List", description: "Track pantry items and expiration dates", category: "lifestyle", tags: ["Pantry Inventory", "Food Storage", "Expiration", "Organization"] },
+    { id: 80, title: "Household Bill Split Calculator", description: "Calculate how to split household bills between roommates", category: "lifestyle", tags: ["Bill Splitter", "Roommates", "Calculator", "Finance"] },
+    
+    // Fun & Entertainment Category
+    { id: 81, title: "Daily Trivia Question", description: "Random daily trivia questions with answers", category: "entertainment", tags: ["Trivia", "Daily Question", "Fun", "Learning"] },
+    { id: 82, title: "Random Joke Generator", description: "Generate random jokes for entertainment", category: "entertainment", tags: ["Jokes", "Random Generator", "Fun", "Entertainment"] },
+    { id: 83, title: "Simple Meme Maker", description: "Create simple memes with text overlays", category: "entertainment", tags: ["Meme Maker", "Fun", "Creativity", "Entertainment"] },
+    { id: 84, title: "Movie Night Picker", description: "Random movie picker for movie night decisions", category: "entertainment", tags: ["Movie Picker", "Random", "Entertainment", "Decision Making"] },
+    { id: 85, title: "Book Recommendation Randomizer", description: "Get random book recommendations by genre", category: "entertainment", tags: ["Book Recommendations", "Random", "Reading", "Literature"] },
+    { id: 86, title: "Song Lyric Finder", description: "Find song lyrics and artist information", category: "entertainment", tags: ["Song Lyrics", "Music", "Search", "Entertainment"] },
+    { id: 87, title: "Quote of the Day", description: "Daily inspirational and motivational quotes", category: "entertainment", tags: ["Quotes", "Daily", "Inspiration", "Motivation"] },
+    { id: 88, title: "Random Would You Rather", description: "Random 'Would You Rather' questions for fun", category: "entertainment", tags: ["Would You Rather", "Random", "Fun", "Questions"] },
+    { id: 89, title: "Party Game Rules", description: "Quick reference for popular party game rules", category: "entertainment", tags: ["Party Games", "Rules", "Reference", "Entertainment"] },
+    { id: 90, title: "Mini Pixel Art Drawing Canvas", description: "Simple pixel art drawing tool for creativity", category: "entertainment", tags: ["Pixel Art", "Drawing", "Canvas", "Creativity"] },
+    
+    // Tech & Coding Category
+    { id: 91, title: "QR Code Generator", description: "Generate QR codes for URLs, text, and contact information", category: "tech", tags: ["QR Code", "Generator", "URL", "Contact"] },
+    { id: 92, title: "URL Shortener", description: "Shorten long URLs for easier sharing", category: "tech", tags: ["URL Shortener", "Links", "Sharing", "Utility"] },
+    { id: 93, title: "Regex Tester", description: "Test and debug regular expressions with live matching", category: "tech", tags: ["Regex", "Tester", "Pattern Matching", "Development"] },
+    { id: 94, title: "JSON Formatter", description: "Format and validate JSON data with syntax highlighting", category: "tech", tags: ["JSON", "Formatter", "Validation", "Development"] },
+    { id: 95, title: "HTML Color Code Picker", description: "Pick and convert between different color code formats", category: "tech", tags: ["Color Picker", "HTML Colors", "Hex Codes", "Design"] },
+    { id: 96, title: "Git Command Cheatsheet", description: "Quick reference for common Git commands and workflows", category: "tech", tags: ["Git", "Commands", "Cheatsheet", "Development"] },
+    { id: 97, title: "HTTP Status Code Reference", description: "Reference guide for HTTP status codes and meanings", category: "tech", tags: ["HTTP", "Status Codes", "Reference", "Web Development"] },
+    { id: 98, title: "CSS Gradient Generator", description: "Generate CSS gradients with visual preview", category: "tech", tags: ["CSS Gradients", "Generator", "Design", "Web Development"] },
+    { id: 99, title: "ASCII Art Generator", description: "Convert text to ASCII art for creative projects", category: "tech", tags: ["ASCII Art", "Generator", "Text Art", "Creativity"] },
+    { id: 100, title: "Password Strength Tester", description: "Test password strength and security recommendations", category: "tech", tags: ["Password Strength", "Security", "Tester", "Safety"] }
 ];
 
 // Extensibility functions for unlimited pages
@@ -163,14 +173,14 @@ function updatePage(pageId, updates) {
 let currentPage = 1;
 const itemsPerPage = 24; // Show 24 pages per page (6 rows of 4)
 
-function getPaginatedPages() {
+function getPaginatedPages(pages = filteredPages) {
     const startIndex = (currentPage - 1) * itemsPerPage;
     const endIndex = startIndex + itemsPerPage;
-    return filteredPages.slice(startIndex, endIndex);
+    return pages.slice(startIndex, endIndex);
 }
 
-function renderPagination() {
-    const totalPages = Math.ceil(filteredPages.length / itemsPerPage);
+function renderPagination(pages = filteredPages) {
+    const totalPages = Math.ceil(pages.length / itemsPerPage);
     if (totalPages <= 1) return;
     
     const paginationContainer = document.createElement('div');
@@ -244,11 +254,75 @@ let currentCategory = 'all';
 let currentSearch = '';
 let filteredPages = [...pagesData];
 
+// Filter pages to only show those with existing HTML files
+async function filterExistingPages() {
+    const existingPages = [];
+    console.log('Starting to filter existing pages...');
+    
+    // Try to detect pages automatically first
+    let autoDetected = false;
+    
+    try {
+        // Test if we can fetch local files (works when served from a web server)
+        for (const page of pagesData) {
+            const pageFileName = generatePageFileName(page);
+            const pagePath = `pages/${pageFileName}`;
+            
+            try {
+                console.log(`Checking: ${pagePath} for "${page.title}"`);
+                const response = await fetch(pagePath);
+                if (response.ok) {
+                    console.log(`✅ Found: ${pagePath}`);
+                    existingPages.push(page);
+                    autoDetected = true;
+                } else {
+                    console.log(`❌ Not found: ${pagePath} (${response.status})`);
+                }
+            } catch (error) {
+                console.log(`❌ Error checking ${pagePath}:`, error.message);
+            }
+        }
+    } catch (error) {
+        console.log('Auto-detection failed, using fallback list');
+    }
+    
+            // Fallback to hardcoded list if auto-detection didn't work
+        if (!autoDetected || existingPages.length === 0) {
+            console.log('Using fallback list of existing pages...');
+            const existingPageIds = [1, 2, 3]; // Daily Mood Tracker (ID 1), Compare Text Diff (ID 2), BMI Calculator (ID 3)
+            
+            for (const page of pagesData) {
+                if (existingPageIds.includes(page.id)) {
+                    console.log(`✅ Found: ${page.title} (ID: ${page.id})`);
+                    existingPages.push(page);
+                } else {
+                    console.log(`❌ Not found: ${page.title} (ID: ${page.id})`);
+                }
+            }
+        }
+    
+    console.log(`Total existing pages found: ${existingPages.length}`);
+    console.log('Existing pages:', existingPages.map(p => p.title));
+    return existingPages;
+}
+
 // Initialize the application
-function init() {
+async function init() {
+    console.log('Initializing application...');
+    console.log('Total pages in pagesData:', pagesData.length);
+    
+    // Filter to only show existing pages
+    const existingPages = await filterExistingPages();
+    
+    // Update the filtered pages array
+    filteredPages = existingPages;
+    console.log('Updated filteredPages:', filteredPages.length);
+    
     renderPages();
     setupEventListeners();
     updateStats();
+    
+    console.log('Initialization complete!');
 }
 
 // Set up event listeners
@@ -295,28 +369,35 @@ function handleCategoryFilter(category) {
 
 // Filter pages based on search and category
 function filterPages() {
-    filteredPages = pagesData.filter(page => {
-        const matchesCategory = currentCategory === 'all' || page.category === currentCategory;
-        const matchesSearch = !currentSearch || 
+    // Start with the existing pages (not all pagesData)
+    let filtered = [...filteredPages];
+    
+    // Apply category filter
+    if (currentCategory !== 'all') {
+        filtered = filtered.filter(page => page.category === currentCategory);
+    }
+    
+    // Apply search filter
+    if (currentSearch) {
+        filtered = filtered.filter(page => 
             page.title.toLowerCase().includes(currentSearch) ||
             page.description.toLowerCase().includes(currentSearch) ||
-            page.tags.some(tag => tag.toLowerCase().includes(currentSearch));
-        
-        return matchesCategory && matchesSearch;
-    });
+            page.tags.some(tag => tag.toLowerCase().includes(currentSearch))
+        );
+    }
     
-    // Reset to first page when filtering
+    // Update the filtered results for display
+    const displayFilteredPages = filtered;
     currentPage = 1;
-    
-    renderPages();
-    updateStats();
+    renderPages(displayFilteredPages);
+    updateStats(displayFilteredPages);
 }
 
 // Update page information display
-function updatePageInfo() {
-    const totalPages = Math.ceil(filteredPages.length / itemsPerPage);
+function updatePageInfo(pages = filteredPages) {
+    const totalPages = Math.ceil(pages.length / itemsPerPage);
     const startItem = (currentPage - 1) * itemsPerPage + 1;
-    const endItem = Math.min(currentPage * itemsPerPage, filteredPages.length);
+    const endItem = Math.min(currentPage * itemsPerPage, pages.length);
     
     // Add page info below the grid
     let pageInfo = document.querySelector('.page-info');
@@ -343,8 +424,8 @@ function updatePageInfo() {
 }
 
 // Render pages in the grid with pagination
-function renderPages() {
-    if (filteredPages.length === 0) {
+function renderPages(pagesToRender = filteredPages) {
+    if (pagesToRender.length === 0) {
         pagesGrid.innerHTML = `
             <div class="no-results">
                 <i class="fas fa-search" style="font-size: 3rem; color: var(--text-muted); margin-bottom: 20px;"></i>
@@ -356,12 +437,12 @@ function renderPages() {
     }
     
     // Reset to first page when filtering
-    if (currentPage > Math.ceil(filteredPages.length / itemsPerPage)) {
+    if (currentPage > Math.ceil(pagesToRender.length / itemsPerPage)) {
         currentPage = 1;
     }
     
     // Get paginated pages
-    const pagesToShow = getPaginatedPages();
+    const pagesToShow = getPaginatedPages(pagesToRender);
     
     pagesGrid.innerHTML = pagesToShow.map(page => `
         <div class="page-card" data-page-id="${page.id}">
@@ -378,14 +459,10 @@ function renderPages() {
             const pageId = card.dataset.pageId;
             const page = pagesData.find(p => p.id == pageId);
             
-            // Redirect to the static page file
+            // Since we're already filtering to only show existing pages, 
+            // we can directly navigate without checking again
             const pageFileName = generatePageFileName(page);
             const pagePath = `pages/${pageFileName}`;
-            
-            // Check if the page exists, if not, create a template
-            if (!pageExists(pagePath)) {
-                createPageTemplate(page);
-            }
             
             // Navigate to the page
             window.location.href = pagePath;
@@ -398,32 +475,37 @@ function renderPages() {
         existingPagination.remove();
     }
     
-    const pagination = renderPagination();
+    const pagination = renderPagination(pagesToRender);
     if (pagination) {
         pagesGrid.parentNode.appendChild(pagination);
     }
     
     // Update page info
-    updatePageInfo();
+    updatePageInfo(pagesToRender);
 }
 
 // Get display name for category
 function getCategoryDisplayName(category) {
     const categoryNames = {
-        'tech': 'Technology',
-        'creative': 'Creative',
-        'business': 'Business',
-        'lifestyle': 'Lifestyle',
-        'education': 'Education'
+        'personal': 'Personal Tools',
+        'finance': 'Finance & Money',
+        'health': 'Health & Fitness',
+        'education': 'Education & Learning',
+        'creative': 'Writing & Creativity',
+        'travel': 'Travel & Navigation',
+        'productivity': 'Work & Productivity',
+        'lifestyle': 'Home & Lifestyle',
+        'entertainment': 'Fun & Entertainment',
+        'tech': 'Tech & Coding'
     };
     return categoryNames[category] || category;
 }
 
 // Update statistics
-function updateStats() {
+function updateStats(pages = filteredPages) {
     totalPagesEl.textContent = pagesData.length;
-    filteredPagesEl.textContent = filteredPages.length;
-    searchResultsEl.textContent = currentSearch ? filteredPages.length : 0;
+    filteredPagesEl.textContent = pages.length;
+    searchResultsEl.textContent = currentSearch ? pages.length : 0;
 }
 
 // Handle keyboard shortcuts
@@ -462,7 +544,16 @@ style.textContent = `
 document.head.appendChild(style);
 
 // Initialize when DOM is loaded
-document.addEventListener('DOMContentLoaded', init);
+document.addEventListener('DOMContentLoaded', () => {
+    init().catch(error => {
+        console.error('Error initializing:', error);
+        // Fallback: show all pages if initialization fails
+        filteredPages = [...pagesData];
+        renderPages();
+        setupEventListeners();
+        updateStats();
+    });
+});
 
 // Add some fun interactions
 document.addEventListener('DOMContentLoaded', () => {
@@ -497,13 +588,16 @@ function generatePageFileName(page) {
     return `${page.id}-${sanitizedTitle}.html`;
 }
 
-function pageExists(pagePath) {
-    // This is a simple check - in a real implementation, you might want to use fetch
-    // For now, we'll assume pages don't exist and create them
-    return false;
+async function pageExists(pagePath) {
+    try {
+        const response = await fetch(pagePath);
+        return response.ok;
+    } catch (error) {
+        return false;
+    }
 }
 
-function createPageTemplate(page) {
+async function createPageTemplate(page) {
     // This function would create the actual HTML file
     // In a browser environment, we can't create files directly
     // So we'll redirect to a template page that can be customized
