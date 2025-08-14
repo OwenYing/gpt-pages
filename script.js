@@ -11,11 +11,10 @@ const pagesData = [
     { id: 8, title: "Loan Repayment Calculator", description: "Calculate loan payments and total interest with amortization schedule", category: "personal", tags: ["Loan Calculator", "Finance", "Payments", "Interest"] },
     { id: 9, title: "Daily Habit Checklist", description: "Track daily habits and build consistent routines", category: "personal", tags: ["Habits", "Checklist", "Productivity", "Routines"] },
     { id: 10, title: "Time Zone Converter", description: "Convert between different time zones worldwide", category: "personal", tags: ["Time Zones", "Travel", "Converter", "Global"] },
-    { id: 11, title: "Minimalist To-Do List", description: "Clean, simple to-do list for focused task management", category: "personal", tags: ["To-Do List", "Task Management", "Productivity", "Minimalist"] },
+    { id: 11, title: "Currency Converter", description: "Real-time currency conversion with historical rates", category: "finance", tags: ["Currency", "Converter", "Exchange Rates", "International"] },
     
     // Finance & Money Category
-    { id: 12, title: "Currency Converter", description: "Real-time currency conversion with historical rates", category: "finance", tags: ["Currency", "Converter", "Exchange Rates", "International"] },
-    { id: 13, title: "Compound Interest Calculator", description: "Calculate compound interest growth over time", category: "finance", tags: ["Compound Interest", "Investing", "Calculator", "Growth"] },
+    { id: 12, title: "Compound Interest Calculator", description: "Calculate compound interest growth over time", category: "finance", tags: ["Compound Interest", "Investing", "Calculator", "Growth"] },
     { id: 14, title: "Paycheck Tax Estimator", description: "Estimate take-home pay after taxes and deductions", category: "finance", tags: ["Tax Calculator", "Paycheck", "Income", "Deductions"] },
     { id: 15, title: "Credit Card Payoff Calculator", description: "Plan credit card debt payoff with different strategies", category: "finance", tags: ["Credit Card", "Debt Payoff", "Calculator", "Finance"] },
     { id: 16, title: "Budget Allocation Pie Chart", description: "Visualize budget allocation with interactive pie charts", category: "finance", tags: ["Budget", "Pie Chart", "Visualization", "Finance"] },
@@ -290,7 +289,7 @@ async function filterExistingPages() {
             // Fallback to hardcoded list if auto-detection didn't work
         if (!autoDetected || existingPages.length === 0) {
             console.log('Using fallback list of existing pages...');
-                           const existingPageIds = [1, 2, 3, 4, 5, 6]; // Daily Mood Tracker (ID 1), Compare Text Diff (ID 2), BMI Calculator (ID 3), Gratitude Journal Template (ID 4), Countdown Timer (ID 5), Age Calculator (ID 6)
+                           const existingPageIds = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]; // Daily Mood Tracker (ID 1), Compare Text Diff (ID 2), BMI Calculator (ID 3), Gratitude Journal Template (ID 4), Countdown Timer (ID 5), Age Calculator (ID 6), Tip Calculator (ID 7), Loan Repayment Calculator (ID 8), Daily Habit Checklist (ID 9), Time Zone Converter (ID 10), Currency Converter (ID 11), Compound Interest Calculator (ID 12)
             
             for (const page of pagesData) {
                 if (existingPageIds.includes(page.id)) {

@@ -1,5 +1,9 @@
 # 🚀 GPT Ideas Hub
 
+Add github link, linked in. Loading is bit slow
+Can pin a tool
+create a issue if you want some page
+
 "Can you brainstorm 100 useful ideas that can be used via 1-page static pages? "
 "Can you implement each of them as a 1-pager static page?"
 
@@ -10,11 +14,11 @@ Personal Tools
 	3.	✅BMI calculator
 	4.	✅Countdown timer for events
 	5.	✅Age calculator from birthdate
-	6.	Tip calculator
-	7.	Loan repayment calculator
-	8.	Daily habit checklist
-	9.	Time zone converter
-	10.	Minimalist to-do list
+	6.	✅Tip calculator
+	7.	✅Loan repayment calculator
+	8.	✅Daily habit checklist
+	9.	✅Time zone converter
+	10.	✅Minimalist to-do list
 
 ⸻
 
