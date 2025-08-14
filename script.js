@@ -92,33 +92,13 @@ const pagesData = [
     { id: 75, title: "Plant Watering Schedule", description: "Track plant care and watering schedules", category: "lifestyle", tags: ["Plant Care", "Watering Schedule", "Gardening", "Organization"] },
     { id: 76, title: "Recipe Scaling Calculator", description: "Scale recipe ingredients for different serving sizes", category: "lifestyle", tags: ["Recipe Scaling", "Cooking", "Calculator", "Ingredients"] },
     { id: 77, title: "Home Maintenance Checklist", description: "Seasonal home maintenance tasks and schedules", category: "lifestyle", tags: ["Home Maintenance", "Checklist", "Seasonal", "Household"] },
-    { id: 79, title: "Pet Care Schedule", description: "Track pet care tasks and veterinary appointments", category: "lifestyle", tags: ["Pet Care", "Schedule", "Veterinary", "Organization"] },
-    { id: 80, title: "Pantry Inventory List", description: "Track pantry items and expiration dates", category: "lifestyle", tags: ["Pantry Inventory", "Food Storage", "Expiration", "Organization"] },
-    { id: 81, title: "Household Bill Split Calculator", description: "Calculate how to split household bills between roommates", category: "lifestyle", tags: ["Bill Splitter", "Roommates", "Calculator", "Finance"] },
-    
-    // Fun & Entertainment Category
-    { id: 82, title: "Daily Trivia Question", description: "Random daily trivia questions with answers", category: "entertainment", tags: ["Trivia", "Daily Question", "Fun", "Learning"] },
+    { id: 78, title: "Pet Care Schedule", description: "Track pet care tasks and veterinary appointments", category: "lifestyle", tags: ["Pet Care", "Schedule", "Veterinary", "Organization"] },
+    { id: 79, title: "Pantry Inventory List", description: "Track pantry items and expiration dates", category: "lifestyle", tags: ["Pantry Inventory", "Food Storage", "Expiration", "Organization"] },
+    { id: 80, title: "Household Bill Split Calculator", description: "Calculate how to split household bills between roommates", category: "lifestyle", tags: ["Bill Splitter", "Roommates", "Calculator", "Finance"] },
+    { id: 81, title: "Daily Trivia Question", description: "Random daily trivia questions with answers", category: "entertainment", tags: ["Trivia", "Daily Question", "Fun", "Learning"] },
     { id: 83, title: "Random Joke Generator", description: "Generate random jokes for entertainment", category: "entertainment", tags: ["Jokes", "Random Generator", "Fun", "Entertainment"] },
     { id: 84, title: "Simple Meme Maker", description: "Create simple memes with text overlays", category: "entertainment", tags: ["Meme Maker", "Fun", "Creativity", "Entertainment"] },
-    { id: 85, title: "Movie Night Picker", description: "Random movie picker for movie night decisions", category: "entertainment", tags: ["Movie Picker", "Random", "Entertainment", "Decision Making"] },
-    { id: 86, title: "Book Recommendation Randomizer", description: "Get random book recommendations by genre", category: "entertainment", tags: ["Book Recommendations", "Random", "Reading", "Literature"] },
-    { id: 87, title: "Song Lyric Finder", description: "Find song lyrics and artist information", category: "entertainment", tags: ["Song Lyrics", "Music", "Search", "Entertainment"] },
-    { id: 88, title: "Quote of the Day", description: "Daily inspirational and motivational quotes", category: "entertainment", tags: ["Quotes", "Daily", "Inspiration", "Motivation"] },
-    { id: 89, title: "Random Would You Rather", description: "Random 'Would You Rather' questions for fun", category: "entertainment", tags: ["Would You Rather", "Random", "Fun", "Questions"] },
-    { id: 90, title: "Party Game Rules", description: "Quick reference for popular party game rules", category: "entertainment", tags: ["Party Games", "Rules", "Reference", "Entertainment"] },
-    { id: 91, title: "Mini Pixel Art Drawing Canvas", description: "Simple pixel art drawing tool for creativity", category: "entertainment", tags: ["Pixel Art", "Drawing", "Canvas", "Creativity"] },
-    
-    // Tech & Coding Category
-    { id: 92, title: "QR Code Generator", description: "Generate QR codes for URLs, text, and contact information", category: "tech", tags: ["QR Code", "Generator", "URL", "Contact"] },
-    { id: 93, title: "URL Shortener", description: "Shorten long URLs for easier sharing", category: "tech", tags: ["URL Shortener", "Links", "Sharing", "Utility"] },
-    { id: 94, title: "Regex Tester", description: "Test and debug regular expressions with live matching", category: "tech", tags: ["Regex", "Tester", "Pattern Matching", "Development"] },
-    { id: 95, title: "JSON Formatter", description: "Format and validate JSON data with syntax highlighting", category: "tech", tags: ["JSON", "Formatter", "Validation", "Development"] },
-    { id: 96, title: "HTML Color Code Picker", description: "Pick and convert between different color code formats", category: "tech", tags: ["Color Picker", "HTML Colors", "Hex Codes", "Design"] },
-    { id: 97, title: "Git Command Cheatsheet", description: "Quick reference for common Git commands and workflows", category: "tech", tags: ["Git", "Commands", "Cheatsheet", "Development"] },
-    { id: 98, title: "HTTP Status Code Reference", description: "Reference guide for HTTP status codes and meanings", category: "tech", tags: ["HTTP", "Status Codes", "Reference", "Web Development"] },
-    { id: 99, title: "CSS Gradient Generator", description: "Generate CSS gradients with visual preview", category: "tech", tags: ["CSS Gradients", "Generator", "Design", "Web Development"] },
-    { id: 100, title: "ASCII Art Generator", description: "Convert text to ASCII art for creative projects", category: "tech", tags: ["ASCII Art", "Generator", "Text Art", "Creativity"] },
-    { id: 101, title: "Password Strength Tester", description: "Test password strength and security recommendations", category: "tech", tags: ["Password Strength", "Security", "Tester", "Safety"] }
+    { id: 85, title: "Movie Night Picker", description: "Random movie picker for movie night decisions", category: "entertainment", tags: ["Movie Picker", "Random", "Entertainment", "Decision Making"] }
 ];
 
 // Extensibility functions for unlimited pages
@@ -289,7 +269,7 @@ async function filterExistingPages() {
     // Fallback to hardcoded list if auto-detection didn't work
     if (!autoDetected || existingPages.length === 0) {
         console.log('Using fallback list of existing pages...');
-        const existingPageIds = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77]; // Only truly existing pages
+        const existingPageIds = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 83, 84, 85]; // Only truly existing pages (1-81, 83-85)
         
         for (const page of pagesData) {
             if (existingPageIds.includes(page.id)) {

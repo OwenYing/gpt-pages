@@ -11,7 +11,7 @@ cleanup
 
 "Can you brainstorm 100 useful ideas that can be used via 1-page static pages? "
 "Can you implement each of them as a 1-pager static page?"
-"Keep implementing this list, if it doesn't exist already, in the same way as the old pages, until all finishes. Don't ask me in between"
+"Keep implementing this list, if it doesn't exist already, in the same way as the old pages, until all finishes. Add them to home page. Don't ask me in between"
 
 ```
 Personal Tools
@@ -113,13 +113,13 @@ Work & Productivity
 ⸻
 
 Home & Lifestyle
-	71.	Weekly meal planner
-	72.	Grocery list generator
-	73.	Chore schedule template
-	74.	Home budget tracker
-	75.	Plant watering schedule
-	76.	Recipe scaling calculator
-	77.	Home maintenance checklist
+	71.	✅Weekly meal planner
+	72.	✅Grocery list generator
+	73.	✅Chore schedule template
+	74.	✅Home budget tracker
+	75.	✅Plant watering schedule
+	76.	✅Recipe scaling calculator
+	77.	✅Home maintenance checklist
 	78.	Pet care schedule
 	79.	Pantry inventory list
 	80.	Household bill split calculator
