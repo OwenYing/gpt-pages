@@ -6,6 +6,7 @@ create a issue for bugs, gpt will fix it
 Redo the footer. 
 Redo readme page
 Add sponsorship at the footer
+some pages have: page not found error. 
 
 "Can you brainstorm 100 useful ideas that can be used via 1-page static pages? "
 "Can you implement each of them as a 1-pager static page?"
@@ -83,30 +84,30 @@ Writing & Creativity
 ⸻
 
 Travel & Navigation
-	51.	Packing checklist generator
-	52.	Simple route map (Google Maps embed)
-	53.	World clock for travelers
-	54.	Local weather forecast snapshot
-	55.	Sunrise/sunset time finder
-	56.	Currency cheat sheet for a country
-	57.	Visa requirement quick checker
-	58.	Emergency contact sheet for travelers
-	59.	Public transportation map embed
-	60.	Travel budget calculator
+	51.	✅Packing checklist generator
+	52.	✅Simple route map (Google Maps embed)
+	53.	✅World clock for travelers
+	54.	✅Local weather forecast snapshot
+	55.	✅Sunrise/sunset time finder
+	56.	✅Currency cheat sheet for a country
+	57.	✅Visa requirement quick checker
+	58.	✅Emergency contact sheet for travelers
+	59.	✅Public transportation map embed
+	60.	✅Travel budget calculator
 
 ⸻
 
 Work & Productivity
-	61.	Pomodoro timer
-	62.	Meeting agenda template
-	63.	Resume/CV PDF generator from form inputs
-	64.	Simple invoice creator
-	65.	Business card quick design tool
-	66.	Work hours tracker
-	67.	Simple Gantt chart generator
-	68.	Client onboarding checklist
-	69.	Idea backlog tracker
-	70.	Professional email template library
+	61.	✅Pomodoro timer
+	62.	✅Meeting agenda template
+	63.	✅Resume/CV PDF generator from form inputs
+	64.	✅Simple invoice creator
+	65.	✅Business card quick design tool
+	66.	✅Work hours tracker
+	67.	✅Simple Gantt chart generator
+	68.	✅Client onboarding checklist
+	69.	✅Idea backlog tracker
+	70.	✅Professional email template library
 
 ⸻
 

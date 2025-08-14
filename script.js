@@ -75,15 +75,14 @@ const pagesData = [
     
     // Work & Productivity Category
     { id: 62, title: "Pomodoro Timer", description: "Focus timer using the Pomodoro Technique for productivity", category: "productivity", tags: ["Pomodoro", "Timer", "Focus", "Productivity"] },
-    { id: 63, title: "Meeting Agenda Template", description: "Professional meeting agenda templates and formats", category: "productivity", tags: ["Meeting Agenda", "Template", "Professional", "Organization"] },
-    { id: 64, title: "Resume/CV PDF Generator", description: "Generate professional resumes from form inputs", category: "productivity", tags: ["Resume", "CV Generator", "PDF", "Professional"] },
-    { id: 65, title: "Simple Invoice Creator", description: "Create professional invoices for freelancers and businesses", category: "productivity", tags: ["Invoice Creator", "Business", "Freelance", "Professional"] },
-    { id: 66, title: "Business Card Quick Design", description: "Quick business card design tool for professionals", category: "productivity", tags: ["Business Card", "Design Tool", "Professional", "Branding"] },
-    { id: 67, title: "Work Hours Tracker", description: "Track work hours, overtime, and project time", category: "productivity", tags: ["Work Hours", "Time Tracking", "Overtime", "Productivity"] },
-    { id: 68, title: "Simple Gantt Chart Generator", description: "Create basic Gantt charts for project planning", category: "productivity", tags: ["Gantt Chart", "Project Planning", "Timeline", "Management"] },
-    { id: 69, title: "Client Onboarding Checklist", description: "Comprehensive checklist for client onboarding process", category: "productivity", tags: ["Client Onboarding", "Checklist", "Process", "Business"] },
-    { id: 70, title: "Idea Backlog Tracker", description: "Track and organize ideas for future development", category: "productivity", tags: ["Idea Backlog", "Organization", "Planning", "Innovation"] },
-    { id: 71, title: "Professional Email Template Library", description: "Library of professional email templates for business", category: "productivity", tags: ["Email Templates", "Professional", "Business", "Communication"] },
+    { id: 63, title: "Resume/CV PDF Generator", description: "Generate professional resumes from form inputs", category: "productivity", tags: ["Resume", "CV Generator", "PDF", "Professional"] },
+    { id: 64, title: "Simple Invoice Creator", description: "Create professional invoices for freelancers and businesses", category: "productivity", tags: ["Invoice Creator", "Business", "Freelance", "Professional"] },
+    { id: 65, title: "Business Card Quick Design", description: "Quick business card design tool for professionals", category: "productivity", tags: ["Business Card", "Design Tool", "Professional", "Branding"] },
+    { id: 66, title: "Work Hours Tracker", description: "Track work hours, overtime, and project time", category: "productivity", tags: ["Work Hours", "Time Tracking", "Overtime", "Productivity"] },
+    { id: 67, title: "Simple Gantt Chart Generator", description: "Create basic Gantt charts for project planning", category: "productivity", tags: ["Gantt Chart", "Project Planning", "Timeline", "Management"] },
+    { id: 68, title: "Client Onboarding Checklist", description: "Comprehensive checklist for client onboarding process", category: "productivity", tags: ["Client Onboarding", "Checklist", "Process", "Business"] },
+    { id: 69, title: "Idea Backlog Tracker", description: "Track and organize ideas for future development", category: "productivity", tags: ["Idea Backlog", "Organization", "Planning", "Innovation"] },
+    { id: 70, title: "Professional Email Template Library", description: "Library of professional email templates for business", category: "productivity", tags: ["Email Templates", "Professional", "Business", "Communication"] },
     
     // Home & Lifestyle Category
     { id: 72, title: "Weekly Meal Planner", description: "Plan weekly meals with shopping lists and recipes", category: "lifestyle", tags: ["Meal Planning", "Weekly Planner", "Recipes", "Organization"] },
@@ -287,20 +286,20 @@ async function filterExistingPages() {
         console.log('Auto-detection failed, using fallback list');
     }
     
-            // Fallback to hardcoded list if auto-detection didn't work
-        if (!autoDetected || existingPages.length === 0) {
-            console.log('Using fallback list of existing pages...');
-                           const existingPageIds = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61]; // Daily Mood Tracker (ID 1), Compare Text Diff (ID 2), BMI Calculator (ID 3), Gratitude Journal Template (ID 4), Countdown Timer (ID 5), Age Calculator (ID 6), Tip Calculator (ID 7), Loan Repayment Calculator (ID 8), Daily Habit Checklist (ID 9), Time Zone Converter (ID 10), Currency Converter (ID 11), Compound Interest Calculator (ID 12), Paycheck Tax Estimator (ID 13), Credit Card Payoff Calculator (ID 14), Budget Allocation Pie Chart (ID 15), Savings Goal Tracker (ID 16), Cost Per Use Calculator (ID 17), Inflation-Adjusted Value Calculator (ID 18), Side-Hustle Income Tracker (ID 19), Calorie Needs Calculator (ID 20), Retirement Savings Projection (ID 21), Simple Workout Generator (ID 22), Water Intake Tracker (ID 23), Step Goal Visualizer (ID 24), Sleep Debt Calculator (ID 25), Heart Rate Zone Calculator (ID 26), Macro Nutrient Calculator (ID 27), Simple Yoga Pose Library (ID 28), Stretch Reminder Timer (ID 29), Exercise Log Sheet (ID 30), Walking Pace Calculator (ID 31), Flashcard Study Tool (ID 32), Random Vocabulary Word of the Day (ID 33), Typing Speed Tester (ID 34), Reading Time Estimator (ID 35), Math Problem Generator (ID 36), Periodic Table Reference (ID 37), Language Pronunciation Guide (ID 38), Capital Cities Quiz (ID 39), Historical Timeline Viewer (ID 40), Spaced Repetition Scheduler (ID 41), Random Writing Prompt Generator (ID 42), Character Name Generator (ID 43), Poem or Haiku Creator (ID 44), Story Plot Idea Generator (ID 45), Color Palette Generator (ID 46), Simple Markdown Editor (ID 47), Daily Journaling Page (ID 48), Emoji Art Creator (ID 49), Logo Idea Randomizer (ID 50), Simple Mood Board Template (ID 51), Packing Checklist Generator (ID 52), Simple Route Map (ID 53), World Clock for Travelers (ID 54), Local Weather Forecast (ID 55), Sunrise/Sunset Time Finder (ID 56), Currency Cheat Sheet (ID 57), Visa Requirement Quick Checker (ID 58), Emergency Contact Sheet (ID 59), Public Transportation Map Embed (ID 60), Travel Budget Calculator (ID 61)
-            
-            for (const page of pagesData) {
-                if (existingPageIds.includes(page.id)) {
-                    console.log(`✅ Found: ${page.title} (ID: ${page.id})`);
-                    existingPages.push(page);
-                } else {
-                    console.log(`❌ Not found: ${page.title} (ID: ${page.id})`);
-                }
+    // Fallback to hardcoded list if auto-detection didn't work
+    if (!autoDetected || existingPages.length === 0) {
+        console.log('Using fallback list of existing pages...');
+        const existingPageIds = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70]; // Daily Mood Tracker (ID 1), Compare Text Diff (ID 2), BMI Calculator (ID 3), Gratitude Journal Template (ID 4), Countdown Timer (ID 5), Age Calculator (ID 6), Tip Calculator (ID 7), Loan Repayment Calculator (ID 8), Daily Habit Checklist (ID 9), Time Zone Converter (ID 10), Currency Converter (ID 11), Compound Interest Calculator (ID 12), Paycheck Tax Estimator (ID 13), Credit Card Payoff Calculator (ID 14), Budget Allocation Pie Chart (ID 15), Savings Goal Tracker (ID 16), Cost Per Use Calculator (ID 17), Inflation-Adjusted Value Calculator (ID 18), Side-Hustle Income Tracker (ID 19), Calorie Needs Calculator (ID 20), Retirement Savings Projection (ID 21), Simple Workout Generator (ID 22), Water Intake Tracker (ID 23), Step Goal Visualizer (ID 24), Sleep Debt Calculator (ID 25), Heart Rate Zone Calculator (ID 26), Macro Nutrient Calculator (ID 27), Simple Yoga Pose Library (ID 28), Stretch Reminder Timer (ID 29), Exercise Log Sheet (ID 30), Walking Pace Calculator (ID 31), Flashcard Study Tool (ID 32), Random Vocabulary Word of the Day (ID 33), Typing Speed Tester (ID 34), Reading Time Estimator (ID 35), Math Problem Generator (ID 36), Periodic Table Reference (ID 37), Language Pronunciation Guide (ID 38), Capital Cities Quiz (ID 39), Historical Timeline Viewer (ID 40), Spaced Repetition Scheduler (ID 41), Random Writing Prompt Generator (ID 42), Character Name Generator (ID 43), Poem or Haiku Creator (ID 44), Story Plot Idea Generator (ID 45), Color Palette Generator (ID 46), Simple Markdown Editor (ID 47), Daily Journaling Page (ID 48), Emoji Art Creator (ID 49), Logo Idea Randomizer (ID 50), Simple Mood Board Template (ID 51), Packing Checklist Generator (ID 52), Simple Route Map (ID 53), World Clock for Travelers (ID 54), Local Weather Forecast (ID 55), Sunrise/Sunset Time Finder (ID 56), Currency Cheat Sheet (ID 57), Visa Requirement Quick Checker (ID 58), Emergency Contact Sheet (ID 59), Public Transportation Map Embed (ID 60), Travel Budget Calculator (ID 61), Pomodoro Timer (ID 62), Resume/CV PDF Generator (ID 63), Simple Invoice Creator (ID 64), Business Card Quick Design (ID 65), Work Hours Tracker (ID 66), Simple Gantt Chart Generator (ID 67), Client Onboarding Checklist (ID 68), Idea Backlog Tracker (ID 69), Professional Email Template Library (ID 70)
+        
+        for (const page of pagesData) {
+            if (existingPageIds.includes(page.id)) {
+                console.log(`✅ Found: ${page.title} (ID: ${page.id})`);
+                existingPages.push(page);
+            } else {
+                console.log(`❌ Not found: ${page.title} (ID: ${page.id})`);
             }
         }
+    }
     
     console.log(`Total existing pages found: ${existingPages.length}`);
     console.log('Existing pages:', existingPages.map(p => p.title));
