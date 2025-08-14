@@ -6,10 +6,12 @@ create a issue for bugs, gpt will fix it
 Redo the footer. 
 Redo readme page
 Add sponsorship at the footer
+some pages have: page not found error. 
+cleanup
 
 "Can you brainstorm 100 useful ideas that can be used via 1-page static pages? "
 "Can you implement each of them as a 1-pager static page?"
-"Keep implementing this list, if it doesn't exist already, in the same way as the old pages, until all finishes. Don't ask me in between"
+"Keep implementing this list, if it doesn't exist already, in the same way as the old pages, until all finishes. Add them to home page. Don't ask me in between"
 
 ```
 Personal Tools
@@ -83,70 +85,70 @@ Writing & Creativity
 ⸻
 
 Travel & Navigation
-	51.	Packing checklist generator
-	52.	Simple route map (Google Maps embed)
-	53.	World clock for travelers
-	54.	Local weather forecast snapshot
-	55.	Sunrise/sunset time finder
-	56.	Currency cheat sheet for a country
-	57.	Visa requirement quick checker
-	58.	Emergency contact sheet for travelers
-	59.	Public transportation map embed
-	60.	Travel budget calculator
+	51.	✅Packing checklist generator
+	52.	✅Simple route map (Google Maps embed)
+	53.	✅World clock for travelers
+	54.	✅Local weather forecast snapshot
+	55.	✅Sunrise/sunset time finder
+	56.	✅Currency cheat sheet for a country
+	57.	✅Visa requirement quick checker
+	58.	✅Emergency contact sheet for travelers
+	59.	✅Public transportation map embed
+	60.	✅Travel budget calculator
 
 ⸻
 
 Work & Productivity
-	61.	Pomodoro timer
-	62.	Meeting agenda template
-	63.	Resume/CV PDF generator from form inputs
-	64.	Simple invoice creator
-	65.	Business card quick design tool
-	66.	Work hours tracker
-	67.	Simple Gantt chart generator
-	68.	Client onboarding checklist
-	69.	Idea backlog tracker
-	70.	Professional email template library
+	61.	✅Pomodoro timer
+	62.	✅Meeting agenda template
+	63.	✅Resume/CV PDF generator from form inputs
+	64.	✅Simple invoice creator
+	65.	✅Business card quick design tool
+	66.	✅Work hours tracker
+	67.	✅Simple Gantt chart generator
+	68.	✅Client onboarding checklist
+	69.	✅Idea backlog tracker
+	70.	✅Professional email template library
 
 ⸻
 
 Home & Lifestyle
-	71.	Weekly meal planner
-	72.	Grocery list generator
-	73.	Chore schedule template
-	74.	Home budget tracker
-	75.	Plant watering schedule
-	76.	Recipe scaling calculator
-	77.	Home maintenance checklist
-	78.	Pet care schedule
-	79.	Pantry inventory list
-	80.	Household bill split calculator
+	71.	✅Weekly meal planner
+	72.	✅Grocery list generator
+	73.	✅Chore schedule template
+	74.	✅Home budget tracker
+	75.	✅Plant watering schedule
+	76.	✅Recipe scaling calculator
+	77.	✅Home maintenance checklist
+	78.	✅Pet care schedule
+	79.	✅Pantry inventory list
+	80.	✅Household bill split calculator
 
 ⸻
 
 Fun & Entertainment
-	81.	Daily trivia question
-	82.	Random joke generator
-	83.	Simple meme maker
-	84.	Movie night picker
-	85.	Book recommendation randomizer
-	86.	Song lyric finder
-	87.	Quote of the day
-	88.	Random “Would You Rather” question
-	89.	Party game rules quick reference
-	90.	Mini pixel art drawing canvas
+	81.	✅Daily trivia question
+	82.	✅Random joke generator
+	83.	✅Simple meme maker
+	84.	✅Movie night picker
+	85.	✅Book recommendation randomizer
+	86.	✅Song lyric finder
+	87.	✅Quote of the day
+	88.	✅Random “Would You Rather” question
+	89.	✅Party game rules quick reference
+	90.	✅Mini pixel art drawing canvas
 
 ⸻
 
 Tech & Coding
-	91.	QR code generator
-	92.	URL shortener
-	93.	Regex tester
-	94.	JSON formatter
-	95.	HTML color code picker
-	96.	Git command cheatsheet
-	97.	HTTP status code reference
-	98.	CSS gradient generator
-	99.	ASCII art generator
-	100.	Password strength tester
+	91.	✅QR code generator
+	92.	✅URL shortener
+	93.	✅Regex tester
+	94.	✅JSON formatter
+	95.	✅HTML color code picker
+	96.	✅Git command cheatsheet
+	97.	✅HTTP status code reference
+	98.	✅CSS gradient generator
+	99.	✅ASCII art generator
+	100.✅Password strength tester
 ```

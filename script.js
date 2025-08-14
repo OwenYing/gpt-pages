@@ -75,51 +75,48 @@ const pagesData = [
     
     // Work & Productivity Category
     { id: 62, title: "Pomodoro Timer", description: "Focus timer using the Pomodoro Technique for productivity", category: "productivity", tags: ["Pomodoro", "Timer", "Focus", "Productivity"] },
-    { id: 63, title: "Meeting Agenda Template", description: "Professional meeting agenda templates and formats", category: "productivity", tags: ["Meeting Agenda", "Template", "Professional", "Organization"] },
-    { id: 64, title: "Resume/CV PDF Generator", description: "Generate professional resumes from form inputs", category: "productivity", tags: ["Resume", "CV Generator", "PDF", "Professional"] },
-    { id: 65, title: "Simple Invoice Creator", description: "Create professional invoices for freelancers and businesses", category: "productivity", tags: ["Invoice Creator", "Business", "Freelance", "Professional"] },
-    { id: 66, title: "Business Card Quick Design", description: "Quick business card design tool for professionals", category: "productivity", tags: ["Business Card", "Design Tool", "Professional", "Branding"] },
-    { id: 67, title: "Work Hours Tracker", description: "Track work hours, overtime, and project time", category: "productivity", tags: ["Work Hours", "Time Tracking", "Overtime", "Productivity"] },
-    { id: 68, title: "Simple Gantt Chart Generator", description: "Create basic Gantt charts for project planning", category: "productivity", tags: ["Gantt Chart", "Project Planning", "Timeline", "Management"] },
-    { id: 69, title: "Client Onboarding Checklist", description: "Comprehensive checklist for client onboarding process", category: "productivity", tags: ["Client Onboarding", "Checklist", "Process", "Business"] },
-    { id: 70, title: "Idea Backlog Tracker", description: "Track and organize ideas for future development", category: "productivity", tags: ["Idea Backlog", "Organization", "Planning", "Innovation"] },
-    { id: 71, title: "Professional Email Template Library", description: "Library of professional email templates for business", category: "productivity", tags: ["Email Templates", "Professional", "Business", "Communication"] },
+    { id: 63, title: "Resume/CV PDF Generator", description: "Generate professional resumes from form inputs", category: "productivity", tags: ["Resume", "CV Generator", "PDF", "Professional"] },
+    { id: 64, title: "Simple Invoice Creator", description: "Create professional invoices for freelancers and businesses", category: "productivity", tags: ["Invoice Creator", "Business", "Freelance", "Professional"] },
+    { id: 65, title: "Business Card Quick Design", description: "Quick business card design tool for professionals", category: "productivity", tags: ["Business Card", "Design Tool", "Professional", "Branding"] },
+    { id: 66, title: "Work Hours Tracker", description: "Track work hours, overtime, and project time", category: "productivity", tags: ["Work Hours", "Time Tracking", "Overtime", "Productivity"] },
+    { id: 67, title: "Simple Gantt Chart Generator", description: "Create basic Gantt charts for project planning", category: "productivity", tags: ["Gantt Chart", "Project Planning", "Timeline", "Management"] },
+    { id: 68, title: "Client Onboarding Checklist", description: "Comprehensive checklist for client onboarding process", category: "productivity", tags: ["Client Onboarding", "Checklist", "Process", "Business"] },
+    { id: 69, title: "Idea Backlog Tracker", description: "Track and organize ideas for future development", category: "productivity", tags: ["Idea Backlog", "Organization", "Planning", "Innovation"] },
+    { id: 70, title: "Professional Email Template Library", description: "Library of professional email templates for business", category: "productivity", tags: ["Email Templates", "Professional", "Business", "Communication"] },
     
     // Home & Lifestyle Category
-    { id: 72, title: "Weekly Meal Planner", description: "Plan weekly meals with shopping lists and recipes", category: "lifestyle", tags: ["Meal Planning", "Weekly Planner", "Recipes", "Organization"] },
-    { id: 73, title: "Grocery List Generator", description: "Generate organized grocery lists from meal plans", category: "lifestyle", tags: ["Grocery List", "Meal Planning", "Shopping", "Organization"] },
-    { id: 74, title: "Chore Schedule Template", description: "Create and manage household chore schedules", category: "lifestyle", tags: ["Chore Schedule", "Household", "Organization", "Planning"] },
-    { id: 75, title: "Home Budget Tracker", description: "Track household expenses and budget categories", category: "lifestyle", tags: ["Home Budget", "Expenses", "Tracking", "Finance"] },
-    { id: 76, title: "Plant Watering Schedule", description: "Track plant care and watering schedules", category: "lifestyle", tags: ["Plant Care", "Watering Schedule", "Gardening", "Organization"] },
-    { id: 77, title: "Recipe Scaling Calculator", description: "Scale recipe ingredients for different serving sizes", category: "lifestyle", tags: ["Recipe Scaling", "Cooking", "Calculator", "Ingredients"] },
-    { id: 78, title: "Home Maintenance Checklist", description: "Seasonal home maintenance tasks and schedules", category: "lifestyle", tags: ["Home Maintenance", "Checklist", "Seasonal", "Household"] },
-    { id: 79, title: "Pet Care Schedule", description: "Track pet care tasks and veterinary appointments", category: "lifestyle", tags: ["Pet Care", "Schedule", "Veterinary", "Organization"] },
-    { id: 80, title: "Pantry Inventory List", description: "Track pantry items and expiration dates", category: "lifestyle", tags: ["Pantry Inventory", "Food Storage", "Expiration", "Organization"] },
-    { id: 81, title: "Household Bill Split Calculator", description: "Calculate how to split household bills between roommates", category: "lifestyle", tags: ["Bill Splitter", "Roommates", "Calculator", "Finance"] },
-    
-    // Fun & Entertainment Category
-    { id: 82, title: "Daily Trivia Question", description: "Random daily trivia questions with answers", category: "entertainment", tags: ["Trivia", "Daily Question", "Fun", "Learning"] },
+    { id: 71, title: "Weekly Meal Planner", description: "Plan weekly meals with shopping lists and recipes", category: "lifestyle", tags: ["Meal Planning", "Weekly Planner", "Recipes", "Organization"] },
+    { id: 72, title: "Grocery List Generator", description: "Generate organized grocery lists from meal plans", category: "lifestyle", tags: ["Grocery List", "Meal Planning", "Shopping", "Organization"] },
+    { id: 73, title: "Chore Schedule Template", description: "Create and manage household chore schedules", category: "lifestyle", tags: ["Chore Schedule", "Household", "Organization", "Planning"] },
+    { id: 74, title: "Home Budget Tracker", description: "Track household expenses and budget categories", category: "lifestyle", tags: ["Home Budget", "Expenses", "Tracking", "Finance"] },
+    { id: 75, title: "Plant Watering Schedule", description: "Track plant care and watering schedules", category: "lifestyle", tags: ["Plant Care", "Watering Schedule", "Gardening", "Organization"] },
+    { id: 76, title: "Recipe Scaling Calculator", description: "Scale recipe ingredients for different serving sizes", category: "lifestyle", tags: ["Recipe Scaling", "Cooking", "Calculator", "Ingredients"] },
+    { id: 77, title: "Home Maintenance Checklist", description: "Seasonal home maintenance tasks and schedules", category: "lifestyle", tags: ["Home Maintenance", "Checklist", "Seasonal", "Household"] },
+    { id: 78, title: "Pet Care Schedule", description: "Track pet care tasks and veterinary appointments", category: "lifestyle", tags: ["Pet Care", "Schedule", "Veterinary", "Organization"] },
+    { id: 79, title: "Pantry Inventory List", description: "Track pantry items and expiration dates", category: "lifestyle", tags: ["Pantry Inventory", "Food Storage", "Expiration", "Organization"] },
+    { id: 80, title: "Household Bill Split Calculator", description: "Calculate how to split household bills between roommates", category: "lifestyle", tags: ["Bill Splitter", "Roommates", "Calculator", "Finance"] },
+    { id: 81, title: "Daily Trivia Question", description: "Random daily trivia questions with answers", category: "entertainment", tags: ["Trivia", "Daily Question", "Fun", "Learning"] },
+    { id: 82, title: "QR Code Generator", description: "Generate QR codes for URLs, text, and contact information", category: "tech", tags: ["QR Code", "Generator", "Barcode", "Tech"] },
     { id: 83, title: "Random Joke Generator", description: "Generate random jokes for entertainment", category: "entertainment", tags: ["Jokes", "Random Generator", "Fun", "Entertainment"] },
     { id: 84, title: "Simple Meme Maker", description: "Create simple memes with text overlays", category: "entertainment", tags: ["Meme Maker", "Fun", "Creativity", "Entertainment"] },
     { id: 85, title: "Movie Night Picker", description: "Random movie picker for movie night decisions", category: "entertainment", tags: ["Movie Picker", "Random", "Entertainment", "Decision Making"] },
-    { id: 86, title: "Book Recommendation Randomizer", description: "Get random book recommendations by genre", category: "entertainment", tags: ["Book Recommendations", "Random", "Reading", "Literature"] },
-    { id: 87, title: "Song Lyric Finder", description: "Find song lyrics and artist information", category: "entertainment", tags: ["Song Lyrics", "Music", "Search", "Entertainment"] },
-    { id: 88, title: "Quote of the Day", description: "Daily inspirational and motivational quotes", category: "entertainment", tags: ["Quotes", "Daily", "Inspiration", "Motivation"] },
-    { id: 89, title: "Random Would You Rather", description: "Random 'Would You Rather' questions for fun", category: "entertainment", tags: ["Would You Rather", "Random", "Fun", "Questions"] },
-    { id: 90, title: "Party Game Rules", description: "Quick reference for popular party game rules", category: "entertainment", tags: ["Party Games", "Rules", "Reference", "Entertainment"] },
-    { id: 91, title: "Mini Pixel Art Drawing Canvas", description: "Simple pixel art drawing tool for creativity", category: "entertainment", tags: ["Pixel Art", "Drawing", "Canvas", "Creativity"] },
+    { id: 86, title: "Book Recommendation Randomizer", description: "Get random book recommendations across different genres", category: "entertainment", tags: ["Book Recommendations", "Random", "Reading", "Literature"] },
+    { id: 87, title: "Quote of the Day", description: "Daily inspirational quotes with sharing capabilities", category: "entertainment", tags: ["Quotes", "Inspiration", "Daily", "Motivation"] },
+    { id: 88, title: "Random Would You Rather Question", description: "Generate random 'Would You Rather' questions for fun discussions", category: "entertainment", tags: ["Would You Rather", "Questions", "Fun", "Discussion"] },
+    { id: 89, title: "Party Game Rules Quick Reference", description: "Quick reference guide for popular party games and rules", category: "entertainment", tags: ["Party Game Rules", "Reference", "Entertainment", "Party"] },
+    { id: 90, title: "Mini Pixel Art Drawing Canvas", description: "Simple pixel art drawing tool for creating digital artwork", category: "creative", tags: ["Pixel Art", "Drawing", "Canvas", "Creativity"] },
+    { id: 91, title: "Song Lyric Finder", description: "Find and display song lyrics with search functionality", category: "entertainment", tags: ["Song Lyrics", "Music", "Search", "Entertainment"] },
     
     // Tech & Coding Category
-    { id: 92, title: "QR Code Generator", description: "Generate QR codes for URLs, text, and contact information", category: "tech", tags: ["QR Code", "Generator", "URL", "Contact"] },
-    { id: 93, title: "URL Shortener", description: "Shorten long URLs for easier sharing", category: "tech", tags: ["URL Shortener", "Links", "Sharing", "Utility"] },
-    { id: 94, title: "Regex Tester", description: "Test and debug regular expressions with live matching", category: "tech", tags: ["Regex", "Tester", "Pattern Matching", "Development"] },
-    { id: 95, title: "JSON Formatter", description: "Format and validate JSON data with syntax highlighting", category: "tech", tags: ["JSON", "Formatter", "Validation", "Development"] },
-    { id: 96, title: "HTML Color Code Picker", description: "Pick and convert between different color code formats", category: "tech", tags: ["Color Picker", "HTML Colors", "Hex Codes", "Design"] },
-    { id: 97, title: "Git Command Cheatsheet", description: "Quick reference for common Git commands and workflows", category: "tech", tags: ["Git", "Commands", "Cheatsheet", "Development"] },
-    { id: 98, title: "HTTP Status Code Reference", description: "Reference guide for HTTP status codes and meanings", category: "tech", tags: ["HTTP", "Status Codes", "Reference", "Web Development"] },
-    { id: 99, title: "CSS Gradient Generator", description: "Generate CSS gradients with visual preview", category: "tech", tags: ["CSS Gradients", "Generator", "Design", "Web Development"] },
-    { id: 100, title: "ASCII Art Generator", description: "Convert text to ASCII art for creative projects", category: "tech", tags: ["ASCII Art", "Generator", "Text Art", "Creativity"] },
-    { id: 101, title: "Password Strength Tester", description: "Test password strength and security recommendations", category: "tech", tags: ["Password Strength", "Security", "Tester", "Safety"] }
+    { id: 92, title: "URL Shortener", description: "Shorten long URLs for easier sharing and tracking", category: "tech", tags: ["URL Shortener", "Links", "Sharing", "Tech"] },
+    { id: 93, title: "Regex Tester", description: "Test and debug regular expressions with live matching", category: "tech", tags: ["Regex", "Regular Expressions", "Testing", "Programming"] },
+    { id: 94, title: "JSON Formatter", description: "Format and validate JSON data with syntax highlighting", category: "tech", tags: ["JSON", "Formatter", "Validation", "Programming"] },
+    { id: 95, title: "HTML Color Code Picker", description: "Pick colors and get HTML color codes for web development", category: "tech", tags: ["Color Picker", "HTML Colors", "Web Design", "Development"] },
+    { id: 96, title: "Git Command Cheatsheet", description: "Quick reference for common Git commands and workflows", category: "tech", tags: ["Git", "Commands", "Cheatsheet", "Version Control"] },
+    { id: 97, title: "HTTP Status Code Reference", description: "Complete reference for HTTP status codes and their meanings", category: "tech", tags: ["HTTP", "Status Codes", "Reference", "Web Development"] },
+    { id: 98, title: "CSS Gradient Generator", description: "Create beautiful CSS gradients with visual preview", category: "tech", tags: ["CSS", "Gradients", "Generator", "Web Design"] },
+    { id: 99, title: "ASCII Art Generator", description: "Convert text to ASCII art with various font styles", category: "tech", tags: ["ASCII Art", "Text Art", "Generator", "Creativity"] },
+    { id: 100, title: "Password Strength Tester", description: "Test password strength and get security recommendations", category: "tech", tags: ["Password", "Security", "Strength Tester", "Safety"] }
 ];
 
 // Extensibility functions for unlimited pages
@@ -287,20 +284,20 @@ async function filterExistingPages() {
         console.log('Auto-detection failed, using fallback list');
     }
     
-            // Fallback to hardcoded list if auto-detection didn't work
-        if (!autoDetected || existingPages.length === 0) {
-            console.log('Using fallback list of existing pages...');
-                           const existingPageIds = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61]; // Daily Mood Tracker (ID 1), Compare Text Diff (ID 2), BMI Calculator (ID 3), Gratitude Journal Template (ID 4), Countdown Timer (ID 5), Age Calculator (ID 6), Tip Calculator (ID 7), Loan Repayment Calculator (ID 8), Daily Habit Checklist (ID 9), Time Zone Converter (ID 10), Currency Converter (ID 11), Compound Interest Calculator (ID 12), Paycheck Tax Estimator (ID 13), Credit Card Payoff Calculator (ID 14), Budget Allocation Pie Chart (ID 15), Savings Goal Tracker (ID 16), Cost Per Use Calculator (ID 17), Inflation-Adjusted Value Calculator (ID 18), Side-Hustle Income Tracker (ID 19), Calorie Needs Calculator (ID 20), Retirement Savings Projection (ID 21), Simple Workout Generator (ID 22), Water Intake Tracker (ID 23), Step Goal Visualizer (ID 24), Sleep Debt Calculator (ID 25), Heart Rate Zone Calculator (ID 26), Macro Nutrient Calculator (ID 27), Simple Yoga Pose Library (ID 28), Stretch Reminder Timer (ID 29), Exercise Log Sheet (ID 30), Walking Pace Calculator (ID 31), Flashcard Study Tool (ID 32), Random Vocabulary Word of the Day (ID 33), Typing Speed Tester (ID 34), Reading Time Estimator (ID 35), Math Problem Generator (ID 36), Periodic Table Reference (ID 37), Language Pronunciation Guide (ID 38), Capital Cities Quiz (ID 39), Historical Timeline Viewer (ID 40), Spaced Repetition Scheduler (ID 41), Random Writing Prompt Generator (ID 42), Character Name Generator (ID 43), Poem or Haiku Creator (ID 44), Story Plot Idea Generator (ID 45), Color Palette Generator (ID 46), Simple Markdown Editor (ID 47), Daily Journaling Page (ID 48), Emoji Art Creator (ID 49), Logo Idea Randomizer (ID 50), Simple Mood Board Template (ID 51), Packing Checklist Generator (ID 52), Simple Route Map (ID 53), World Clock for Travelers (ID 54), Local Weather Forecast (ID 55), Sunrise/Sunset Time Finder (ID 56), Currency Cheat Sheet (ID 57), Visa Requirement Quick Checker (ID 58), Emergency Contact Sheet (ID 59), Public Transportation Map Embed (ID 60), Travel Budget Calculator (ID 61)
-            
-            for (const page of pagesData) {
-                if (existingPageIds.includes(page.id)) {
-                    console.log(`✅ Found: ${page.title} (ID: ${page.id})`);
-                    existingPages.push(page);
-                } else {
-                    console.log(`❌ Not found: ${page.title} (ID: ${page.id})`);
-                }
+    // Fallback to hardcoded list if auto-detection didn't work
+    if (!autoDetected || existingPages.length === 0) {
+        console.log('Using fallback list of existing pages...');
+        const existingPageIds = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100]; // All existing pages (1-100)
+        
+        for (const page of pagesData) {
+            if (existingPageIds.includes(page.id)) {
+                console.log(`✅ Found: ${page.title} (ID: ${page.id})`);
+                existingPages.push(page);
+            } else {
+                console.log(`❌ Not found: ${page.title} (ID: ${page.id})`);
             }
         }
+    }
     
     console.log(`Total existing pages found: ${existingPages.length}`);
     console.log('Existing pages:', existingPages.map(p => p.title));

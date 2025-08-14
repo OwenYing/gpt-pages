@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Trivia Question - GPT Ideas Hub</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .trivia-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .trivia-header {
+            text-align: center;
+            margin-bottom: 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+        }
+        
+        .trivia-header h1 {
+            margin-bottom: 10px;
+        }
+        
+        .trivia-header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        .daily-trivia-card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .trivia-date {
+            color: #666;
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+        }
+        
+        .trivia-question {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+        
+        .trivia-options {
+            display: grid;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .trivia-option {
+            padding: 15px 20px;
+            border: 2px solid #e1e5e9;
+            border-radius: 10px;
+            background: white;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 1.1rem;
+            text-align: left;
+        }
+        
+        .trivia-option:hover {
+            border-color: #667eea;
+            background: #f8f9fa;
+            transform: translateY(-2px);
+        }
+        
+        .trivia-option.selected {
+            border-color: #667eea;
+            background: #667eea;
+            color: white;
+        }
+        
+        .trivia-option.correct {
+            border-color: #28a745;
+            background: #28a745;
+            color: white;
+        }
+        
+        .trivia-option.incorrect {
+            border-color: #dc3545;
+            background: #dc3545;
+            color: white;
+        }
+        
+        .trivia-option.disabled {
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+        
+        .answer-button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s;
+            margin-bottom: 20px;
+        }
+        
+        .answer-button:hover {
+            transform: translateY(-2px);
+        }
+        
+        .answer-button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .trivia-explanation {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            text-align: left;
+            display: none;
+        }
+        
+        .trivia-explanation h3 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+        
+        .trivia-explanation p {
+            color: #666;
+            line-height: 1.6;
+        }
+        
+        .next-question-btn {
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s;
+            display: none;
+        }
+        
+        .next-question-btn:hover {
+            transform: translateY(-2px);
+        }
+        
+        .stats-section {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+        }
+        
+        .stat-card {
+            text-align: center;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+        
+        .stat-number {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #667eea;
+            margin-bottom: 8px;
+        }
+        
+        .stat-label {
+            color: #666;
+            font-weight: 500;
+        }
+        
+        .history-section {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+        
+        .history-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+        
+        .history-item:last-child {
+            margin-bottom: 0;
+        }
+        
+        .history-question {
+            flex: 1;
+            margin-right: 20px;
+        }
+        
+        .history-question-text {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 5px;
+        }
+        
+        .history-question-date {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .history-result {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        .result-correct {
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .result-incorrect {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        
+        .category-filter {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+        
+        .filter-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .filter-btn {
+            padding: 10px 20px;
+            border: 2px solid #e1e5e9;
+            background: white;
+            color: #666;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+        
+        .filter-btn:hover, .filter-btn.active {
+            border-color: #667eea;
+            background: #667eea;
+            color: white;
+        }
+        
+        .export-section {
+            text-align: center;
+            margin-top: 30px;
+        }
+        
+        .export-btn {
+            background: #17a2b8;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            margin: 0 10px;
+            transition: background-color 0.3s;
+        }
+        
+        .export-btn:hover {
+            background: #138496;
+        }
+        
+        .empty-history {
+            text-align: center;
+            padding: 40px 20px;
+            color: #666;
+        }
+        
+        .empty-history i {
+            font-size: 3rem;
+            color: #ccc;
+            margin-bottom: 15px;
+        }
+        
+        @media (max-width: 768px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .filter-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .history-item {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .history-question {
+                margin-right: 0;
+                margin-bottom: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="trivia-container">
+        <div class="trivia-header">
+            <h1><i class="fas fa-question-circle"></i> Daily Trivia Question</h1>
+            <p>Random daily trivia questions with answers</p>
+        </div>
+
+        <!-- Daily Trivia Card -->
+        <div class="daily-trivia-card">
+            <div class="trivia-date" id="triviaDate"></div>
+            <div class="trivia-question" id="triviaQuestion"></div>
+            
+            <div class="trivia-options" id="triviaOptions">
+                <!-- Options will be generated here -->
+            </div>
+            
+            <button class="answer-button" id="answerButton" onclick="checkAnswer()">
+                <i class="fas fa-check"></i> Check Answer
+            </button>
+            
+            <div class="trivia-explanation" id="triviaExplanation">
+                <!-- Explanation will be shown here -->
+            </div>
+            
+            <button class="next-question-btn" id="nextQuestionBtn" onclick="loadNewQuestion()">
+                <i class="fas fa-arrow-right"></i> Next Question
+            </button>
+        </div>
+
+        <!-- Category Filter -->
+        <div class="category-filter">
+            <h3><i class="fas fa-filter"></i> Filter by Category</h3>
+            <div class="filter-buttons" id="categoryFilters">
+                <!-- Category filter buttons will be generated here -->
+            </div>
+        </div>
+
+        <!-- Statistics -->
+        <div class="stats-section">
+            <h2><i class="fas fa-chart-bar"></i> Your Trivia Stats</h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number" id="totalQuestions">0</div>
+                    <div class="stat-label">Questions Answered</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="correctAnswers">0</div>
+                    <div class="stat-label">Correct Answers</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="accuracyRate">0%</div>
+                    <div class="stat-label">Accuracy Rate</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="currentStreak">0</div>
+                    <div class="stat-label">Current Streak</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- History -->
+        <div class="history-section">
+            <h2><i class="fas fa-history"></i> Question History</h2>
+            <div id="questionHistory">
+                <!-- History items will be generated here -->
+            </div>
+        </div>
+
+        <!-- Export Section -->
+        <div class="export-section">
+            <button class="export-btn" onclick="exportToCSV()">
+                <i class="fas fa-download"></i> Export to CSV
+            </button>
+            <button class="export-btn" onclick="exportToJSON()">
+                <i class="fas fa-code"></i> Export to JSON
+            </button>
+        </div>
+    </div>
+
+    <script>
+        let currentQuestion = null;
+        let selectedAnswer = null;
+        let triviaHistory = [];
+        let currentCategory = 'all';
+        let stats = {
+            totalQuestions: 0,
+            correctAnswers: 0,
+            currentStreak: 0,
+            maxStreak: 0
+        };
+
+        // Trivia questions database
+        const triviaDatabase = {
+            'general': [
+                {
+                    question: "What is the capital of France?",
+                    options: ["London", "Berlin", "Paris", "Madrid"],
+                    correct: 2,
+                    explanation: "Paris is the capital and largest city of France. It's known as the 'City of Light' and is famous for its art, fashion, gastronomy, and culture."
+                },
+                {
+                    question: "Which planet is known as the Red Planet?",
+                    options: ["Venus", "Mars", "Jupiter", "Saturn"],
+                    correct: 1,
+                    explanation: "Mars is called the Red Planet because of iron oxide (rust) on its surface, which gives it a reddish appearance."
+                },
+                {
+                    question: "What is the largest ocean on Earth?",
+                    options: ["Atlantic Ocean", "Indian Ocean", "Arctic Ocean", "Pacific Ocean"],
+                    correct: 3,
+                    explanation: "The Pacific Ocean is the largest and deepest ocean on Earth, covering about 30% of the Earth's surface."
+                }
+            ],
+            'science': [
+                {
+                    question: "What is the chemical symbol for gold?",
+                    options: ["Ag", "Au", "Fe", "Cu"],
+                    correct: 1,
+                    explanation: "Au comes from the Latin word 'aurum' which means gold. It's one of the few elements that has been used by humans for thousands of years."
+                },
+                {
+                    question: "What is the hardest natural substance on Earth?",
+                    options: ["Steel", "Iron", "Diamond", "Granite"],
+                    correct: 2,
+                    explanation: "Diamond is the hardest naturally occurring substance on Earth, scoring a 10 on the Mohs scale of mineral hardness."
+                },
+                {
+                    question: "What is the largest organ in the human body?",
+                    options: ["Heart", "Brain", "Liver", "Skin"],
+                    correct: 3,
+                    explanation: "The skin is the largest organ in the human body, covering about 20 square feet and weighing about 8 pounds."
+                }
+            ],
+            'history': [
+                {
+                    question: "In which year did World War II end?",
+                    options: ["1943", "1944", "1945", "1946"],
+                    correct: 2,
+                    explanation: "World War II ended in 1945 with the surrender of Germany in May and Japan in September after the atomic bombings."
+                },
+                {
+                    question: "Who was the first President of the United States?",
+                    options: ["John Adams", "Thomas Jefferson", "George Washington", "Benjamin Franklin"],
+                    correct: 2,
+                    explanation: "George Washington was the first President of the United States, serving from 1789 to 1797."
+                },
+                {
+                    question: "What ancient wonder was located in Alexandria, Egypt?",
+                    options: ["Colossus of Rhodes", "Lighthouse of Alexandria", "Hanging Gardens", "Temple of Artemis"],
+                    correct: 1,
+                    explanation: "The Lighthouse of Alexandria was one of the Seven Wonders of the Ancient World, standing over 100 meters tall."
+                }
+            ],
+            'geography': [
+                {
+                    question: "What is the largest country in the world by land area?",
+                    options: ["China", "United States", "Canada", "Russia"],
+                    correct: 3,
+                    explanation: "Russia is the largest country in the world by land area, covering about 17.1 million square kilometers."
+                },
+                {
+                    question: "Which mountain range runs through South America?",
+                    options: ["Rocky Mountains", "Alps", "Andes", "Himalayas"],
+                    correct: 2,
+                    explanation: "The Andes is the longest continental mountain range in the world, running along the western coast of South America."
+                },
+                {
+                    question: "What is the smallest country in the world?",
+                    options: ["Monaco", "San Marino", "Vatican City", "Liechtenstein"],
+                    correct: 2,
+                    explanation: "Vatican City is the smallest country in the world, covering just 0.44 square kilometers."
+                }
+            ],
+            'entertainment': [
+                {
+                    question: "Who played Iron Man in the Marvel Cinematic Universe?",
+                    options: ["Chris Evans", "Robert Downey Jr.", "Chris Hemsworth", "Mark Ruffalo"],
+                    correct: 1,
+                    explanation: "Robert Downey Jr. played Tony Stark/Iron Man in the Marvel Cinematic Universe from 2008 to 2019."
+                },
+                {
+                    question: "What year did the first Star Wars movie release?",
+                    options: ["1975", "1976", "1977", "1978"],
+                    correct: 2,
+                    explanation: "Star Wars: Episode IV - A New Hope was released in 1977 and became a cultural phenomenon."
+                },
+                {
+                    question: "Which band released the album 'Abbey Road'?",
+                    options: ["The Rolling Stones", "The Beatles", "Led Zeppelin", "Pink Floyd"],
+                    correct: 1,
+                    explanation: "The Beatles released 'Abbey Road' in 1969, featuring the famous crosswalk photo on the cover."
+                }
+            ]
+        };
+
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function() {
+            loadData();
+            setupCategoryFilters();
+            loadNewQuestion();
+            updateStats();
+            renderHistory();
+        });
+
+        // Setup Category Filters
+        function setupCategoryFilters() {
+            const categoryFilters = document.getElementById('categoryFilters');
+            const categories = [
+                { id: 'all', name: 'All Categories' },
+                { id: 'general', name: 'General Knowledge' },
+                { id: 'science', name: 'Science' },
+                { id: 'history', name: 'History' },
+                { id: 'geography', name: 'Geography' },
+                { id: 'entertainment', name: 'Entertainment' }
+            ];
+            
+            categoryFilters.innerHTML = categories.map(category => `
+                <button class="filter-btn ${category.id === 'all' ? 'active' : ''}" 
+                        onclick="filterByCategory('${category.id}')">
+                    ${category.name}
+                </button>
+            `).join('');
+        }
+
+        // Filter by Category
+        function filterByCategory(category) {
+            currentCategory = category;
+            
+            // Update active filter button
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            loadNewQuestion();
+        }
+
+        // Load New Question
+        function loadNewQuestion() {
+            let availableQuestions = [];
+            
+            if (currentCategory === 'all') {
+                // Get questions from all categories
+                Object.values(triviaDatabase).forEach(categoryQuestions => {
+                    availableQuestions = availableQuestions.concat(categoryQuestions);
+                });
+            } else {
+                availableQuestions = triviaDatabase[currentCategory] || [];
+            }
+            
+            if (availableQuestions.length === 0) {
+                showNoQuestionsMessage();
+                return;
+            }
+            
+            // Select a random question
+            currentQuestion = availableQuestions[Math.floor(Math.random() * availableQuestions.length)];
+            selectedAnswer = null;
+            
+            // Update the display
+            document.getElementById('triviaDate').textContent = new Date().toLocaleDateString('en-US', {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+            
+            document.getElementById('triviaQuestion').textContent = currentQuestion.question;
+            
+            // Generate options
+            const optionsContainer = document.getElementById('triviaOptions');
+            optionsContainer.innerHTML = currentQuestion.options.map((option, index) => `
+                <div class="trivia-option" onclick="selectOption(${index})">
+                    ${String.fromCharCode(65 + index)}. ${option}
+                </div>
+            `).join('');
+            
+            // Reset buttons and explanation
+            document.getElementById('answerButton').disabled = true;
+            document.getElementById('triviaExplanation').style.display = 'none';
+            document.getElementById('nextQuestionBtn').style.display = 'none';
+            
+            // Reset option styles
+            document.querySelectorAll('.trivia-option').forEach(option => {
+                option.classList.remove('selected', 'correct', 'incorrect');
+            });
+        }
+
+        // Select Option
+        function selectOption(index) {
+            if (selectedAnswer !== null) return; // Already answered
+            
+            selectedAnswer = index;
+            
+            // Update option styles
+            document.querySelectorAll('.trivia-option').forEach((option, i) => {
+                option.classList.remove('selected');
+                if (i === index) {
+                    option.classList.add('selected');
+                }
+            });
+            
+            // Enable answer button
+            document.getElementById('answerButton').disabled = false;
+        }
+
+        // Check Answer
+        function checkAnswer() {
+            if (selectedAnswer === null) return;
+            
+            const isCorrect = selectedAnswer === currentQuestion.correct;
+            
+            // Update option styles
+            document.querySelectorAll('.trivia-option').forEach((option, index) => {
+                option.classList.add('disabled');
+                if (index === currentQuestion.correct) {
+                    option.classList.add('correct');
+                } else if (index === selectedAnswer && !isCorrect) {
+                    option.classList.add('incorrect');
+                }
+            });
+            
+            // Show explanation
+            const explanation = document.getElementById('triviaExplanation');
+            explanation.innerHTML = `
+                <h3>${isCorrect ? 'Correct!' : 'Incorrect!'}</h3>
+                <p><strong>Answer:</strong> ${currentQuestion.options[currentQuestion.correct]}</p>
+                <p><strong>Explanation:</strong> ${currentQuestion.explanation}</p>
+            `;
+            explanation.style.display = 'block';
+            
+            // Show next question button
+            document.getElementById('nextQuestionBtn').style.display = 'inline-block';
+            
+            // Disable answer button
+            document.getElementById('answerButton').disabled = true;
+            
+            // Update stats and history
+            updateStatsAfterAnswer(isCorrect);
+            addToHistory(isCorrect);
+            
+            // Save data
+            saveData();
+        }
+
+        // Update Stats After Answer
+        function updateStatsAfterAnswer(isCorrect) {
+            stats.totalQuestions++;
+            if (isCorrect) {
+                stats.correctAnswers++;
+                stats.currentStreak++;
+                if (stats.currentStreak > stats.maxStreak) {
+                    stats.maxStreak = stats.currentStreak;
+                }
+            } else {
+                stats.currentStreak = 0;
+            }
+            
+            updateStats();
+        }
+
+        // Add to History
+        function addToHistory(isCorrect) {
+            const historyItem = {
+                id: Date.now(),
+                question: currentQuestion.question,
+                userAnswer: currentQuestion.options[selectedAnswer],
+                correctAnswer: currentQuestion.options[currentQuestion.correct],
+                isCorrect: isCorrect,
+                date: new Date().toISOString(),
+                category: currentCategory
+            };
+            
+            triviaHistory.unshift(historyItem);
+            
+            // Keep only last 50 questions
+            if (triviaHistory.length > 50) {
+                triviaHistory = triviaHistory.slice(0, 50);
+            }
+            
+            renderHistory();
+        }
+
+        // Update Stats Display
+        function updateStats() {
+            document.getElementById('totalQuestions').textContent = stats.totalQuestions;
+            document.getElementById('correctAnswers').textContent = stats.correctAnswers;
+            document.getElementById('accuracyRate').textContent = stats.totalQuestions > 0 ? 
+                Math.round((stats.correctAnswers / stats.totalQuestions) * 100) + '%' : '0%';
+            document.getElementById('currentStreak').textContent = stats.currentStreak;
+        }
+
+        // Render History
+        function renderHistory() {
+            const historyContainer = document.getElementById('questionHistory');
+            
+            if (triviaHistory.length === 0) {
+                historyContainer.innerHTML = `
+                    <div class="empty-history">
+                        <i class="fas fa-history"></i>
+                        <h3>No questions answered yet</h3>
+                        <p>Answer your first trivia question to see your history!</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            historyContainer.innerHTML = triviaHistory.map(item => `
+                <div class="history-item">
+                    <div class="history-question">
+                        <div class="history-question-text">${item.question}</div>
+                        <div class="history-question-date">${formatDate(item.date)}</div>
+                    </div>
+                    <div class="history-result ${item.isCorrect ? 'result-correct' : 'result-incorrect'}">
+                        ${item.isCorrect ? 'Correct' : 'Incorrect'}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Show No Questions Message
+        function showNoQuestionsMessage() {
+            document.getElementById('triviaQuestion').textContent = 'No questions available for this category.';
+            document.getElementById('triviaOptions').innerHTML = '';
+            document.getElementById('answerButton').disabled = true;
+        }
+
+        // Format Date
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleDateString('en-US', { 
+                month: 'short', 
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+        }
+
+        // Export to CSV
+        function exportToCSV() {
+            if (triviaHistory.length === 0) {
+                alert('No history to export!');
+                return;
+            }
+            
+            let csv = 'Question,Your Answer,Correct Answer,Result,Date,Category\n';
+            
+            triviaHistory.forEach(item => {
+                csv += `"${item.question}","${item.userAnswer}","${item.correctAnswer}","${item.isCorrect ? 'Correct' : 'Incorrect'}","${formatDate(item.date)}","${item.category}"\n`;
+            });
+            
+            downloadCSV(csv, 'trivia-history.csv');
+        }
+
+        // Export to JSON
+        function exportToJSON() {
+            if (triviaHistory.length === 0) {
+                alert('No history to export!');
+                return;
+            }
+            
+            const exportData = {
+                stats: stats,
+                history: triviaHistory
+            };
+            
+            const dataStr = JSON.stringify(exportData, null, 2);
+            const dataBlob = new Blob([dataStr], {type: 'application/json'});
+            const url = URL.createObjectURL(dataBlob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = 'trivia-history.json';
+            link.click();
+            URL.revokeObjectURL(url);
+        }
+
+        // Download CSV
+        function downloadCSV(csv, filename) {
+            const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement('a');
+            if (link.download !== undefined) {
+                const url = URL.createObjectURL(blob);
+                link.setAttribute('href', url);
+                link.setAttribute('download', filename);
+                link.style.visibility = 'hidden';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            }
+        }
+
+        // Save Data
+        function saveData() {
+            localStorage.setItem('triviaStats', JSON.stringify(stats));
+            localStorage.setItem('triviaHistory', JSON.stringify(triviaHistory));
+        }
+
+        // Load Data
+        function loadData() {
+            const savedStats = localStorage.getItem('triviaStats');
+            const savedHistory = localStorage.getItem('triviaHistory');
+            
+            if (savedStats) {
+                stats = JSON.parse(savedStats);
+            }
+            
+            if (savedHistory) {
+                triviaHistory = JSON.parse(savedHistory);
+            }
+        }
+    </script>
+</body>
+</html>
