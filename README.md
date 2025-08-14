@@ -47,10 +47,10 @@ Health & Fitness
 	24.	✅Step goal visualizer
 	25.	✅Sleep debt calculator
 	26.	✅Heart rate zone calculator
-	27.	Simple yoga pose library
-	28.	Stretch reminder timer
-	29.	Exercise log sheet
-	30.	Walking pace calculator
+	27.	✅Simple yoga pose library
+	28.	✅Stretch reminder timer
+	29.	✅Exercise log sheet
+	30.	✅Walking pace calculator
 
 ⸻
 
