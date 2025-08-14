@@ -1,0 +1,1042 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Walking Pace Calculator - GPT Static Pages</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .calculator-container {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            margin: 20px 0;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .calc-tabs {
+            display: flex;
+            gap: 5px;
+            margin-bottom: 25px;
+            border-bottom: 2px solid #e0e0e0;
+        }
+        
+        .calc-tab {
+            padding: 12px 24px;
+            border: none;
+            background: none;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 500;
+            color: #666;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s;
+        }
+        
+        .calc-tab.active {
+            color: #2196F3;
+            border-bottom-color: #2196F3;
+        }
+        
+        .calc-tab:hover {
+            color: #1976D2;
+        }
+        
+        .calc-content {
+            display: none;
+        }
+        
+        .calc-content.active {
+            display: block;
+        }
+        
+        .calc-form {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+            align-items: end;
+        }
+        
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .form-group label {
+            font-weight: 500;
+            margin-bottom: 8px;
+            color: #333;
+        }
+        
+        .form-group input, .form-group select {
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        
+        .form-group input:focus, .form-group select:focus {
+            border-color: #2196F3;
+            outline: none;
+        }
+        
+        .calculate-btn {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 14px 28px;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s;
+            font-weight: 500;
+            grid-column: 1 / -1;
+            justify-self: center;
+        }
+        
+        .calculate-btn:hover {
+            background: #45a049;
+        }
+        
+        .results-container {
+            background: #F8F9FA;
+            border-radius: 12px;
+            padding: 25px;
+            margin: 25px 0;
+            border-left: 4px solid #2196F3;
+        }
+        
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .result-card {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .result-value {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #2196F3;
+            margin-bottom: 8px;
+        }
+        
+        .result-label {
+            color: #666;
+            font-size: 0.9em;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .pace-chart {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            margin: 25px 0;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .chart-title {
+            font-size: 1.3em;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .pace-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        
+        .pace-table th, .pace-table td {
+            padding: 12px;
+            text-align: center;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .pace-table th {
+            background: #F5F5F5;
+            font-weight: 600;
+            color: #333;
+        }
+        
+        .pace-table tr:hover {
+            background: #F8F9FA;
+        }
+        
+        .pace-table .pace-cell {
+            font-weight: 500;
+            color: #2196F3;
+        }
+        
+        .pace-table .time-cell {
+            font-weight: 500;
+            color: #4CAF50;
+        }
+        
+        .pace-table .distance-cell {
+            font-weight: 500;
+            color: #FF9800;
+        }
+        
+        .conversion-tools {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            margin: 25px 0;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .conversion-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .conversion-tool {
+            background: #F8F9FA;
+            border-radius: 8px;
+            padding: 20px;
+            border-left: 4px solid #FF9800;
+        }
+        
+        .conversion-title {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 15px;
+        }
+        
+        .conversion-inputs {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .conversion-inputs input {
+            flex: 1;
+            padding: 8px 12px;
+            border: 2px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        
+        .conversion-inputs select {
+            padding: 8px 12px;
+            border: 2px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+            min-width: 80px;
+        }
+        
+        .conversion-result {
+            background: white;
+            padding: 10px;
+            border-radius: 4px;
+            text-align: center;
+            font-weight: 500;
+            color: #FF9800;
+        }
+        
+        .tips-section {
+            background: #E3F2FD;
+            border-radius: 12px;
+            padding: 25px;
+            margin: 25px 0;
+            border-left: 4px solid #2196F3;
+        }
+        
+        .tips-title {
+            font-size: 1.2em;
+            font-weight: 600;
+            color: #1976D2;
+            margin-bottom: 15px;
+        }
+        
+        .tips-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .tips-list li {
+            padding: 8px 0;
+            border-bottom: 1px solid #BBDEFB;
+            position: relative;
+            padding-left: 25px;
+        }
+        
+        .tips-list li:before {
+            content: "🚶";
+            position: absolute;
+            left: 0;
+            top: 8px;
+        }
+        
+        .tips-list li:last-child {
+            border-bottom: none;
+        }
+        
+        .unit-toggle {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 20px 0;
+        }
+        
+        .unit-btn {
+            padding: 8px 16px;
+            border: 2px solid #ddd;
+            background: white;
+            color: #666;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 14px;
+        }
+        
+        .unit-btn.active {
+            border-color: #2196F3;
+            background: #2196F3;
+            color: white;
+        }
+        
+        .unit-btn:hover {
+            border-color: #1976D2;
+        }
+        
+        .back-button {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: var(--primary-color);
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: var(--border-radius);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .back-button:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .page-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        .page-header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 40px 0;
+            background: var(--gradient-primary);
+            color: white;
+            border-radius: var(--border-radius);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .page-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="75" cy="75" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="50" cy="10" r="0.5" fill="rgba(255,255,255,0.1)"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+            opacity: 0.3;
+        }
+        
+        .page-header-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .page-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+            font-family: 'Space Grotesk', sans-serif;
+        }
+        
+        .page-meta {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .page-category-badge {
+            padding: 8px 16px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+        
+        .page-number-badge {
+            padding: 8px 16px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+        
+        .content-section {
+            background: white;
+            padding: 30px;
+            border-radius: var(--border-radius);
+            margin-bottom: 30px;
+            box-shadow: var(--shadow-md);
+        }
+    </style>
+</head>
+<body>
+    <a href="../index.html" class="back-button">
+        <i class="fas fa-arrow-left"></i> Back to Hub
+    </a>
+    
+    <div class="container">
+        <div class="page-content">
+            <!-- Page Header -->
+            <div class="page-header">
+                <div class="page-header-content">
+                    <h1 class="page-title">Walking Pace Calculator</h1>
+                    <div class="page-meta">
+                        <span class="page-category-badge">Health & Fitness</span>
+                        <span class="page-number-badge">Page #31</span>
+                    </div>
+                </div>
+            </div>
+
+                    <!-- Introduction -->
+            <div class="content-section">
+                <p class="description">
+                    Calculate walking pace, time, and distance for different speeds. Perfect for walkers, hikers, 
+                    and fitness enthusiasts to plan routes and track performance.
+                </p>
+            </div>
+
+            <!-- Unit Toggle -->
+            <div class="content-section">
+                <div class="unit-toggle">
+                    <button class="unit-btn active" data-unit="imperial">Imperial (miles, mph)</button>
+                    <button class="unit-btn" data-unit="metric">Metric (km, km/h)</button>
+                </div>
+            </div>
+
+            <!-- Calculator Container -->
+            <div class="content-section">
+                <div class="calculator-container">
+                    <div class="calc-tabs">
+                        <button class="calc-tab active" data-tab="pace">Pace Calculator</button>
+                        <button class="calc-tab" data-tab="time">Time Calculator</button>
+                        <button class="calc-tab" data-tab="distance">Distance Calculator</button>
+                    </div>
+
+                <!-- Pace Calculator Tab -->
+                <div class="calc-content active" id="paceCalc">
+                    <h3>Calculate Walking Pace</h3>
+                    <p>Enter distance and time to calculate your walking pace.</p>
+                    
+                    <form class="calc-form" id="paceForm">
+                        <div class="form-group">
+                            <label for="paceDistance">Distance</label>
+                            <input type="number" id="paceDistance" step="0.1" min="0.1" max="100" placeholder="3.1" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="paceDistanceUnit">Unit</label>
+                            <select id="paceDistanceUnit">
+                                <option value="miles">Miles</option>
+                                <option value="kilometers">Kilometers</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="paceHours">Hours</label>
+                            <input type="number" id="paceHours" min="0" max="24" placeholder="0" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="paceMinutes">Minutes</label>
+                            <input type="number" id="paceMinutes" min="0" max="59" placeholder="45" required>
+                        </div>
+                        
+                        <button type="submit" class="calculate-btn">Calculate Pace</button>
+                    </form>
+                </div>
+
+                <!-- Time Calculator Tab -->
+                <div class="calc-content" id="timeCalc">
+                    <h3>Calculate Walking Time</h3>
+                    <p>Enter distance and pace to calculate walking time.</p>
+                    
+                    <form class="calc-form" id="timeForm">
+                        <div class="form-group">
+                            <label for="timeDistance">Distance</label>
+                            <input type="number" id="timeDistance" step="0.1" min="0.1" max="100" placeholder="5.0" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="timeDistanceUnit">Unit</label>
+                            <select id="timeDistanceUnit">
+                                <option value="miles">Miles</option>
+                                <option value="kilometers">Kilometers</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="timePace">Pace (per mile/km)</label>
+                            <input type="number" id="timePace" step="0.1" min="1" max="60" placeholder="15.0" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="timePaceUnit">Pace Unit</label>
+                            <select id="timePaceUnit">
+                                <option value="minutes">Minutes</option>
+                                <option value="seconds">Seconds</option>
+                            </select>
+                        </div>
+                        
+                        <button type="submit" class="calculate-btn">Calculate Time</button>
+                    </form>
+                </div>
+
+                <!-- Distance Calculator Tab -->
+                <div class="calc-content" id="distanceCalc">
+                    <h3>Calculate Walking Distance</h3>
+                    <p>Enter time and pace to calculate walking distance.</p>
+                    
+                    <form class="calc-form" id="distanceForm">
+                        <div class="form-group">
+                            <label for="distHours">Hours</label>
+                            <input type="number" id="distHours" min="0" max="24" placeholder="1" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="distMinutes">Minutes</label>
+                            <input type="number" id="distMinutes" min="0" max="59" placeholder="30" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="distPace">Pace (per mile/km)</label>
+                            <input type="number" id="distPace" step="0.1" min="1" max="60" placeholder="20.0" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="distPaceUnit">Pace Unit</label>
+                            <select id="distPaceUnit">
+                                <option value="minutes">Minutes</option>
+                                <option value="seconds">Seconds</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="distUnit">Distance Unit</label>
+                            <select id="distUnit">
+                                <option value="miles">Miles</option>
+                                <option value="kilometers">Kilometers</option>
+                            </select>
+                        </div>
+                        
+                        <button type="submit" class="calculate-btn">Calculate Distance</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Results Container -->
+            <div class="content-section">
+                <div class="results-container" id="resultsContainer" style="display: none;">
+                    <h3>Results</h3>
+                    <div class="results-grid" id="resultsGrid">
+                        <!-- Results will be populated by JavaScript -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pace Chart -->
+            <div class="content-section">
+                <div class="pace-chart">
+                    <div class="chart-title">Common Walking Paces Reference</div>
+                    <table class="pace-table">
+                        <thead>
+                            <tr>
+                                <th>Pace (min/mile)</th>
+                                <th>Speed (mph)</th>
+                                <th>5K Time</th>
+                                <th>10K Time</th>
+                                <th>Half Marathon</th>
+                                <th>Marathon</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="pace-cell">12:00</td>
+                                <td>5.0</td>
+                                <td class="time-cell">37:20</td>
+                                <td class="time-cell">1:14:40</td>
+                                <td class="time-cell">2:37:20</td>
+                                <td class="time-cell">5:14:40</td>
+                            </tr>
+                            <tr>
+                                <td class="pace-cell">13:00</td>
+                                <td>4.6</td>
+                                <td class="time-cell">40:20</td>
+                                <td class="time-cell">1:20:40</td>
+                                <td class="time-cell">2:50:40</td>
+                                <td class="time-cell">5:41:20</td>
+                            </tr>
+                            <tr>
+                                <td class="pace-cell">14:00</td>
+                                <td>4.3</td>
+                                <td class="time-cell">43:20</td>
+                                <td class="time-cell">1:26:40</td>
+                                <td class="time-cell">3:04:00</td>
+                                <td class="time-cell">6:08:00</td>
+                            </tr>
+                            <tr>
+                                <td class="pace-cell">15:00</td>
+                                <td>4.0</td>
+                                <td class="time-cell">46:40</td>
+                                <td class="time-cell">1:33:20</td>
+                                <td class="time-cell">3:17:20</td>
+                                <td class="time-cell">6:34:40</td>
+                            </tr>
+                            <tr>
+                                <td class="pace-cell">16:00</td>
+                                <td>3.8</td>
+                                <td class="time-cell">50:00</td>
+                                <td class="time-cell">1:40:00</td>
+                                <td class="time-cell">3:30:00</td>
+                                <td class="time-cell">7:00:00</td>
+                            </tr>
+                            <tr>
+                                <td class="pace-cell">17:00</td>
+                                <td>3.5</td>
+                                <td class="time-cell">53:20</td>
+                                <td class="time-cell">1:46:40</td>
+                                <td class="time-cell">3:42:40</td>
+                                <td class="time-cell">7:25:20</td>
+                            </tr>
+                            <tr>
+                                <td class="pace-cell">18:00</td>
+                                <td>3.3</td>
+                                <td class="time-cell">56:40</td>
+                                <td class="time-cell">1:53:20</td>
+                                <td class="time-cell">3:55:20</td>
+                                <td class="time-cell">7:50:40</td>
+                            </tr>
+                            <tr>
+                                <td class="pace-cell">20:00</td>
+                                <td>3.0</td>
+                                <td class="time-cell">1:03:20</td>
+                                <td class="time-cell">2:06:40</td>
+                                <td class="time-cell">4:20:00</td>
+                                <td class="time-cell">8:40:00</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Conversion Tools -->
+            <div class="content-section">
+                <div class="conversion-tools">
+                    <h3>Unit Conversion Tools</h3>
+                    <div class="conversion-grid">
+                        <div class="conversion-tool">
+                            <div class="conversion-title">Pace Converter</div>
+                            <div class="conversion-inputs">
+                                <input type="number" id="paceInput" placeholder="15.0" step="0.1">
+                                <select id="paceFromUnit">
+                                    <option value="minPerMile">min/mile</option>
+                                    <option value="minPerKm">min/km</option>
+                                </select>
+                                <span>to</span>
+                                <select id="paceToUnit">
+                                    <option value="minPerKm">min/km</option>
+                                    <option value="minPerMile">min/mile</option>
+                                </select>
+                            </div>
+                            <div class="conversion-result" id="paceResult">-</div>
+                        </div>
+                        
+                        <div class="conversion-tool">
+                            <div class="conversion-title">Speed Converter</div>
+                            <div class="conversion-inputs">
+                                <input type="number" id="speedInput" placeholder="4.0" step="0.1">
+                                <select id="speedFromUnit">
+                                    <option value="mph">mph</option>
+                                    <option value="kmh">km/h</option>
+                                </select>
+                                <span>to</span>
+                                <select id="speedToUnit">
+                                    <option value="kmh">km/h</option>
+                                    <option value="mph">mph</option>
+                                </select>
+                            </div>
+                            <div class="conversion-result" id="speedResult">-</div>
+                        </div>
+                        
+                        <div class="conversion-tool">
+                            <div class="conversion-title">Distance Converter</div>
+                            <div class="conversion-inputs">
+                                <input type="number" id="distInput" placeholder="5.0" step="0.1">
+                                <select id="distFromUnit">
+                                    <option value="miles">miles</option>
+                                    <option value="kilometers">kilometers</option>
+                                </select>
+                                <span>to</span>
+                                <select id="distToUnit">
+                                    <option value="kilometers">kilometers</option>
+                                    <option value="miles">miles</option>
+                                </select>
+                            </div>
+                            <div class="conversion-result" id="distResult">-</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tips Section -->
+            <div class="content-section">
+                <div class="tips-section">
+                    <div class="tips-title">Walking Tips & Guidelines</div>
+                    <ul class="tips-list">
+                        <li><strong>Beginner:</strong> Start with 15-20 minute walks at a comfortable pace (15-17 min/mile)</li>
+                        <li><strong>Moderate:</strong> Aim for 30-45 minutes at 13-15 min/mile pace</li>
+                        <li><strong>Advanced:</strong> Challenge yourself with 60+ minutes at 12 min/mile or faster</li>
+                        <li><strong>Form:</strong> Keep your head up, shoulders relaxed, and arms swinging naturally</li>
+                        <li><strong>Footwear:</strong> Wear comfortable, supportive walking shoes with good arch support</li>
+                        <li><strong>Hydration:</strong> Drink water before, during, and after your walk, especially for longer distances</li>
+                        <li><strong>Progression:</strong> Increase distance or pace gradually, no more than 10% per week</li>
+                        <li><strong>Recovery:</strong> Include rest days and listen to your body for signs of overtraining</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        class WalkingPaceCalculator {
+            constructor() {
+                this.currentUnit = 'imperial';
+                this.initializeElements();
+                this.bindEvents();
+                this.updateUnitDisplay();
+            }
+            
+            initializeElements() {
+                this.tabs = document.querySelectorAll('.calc-tab');
+                this.tabContents = document.querySelectorAll('.calc-content');
+                this.unitButtons = document.querySelectorAll('.unit-btn');
+                
+                // Forms
+                this.paceForm = document.getElementById('paceForm');
+                this.timeForm = document.getElementById('timeForm');
+                this.distanceForm = document.getElementById('distanceForm');
+                
+                // Results
+                this.resultsContainer = document.getElementById('resultsContainer');
+                this.resultsGrid = document.getElementById('resultsGrid');
+                
+                // Conversion tools
+                this.paceInput = document.getElementById('paceInput');
+                this.speedInput = document.getElementById('speedInput');
+                this.distInput = document.getElementById('distInput');
+            }
+            
+            bindEvents() {
+                // Tab switching
+                this.tabs.forEach(tab => {
+                    tab.addEventListener('click', () => this.switchTab(tab.dataset.tab));
+                });
+                
+                // Unit switching
+                this.unitButtons.forEach(btn => {
+                    btn.addEventListener('click', () => this.switchUnit(btn.dataset.unit));
+                });
+                
+                // Form submissions
+                this.paceForm.addEventListener('submit', (e) => this.calculatePace(e));
+                this.timeForm.addEventListener('submit', (e) => this.calculateTime(e));
+                this.distanceForm.addEventListener('submit', (e) => this.calculateDistance(e));
+                
+                // Conversion tool inputs
+                this.paceInput.addEventListener('input', () => this.updatePaceConversion());
+                this.speedInput.addEventListener('input', () => this.updateSpeedConversion());
+                this.distInput.addEventListener('input', () => this.updateDistanceConversion());
+                
+                // Unit change listeners
+                document.getElementById('paceFromUnit').addEventListener('change', () => this.updatePaceConversion());
+                document.getElementById('paceToUnit').addEventListener('change', () => this.updatePaceConversion());
+                document.getElementById('speedFromUnit').addEventListener('change', () => this.updateSpeedConversion());
+                document.getElementById('speedToUnit').addEventListener('change', () => this.updateSpeedConversion());
+                document.getElementById('distFromUnit').addEventListener('change', () => this.updateDistanceConversion());
+                document.getElementById('distToUnit').addEventListener('change', () => this.updateDistanceConversion());
+            }
+            
+            switchTab(tabName) {
+                this.tabs.forEach(tab => tab.classList.remove('active'));
+                this.tabContents.forEach(content => content.classList.remove('active'));
+                
+                document.querySelector(`[data-tab="${tabName}"]`).classList.add('active');
+                document.getElementById(`${tabName}Calc`).classList.add('active');
+                
+                this.hideResults();
+            }
+            
+            switchUnit(unit) {
+                this.currentUnit = unit;
+                this.unitButtons.forEach(btn => btn.classList.remove('active'));
+                document.querySelector(`[data-unit="${unit}"]`).classList.add('active');
+                
+                this.updateUnitDisplay();
+                this.hideResults();
+            }
+            
+            updateUnitDisplay() {
+                const isImperial = this.currentUnit === 'imperial';
+                
+                // Update form labels and placeholders
+                const distanceUnits = document.querySelectorAll('#paceDistanceUnit, #timeDistanceUnit, #distUnit');
+                distanceUnits.forEach(select => {
+                    select.innerHTML = isImperial ? 
+                        '<option value="miles">Miles</option><option value="kilometers">Kilometers</option>' :
+                        '<option value="kilometers">Kilometers</option><option value="miles">Miles</option>';
+                });
+                
+                // Update pace units
+                const paceUnits = document.querySelectorAll('#timePaceUnit, #distPaceUnit');
+                paceUnits.forEach(select => {
+                    select.innerHTML = isImperial ?
+                        '<option value="minutes">Minutes</option><option value="seconds">Seconds</option>' :
+                        '<option value="minutes">Minutes</option><option value="seconds">Seconds</option>';
+                });
+            }
+            
+            calculatePace(e) {
+                e.preventDefault();
+                
+                const distance = parseFloat(document.getElementById('paceDistance').value);
+                const distanceUnit = document.getElementById('paceDistanceUnit').value;
+                const hours = parseInt(document.getElementById('paceHours').value) || 0;
+                const minutes = parseInt(document.getElementById('paceMinutes').value) || 0;
+                
+                if (distance <= 0 || (hours === 0 && minutes === 0)) {
+                    this.showError('Please enter valid distance and time values.');
+                    return;
+                }
+                
+                const totalMinutes = hours * 60 + minutes;
+                const pacePerUnit = totalMinutes / distance;
+                const speed = distance / (totalMinutes / 60);
+                
+                const results = [
+                    { value: this.formatPace(pacePerUnit), label: `Pace (min/${distanceUnit === 'miles' ? 'mile' : 'km'})` },
+                    { value: speed.toFixed(2), label: `Speed (${distanceUnit === 'miles' ? 'mph' : 'km/h'})` },
+                    { value: this.formatTime(totalMinutes), label: 'Total Time' },
+                    { value: distance.toFixed(2), label: `Distance (${distanceUnit})` }
+                ];
+                
+                this.showResults(results);
+            }
+            
+            calculateTime(e) {
+                e.preventDefault();
+                
+                const distance = parseFloat(document.getElementById('timeDistance').value);
+                const distanceUnit = document.getElementById('timeDistanceUnit').value;
+                const pace = parseFloat(document.getElementById('timePace').value);
+                const paceUnit = document.getElementById('timePaceUnit').value;
+                
+                if (distance <= 0 || pace <= 0) {
+                    this.showError('Please enter valid distance and pace values.');
+                    return;
+                }
+                
+                let paceInMinutes = pace;
+                if (paceUnit === 'seconds') {
+                    paceInMinutes = pace / 60;
+                }
+                
+                const totalMinutes = distance * paceInMinutes;
+                const speed = distance / (totalMinutes / 60);
+                
+                const results = [
+                    { value: this.formatTime(totalMinutes), label: 'Total Time' },
+                    { value: this.formatPace(paceInMinutes), label: `Pace (min/${distanceUnit === 'miles' ? 'mile' : 'km'})` },
+                    { value: speed.toFixed(2), label: `Speed (${distanceUnit === 'miles' ? 'mph' : 'km/h'})` },
+                    { value: distance.toFixed(2), label: `Distance (${distanceUnit})` }
+                ];
+                
+                this.showResults(results);
+            }
+            
+            calculateDistance(e) {
+                e.preventDefault();
+                
+                const hours = parseInt(document.getElementById('distHours').value) || 0;
+                const minutes = parseInt(document.getElementById('distMinutes').value) || 0;
+                const pace = parseFloat(document.getElementById('distPace').value);
+                const paceUnit = document.getElementById('distPaceUnit').value;
+                const distanceUnit = document.getElementById('distUnit').value;
+                
+                if ((hours === 0 && minutes === 0) || pace <= 0) {
+                    this.showError('Please enter valid time and pace values.');
+                    return;
+                }
+                
+                let paceInMinutes = pace;
+                if (paceUnit === 'seconds') {
+                    paceInMinutes = pace / 60;
+                }
+                
+                const totalMinutes = hours * 60 + minutes;
+                const distance = totalMinutes / paceInMinutes;
+                const speed = distance / (totalMinutes / 60);
+                
+                const results = [
+                    { value: distance.toFixed(2), label: `Distance (${distanceUnit})` },
+                    { value: this.formatTime(totalMinutes), label: 'Total Time' },
+                    { value: this.formatPace(paceInMinutes), label: `Pace (min/${distanceUnit === 'miles' ? 'mile' : 'km'})` },
+                    { value: speed.toFixed(2), label: `Speed (${distanceUnit === 'miles' ? 'mph' : 'km/h'})` }
+                ];
+                
+                this.showResults(results);
+            }
+            
+            formatPace(minutes) {
+                const mins = Math.floor(minutes);
+                const secs = Math.round((minutes - mins) * 60);
+                return `${mins}:${secs.toString().padStart(2, '0')}`;
+            }
+            
+            formatTime(totalMinutes) {
+                const hours = Math.floor(totalMinutes / 60);
+                const minutes = Math.round(totalMinutes % 60);
+                
+                if (hours > 0) {
+                    return `${hours}h ${minutes}m`;
+                } else {
+                    return `${minutes}m`;
+                }
+            }
+            
+            showResults(results) {
+                this.resultsGrid.innerHTML = results.map(result => `
+                    <div class="result-card">
+                        <div class="result-value">${result.value}</div>
+                        <div class="result-label">${result.label}</div>
+                    </div>
+                `).join('');
+                
+                this.resultsContainer.style.display = 'block';
+                this.resultsContainer.scrollIntoView({ behavior: 'smooth' });
+            }
+            
+            hideResults() {
+                this.resultsContainer.style.display = 'none';
+            }
+            
+            showError(message) {
+                alert(message); // Simple error display - could be enhanced
+            }
+            
+            updatePaceConversion() {
+                const pace = parseFloat(this.paceInput.value);
+                const fromUnit = document.getElementById('paceFromUnit').value;
+                const toUnit = document.getElementById('paceToUnit').value;
+                
+                if (isNaN(pace) || pace <= 0) {
+                    document.getElementById('paceResult').textContent = '-';
+                    return;
+                }
+                
+                let result;
+                if (fromUnit === 'minPerMile' && toUnit === 'minPerKm') {
+                    result = pace * 0.621371; // Convert to min/km
+                } else if (fromUnit === 'minPerKm' && toUnit === 'minPerMile') {
+                    result = pace / 0.621371; // Convert to min/mile
+                } else {
+                    result = pace;
+                }
+                
+                document.getElementById('paceResult').textContent = result.toFixed(2);
+            }
+            
+            updateSpeedConversion() {
+                const speed = parseFloat(this.speedInput.value);
+                const fromUnit = document.getElementById('speedFromUnit').value;
+                const toUnit = document.getElementById('speedToUnit').value;
+                
+                if (isNaN(speed) || speed <= 0) {
+                    document.getElementById('speedResult').textContent = '-';
+                    return;
+                }
+                
+                let result;
+                if (fromUnit === 'mph' && toUnit === 'kmh') {
+                    result = speed * 1.60934; // Convert to km/h
+                } else if (fromUnit === 'kmh' && toUnit === 'mph') {
+                    result = speed / 1.60934; // Convert to mph
+                } else {
+                    result = speed;
+                }
+                
+                document.getElementById('speedResult').textContent = result.toFixed(2);
+            }
+            
+            updateDistanceConversion() {
+                const distance = parseFloat(this.distInput.value);
+                const fromUnit = document.getElementById('distFromUnit').value;
+                const toUnit = document.getElementById('distToUnit').value;
+                
+                if (isNaN(distance) || distance <= 0) {
+                    document.getElementById('distResult').textContent = '-';
+                    return;
+                }
+                
+                let result;
+                if (fromUnit === 'miles' && toUnit === 'kilometers') {
+                    result = distance * 1.60934; // Convert to km
+                } else if (fromUnit === 'kilometers' && toUnit === 'miles') {
+                    result = distance / 1.60934; // Convert to miles
+                } else {
+                    result = distance;
+                }
+                
+                document.getElementById('distResult').textContent = result.toFixed(2);
+            }
+        }
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            new WalkingPaceCalculator();
+        });
+    </script>
+</body>
+</html>
