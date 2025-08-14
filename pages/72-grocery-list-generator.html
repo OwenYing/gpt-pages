@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grocery List Generator - GPT Ideas Hub</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .page-content { max-width: 1200px; margin: 0 auto; padding: 40px 20px; }
+        .page-header { text-align: center; margin-bottom: 40px; padding: 40px 0; background: var(--gradient-primary); color: white; border-radius: var(--border-radius); position: relative; overflow: hidden; }
+        .page-header::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="75" cy="75" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="50" cy="10" r="0.5" fill="rgba(255,255,255,0.1)"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>'); opacity: 0.3; }
+        .page-header-content { position: relative; z-index: 2; }
+        .page-title { font-size: 2.5rem; font-weight: 700; margin-bottom: 16px; font-family: 'Space Grotesk', sans-serif; }
+        .page-meta { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; }
+        .page-category-badge, .page-number-badge { padding: 8px 16px; background: rgba(255, 255, 255, 0.2); border-radius: 20px; font-size: 0.9rem; font-weight: 500; }
+        .back-button { position: fixed; top: 20px; left: 20px; background: var(--primary-color); color: white; padding: 12px 20px; border-radius: var(--border-radius); text-decoration: none; font-weight: 500; transition: var(--transition); z-index: 1000; display: flex; align-items: center; gap: 8px; }
+        .back-button:hover { background: var(--primary-dark); transform: translateY(-2px); box-shadow: var(--shadow-lg); }
+        
+        .grocery-container { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-bottom: 30px; }
+        .list-panel { background: white; padding: 30px; border-radius: var(--border-radius); box-shadow: var(--shadow-md); }
+        .input-panel { background: white; padding: 30px; border-radius: var(--border-radius); box-shadow: var(--shadow-md); }
+        
+        .form-section { margin-bottom: 30px; }
+        .form-section h3 { color: var(--primary-color); margin-bottom: 15px; border-bottom: 2px solid var(--border-color); padding-bottom: 8px; }
+        .form-group { margin-bottom: 20px; }
+        .form-label { display: block; font-weight: 500; margin-bottom: 8px; color: var(--text-primary); }
+        .form-input, .form-select, .form-textarea { width: 100%; padding: 10px; border: 2px solid var(--border-color); border-radius: var(--border-radius); font-size: 1rem; transition: var(--transition); }
+        .form-input:focus, .form-select:focus, .form-textarea:focus { outline: none; border-color: var(--primary-color); box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1); }
+        .form-textarea { resize: vertical; min-height: 100px; }
+        
+        .quick-add-section { background: var(--bg-secondary); padding: 20px; border-radius: var(--border-radius); margin-bottom: 20px; }
+        .quick-add-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 10px; }
+        .quick-add-btn { padding: 8px 12px; background: white; border: 1px solid var(--border-color); border-radius: var(--border-radius); cursor: pointer; transition: var(--transition); font-size: 0.8rem; text-align: center; }
+        .quick-add-btn:hover { background: var(--primary-color); color: white; border-color: var(--primary-color); }
+        
+        .grocery-categories { margin-bottom: 20px; }
+        .category-section { margin-bottom: 25px; }
+        .category-header { display: flex; align-items: center; justify-content: space-between; background: var(--primary-color); color: white; padding: 12px 15px; border-radius: var(--border-radius) var(--border-radius) 0 0; font-weight: 600; }
+        .category-count { background: rgba(255, 255, 255, 0.2); padding: 4px 8px; border-radius: 10px; font-size: 0.8rem; }
+        .category-items { background: var(--bg-secondary); padding: 15px; border-radius: 0 0 var(--border-radius) var(--border-radius); }
+        
+        .grocery-item { display: flex; align-items: center; gap: 12px; padding: 10px; background: white; border-radius: var(--border-radius); margin-bottom: 8px; border: 1px solid var(--border-color); transition: var(--transition); }
+        .grocery-item:hover { transform: translateY(-1px); box-shadow: var(--shadow-sm); }
+        .grocery-item.completed { opacity: 0.6; text-decoration: line-through; background: var(--bg-tertiary); }
+        .grocery-checkbox { width: 18px; height: 18px; cursor: pointer; }
+        .item-name { flex: 1; font-weight: 500; }
+        .item-quantity { display: flex; align-items: center; gap: 8px; }
+        .quantity-input { width: 60px; padding: 4px 8px; border: 1px solid var(--border-color); border-radius: var(--border-radius); text-align: center; }
+        .quantity-btn { width: 24px; height: 24px; border: 1px solid var(--border-color); background: white; border-radius: var(--border-radius); cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; }
+        .quantity-btn:hover { background: var(--primary-color); color: white; border-color: var(--primary-color); }
+        .item-price { font-weight: 600; color: var(--primary-color); min-width: 60px; text-align: right; }
+        .item-actions { display: flex; gap: 5px; }
+        .action-btn { width: 24px; height: 24px; border: none; background: var(--bg-tertiary); border-radius: var(--border-radius); cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; transition: var(--transition); }
+        .action-btn:hover { background: var(--primary-color); color: white; }
+        .action-btn.delete:hover { background: #ef4444; }
+        
+        .budget-summary { background: var(--bg-secondary); padding: 20px; border-radius: var(--border-radius); margin-top: 20px; }
+        .budget-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 15px; }
+        .budget-item { text-align: center; }
+        .budget-value { font-size: 1.5rem; font-weight: 600; color: var(--primary-color); }
+        .budget-label { font-size: 0.8rem; color: var(--text-secondary); text-transform: uppercase; }
+        .budget-progress { background: var(--bg-tertiary); height: 8px; border-radius: 4px; margin-top: 8px; overflow: hidden; }
+        .budget-bar { height: 100%; background: var(--primary-color); transition: width 0.3s ease; }
+        .budget-bar.warning { background: #f59e0b; }
+        .budget-bar.danger { background: #ef4444; }
+        
+        .action-buttons { display: flex; gap: 15px; margin-top: 30px; flex-wrap: wrap; }
+        .btn-primary { background: var(--primary-color); color: white; border: none; padding: 12px 24px; border-radius: var(--border-radius); cursor: pointer; font-weight: 600; transition: var(--transition); display: flex; align-items: center; gap: 8px; }
+        .btn-primary:hover { background: var(--primary-dark); transform: translateY(-2px); box-shadow: var(--shadow-lg); }
+        .btn-secondary { background: var(--bg-secondary); color: var(--text-primary); border: 2px solid var(--border-color); padding: 12px 24px; border-radius: var(--border-radius); cursor: pointer; font-weight: 600; transition: var(--transition); display: flex; align-items: center; gap: 8px; }
+        .btn-secondary:hover { background: var(--bg-tertiary); border-color: var(--primary-color); }
+        
+        .search-box { width: 100%; padding: 10px; border: 2px solid var(--border-color); border-radius: var(--border-radius); font-size: 1rem; margin-bottom: 20px; }
+        .search-box:focus { outline: none; border-color: var(--primary-color); box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1); }
+        
+        .meal-suggestions { background: var(--bg-secondary); padding: 20px; border-radius: var(--border-radius); margin-top: 20px; }
+        .suggestion-item { background: white; padding: 12px; border-radius: var(--border-radius); margin-bottom: 10px; border: 1px solid var(--border-color); cursor: pointer; transition: var(--transition); }
+        .suggestion-item:hover { background: var(--bg-tertiary); transform: translateY(-1px); box-shadow: var(--shadow-sm); }
+        .suggestion-title { font-weight: 600; color: var(--text-primary); margin-bottom: 5px; }
+        .suggestion-ingredients { font-size: 0.8rem; color: var(--text-secondary); }
+        
+        .smart-suggestions { background: var(--bg-secondary); padding: 20px; border-radius: var(--border-radius); margin-top: 20px; }
+        .suggestion-category { margin-bottom: 15px; }
+        .suggestion-category h4 { color: var(--primary-color); margin-bottom: 10px; font-size: 0.9rem; }
+        .suggestion-tags { display: flex; gap: 8px; flex-wrap: wrap; }
+        .suggestion-tag { background: white; padding: 6px 12px; border: 1px solid var(--border-color); border-radius: var(--border-radius); cursor: pointer; font-size: 0.8rem; transition: var(--transition); }
+        .suggestion-tag:hover { background: var(--primary-color); color: white; border-color: var(--primary-color); }
+        
+        @media (max-width: 768px) {
+            .page-title { font-size: 2rem; }
+            .grocery-container { grid-template-columns: 1fr; }
+            .back-button { position: relative; top: auto; left: auto; margin-bottom: 20px; display: inline-block; }
+            .quick-add-grid { grid-template-columns: repeat(3, 1fr); }
+        }
+    </style>
+</head>
+<body>
+    <a href="../index.html" class="back-button">
+        <i class="fas fa-arrow-left"></i> Back to Hub
+    </a>
+    
+    <div class="container">
+        <div class="page-content">
+            <div class="page-header">
+                <div class="page-header-content">
+                    <h1 class="page-title">Grocery List Generator</h1>
+                    <div class="page-meta">
+                        <span class="page-category-badge">Home & Lifestyle</span>
+                        <span class="page-number-badge">Page #72</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="grocery-container">
+                <div class="list-panel">
+                    <div class="form-section">
+                        <h3>Shopping List</h3>
+                        
+                        <input type="text" class="search-box" id="searchBox" placeholder="Search items...">
+                        
+                        <div class="grocery-categories" id="groceryCategories">
+                            <!-- Categories will be populated here -->
+                        </div>
+                        
+                        <div class="budget-summary" id="budgetSummary">
+                            <h4>Budget Summary</h4>
+                            <div class="budget-grid">
+                                <div class="budget-item">
+                                    <div class="budget-value" id="totalItems">0</div>
+                                    <div class="budget-label">Items</div>
+                                </div>
+                                <div class="budget-item">
+                                    <div class="budget-value" id="totalCost">$0.00</div>
+                                    <div class="budget-label">Total Cost</div>
+                                    <div class="budget-progress">
+                                        <div class="budget-bar" id="budgetBar" style="width: 0%"></div>
+                                    </div>
+                                </div>
+                                <div class="budget-item">
+                                    <div class="budget-value" id="budgetRemaining">$100.00</div>
+                                    <div class="budget-label">Remaining</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="action-buttons">
+                            <button class="btn-primary" onclick="exportList()">
+                                <i class="fas fa-download"></i> Export List
+                            </button>
+                            <button class="btn-secondary" onclick="clearCompleted()">
+                                <i class="fas fa-check-double"></i> Clear Completed
+                            </button>
+                            <button class="btn-secondary" onclick="clearAll()">
+                                <i class="fas fa-trash"></i> Clear All
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="input-panel">
+                    <div class="form-section">
+                        <h3>Add Items</h3>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Item Name</label>
+                            <input type="text" class="form-input" id="itemName" placeholder="e.g., Bananas, Milk, Bread">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Category</label>
+                            <select class="form-select" id="itemCategory">
+                                <option value="produce">Produce</option>
+                                <option value="dairy">Dairy</option>
+                                <option value="meat">Meat & Seafood</option>
+                                <option value="pantry">Pantry</option>
+                                <option value="frozen">Frozen</option>
+                                <option value="beverages">Beverages</option>
+                                <option value="household">Household</option>
+                                <option value="personal">Personal Care</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Quantity</label>
+                            <input type="number" class="form-input" id="itemQuantity" value="1" min="1">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Estimated Price ($)</label>
+                            <input type="number" class="form-input" id="itemPrice" placeholder="0.00" step="0.01" min="0">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Notes</label>
+                            <textarea class="form-textarea" id="itemNotes" placeholder="Any special notes or preferences..."></textarea>
+                        </div>
+                        
+                        <button class="btn-primary" onclick="addItem()">
+                            <i class="fas fa-plus"></i> Add Item
+                        </button>
+                        
+                        <div class="quick-add-section">
+                            <h4>Quick Add Common Items</h4>
+                            <div class="quick-add-grid" id="quickAddGrid">
+                                <!-- Quick add buttons will be populated here -->
+                            </div>
+                        </div>
+                        
+                        <div class="smart-suggestions">
+                            <h4>Smart Suggestions</h4>
+                            <div class="suggestion-category">
+                                <h4>Based on your list:</h4>
+                                <div class="suggestion-tags" id="smartSuggestions">
+                                    <!-- Smart suggestions will be populated here -->
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="meal-suggestions">
+                            <h4>Meal-Based Suggestions</h4>
+                            <div id="mealSuggestions">
+                                <!-- Meal suggestions will be populated here -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Grocery item categories and their display names
+        const categories = {
+            produce: 'Produce',
+            dairy: 'Dairy & Eggs',
+            meat: 'Meat & Seafood',
+            pantry: 'Pantry & Grains',
+            frozen: 'Frozen Foods',
+            beverages: 'Beverages',
+            household: 'Household',
+            personal: 'Personal Care'
+        };
+        
+        // Common grocery items for quick add
+        const commonItems = {
+            produce: ['Bananas', 'Apples', 'Spinach', 'Tomatoes', 'Onions', 'Carrots', 'Lettuce', 'Avocados'],
+            dairy: ['Milk', 'Eggs', 'Cheese', 'Yogurt', 'Butter', 'Cream', 'Sour Cream'],
+            meat: ['Chicken Breast', 'Ground Beef', 'Salmon', 'Bacon', 'Turkey', 'Pork Chops'],
+            pantry: ['Rice', 'Pasta', 'Bread', 'Cereal', 'Oats', 'Flour', 'Sugar', 'Oil'],
+            frozen: ['Frozen Vegetables', 'Ice Cream', 'Frozen Pizza', 'Frozen Berries'],
+            beverages: ['Coffee', 'Tea', 'Juice', 'Water', 'Soda', 'Beer', 'Wine'],
+            household: ['Paper Towels', 'Toilet Paper', 'Dish Soap', 'Laundry Detergent'],
+            personal: ['Shampoo', 'Toothpaste', 'Deodorant', 'Soap', 'Razors']
+        };
+        
+        // Smart suggestions based on common combinations
+        const smartSuggestions = {
+            'pasta': ['tomato sauce', 'parmesan cheese', 'garlic', 'olive oil'],
+            'chicken': ['onions', 'garlic', 'herbs', 'lemon'],
+            'salad': ['lettuce', 'tomatoes', 'cucumber', 'olive oil', 'vinegar'],
+            'breakfast': ['eggs', 'bread', 'milk', 'butter', 'jam'],
+            'baking': ['flour', 'sugar', 'eggs', 'butter', 'vanilla extract']
+        };
+        
+        let groceryList = [];
+        let budget = 100; // Default budget
+        
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function() {
+            loadGroceryList();
+            populateQuickAdd();
+            populateSmartSuggestions();
+            populateMealSuggestions();
+            updateBudgetSummary();
+        });
+        
+        function loadGroceryList() {
+            const saved = localStorage.getItem('groceryList');
+            if (saved) {
+                groceryList = JSON.parse(saved);
+            }
+            renderGroceryList();
+        }
+        
+        function renderGroceryList() {
+            const categoriesContainer = document.getElementById('groceryCategories');
+            categoriesContainer.innerHTML = '';
+            
+            // Group items by category
+            const groupedItems = {};
+            groceryList.forEach(item => {
+                if (!groupedItems[item.category]) {
+                    groupedItems[item.category] = [];
+                }
+                groupedItems[item.category].push(item);
+            });
+            
+            // Render each category
+            Object.entries(groupedItems).forEach(([category, items]) => {
+                const categorySection = document.createElement('div');
+                categorySection.className = 'category-section';
+                
+                const categoryHeader = document.createElement('div');
+                categoryHeader.className = 'category-header';
+                categoryHeader.innerHTML = `
+                    <span>${categories[category]}</span>
+                    <span class="category-count">${items.length}</span>
+                `;
+                
+                const categoryItems = document.createElement('div');
+                categoryItems.className = 'category-items';
+                
+                items.forEach(item => {
+                    const itemElement = createGroceryItemElement(item);
+                    categoryItems.appendChild(itemElement);
+                });
+                
+                categorySection.appendChild(categoryHeader);
+                categorySection.appendChild(categoryItems);
+                categoriesContainer.appendChild(categorySection);
+            });
+            
+            updateBudgetSummary();
+        }
+        
+        function createGroceryItemElement(item) {
+            const itemElement = document.createElement('div');
+            itemElement.className = `grocery-item ${item.completed ? 'completed' : ''}`;
+            itemElement.dataset.id = item.id;
+            
+            itemElement.innerHTML = `
+                <input type="checkbox" class="grocery-checkbox" ${item.completed ? 'checked' : ''}>
+                <div class="item-name">${item.name}</div>
+                <div class="item-quantity">
+                    <button class="quantity-btn" onclick="changeQuantity(${item.id}, -1)">-</button>
+                    <input type="number" class="quantity-input" value="${item.quantity}" min="1" onchange="updateQuantity(${item.id}, this.value)">
+                    <button class="quantity-btn" onclick="changeQuantity(${item.id}, 1)">+</button>
+                </div>
+                <div class="item-price">$${(item.price * item.quantity).toFixed(2)}</div>
+                <div class="item-actions">
+                    <button class="action-btn" onclick="editItem(${item.id})" title="Edit">
+                        <i class="fas fa-edit"></i>
+                    </button>
+                    <button class="action-btn delete" onclick="removeItem(${item.id})" title="Delete">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </div>
+            `;
+            
+            // Add checkbox event listener
+            const checkbox = itemElement.querySelector('.grocery-checkbox');
+            checkbox.addEventListener('change', function() {
+                toggleItemComplete(item.id);
+            });
+            
+            return itemElement;
+        }
+        
+        function addItem() {
+            const name = document.getElementById('itemName').value.trim();
+            const category = document.getElementById('itemCategory').value;
+            const quantity = parseInt(document.getElementById('itemQuantity').value);
+            const price = parseFloat(document.getElementById('itemPrice').value) || 0;
+            const notes = document.getElementById('itemNotes').value.trim();
+            
+            if (!name) {
+                alert('Please enter an item name');
+                return;
+            }
+            
+            const newItem = {
+                id: Date.now(),
+                name,
+                category,
+                quantity,
+                price,
+                notes,
+                completed: false,
+                addedAt: new Date().toISOString()
+            };
+            
+            groceryList.push(newItem);
+            saveGroceryList();
+            renderGroceryList();
+            
+            // Clear form
+            document.getElementById('itemName').value = '';
+            document.getElementById('itemQuantity').value = '1';
+            document.getElementById('itemPrice').value = '';
+            document.getElementById('itemNotes').value = '';
+            
+            // Focus on name input for next item
+            document.getElementById('itemName').focus();
+        }
+        
+        function toggleItemComplete(itemId) {
+            const item = groceryList.find(i => i.id === itemId);
+            if (item) {
+                item.completed = !item.completed;
+                saveGroceryList();
+                renderGroceryList();
+            }
+        }
+        
+        function changeQuantity(itemId, change) {
+            const item = groceryList.find(i => i.id === itemId);
+            if (item) {
+                const newQuantity = Math.max(1, item.quantity + change);
+                item.quantity = newQuantity;
+                saveGroceryList();
+                renderGroceryList();
+            }
+        }
+        
+        function updateQuantity(itemId, newQuantity) {
+            const item = groceryList.find(i => i.id === itemId);
+            if (item) {
+                item.quantity = Math.max(1, parseInt(newQuantity));
+                saveGroceryList();
+                renderGroceryList();
+            }
+        }
+        
+        function editItem(itemId) {
+            const item = groceryList.find(i => i.id === itemId);
+            if (item) {
+                document.getElementById('itemName').value = item.name;
+                document.getElementById('itemCategory').value = item.category;
+                document.getElementById('itemQuantity').value = item.quantity;
+                document.getElementById('itemPrice').value = item.price;
+                document.getElementById('itemNotes').value = item.notes;
+                
+                // Remove the old item
+                removeItem(itemId);
+                
+                // Focus on name input for editing
+                document.getElementById('itemName').focus();
+            }
+        }
+        
+        function removeItem(itemId) {
+            groceryList = groceryList.filter(i => i.id !== itemId);
+            saveGroceryList();
+            renderGroceryList();
+        }
+        
+        function clearCompleted() {
+            groceryList = groceryList.filter(i => !i.completed);
+            saveGroceryList();
+            renderGroceryList();
+        }
+        
+        function clearAll() {
+            if (confirm('Are you sure you want to clear all items?')) {
+                groceryList = [];
+                saveGroceryList();
+                renderGroceryList();
+            }
+        }
+        
+        function populateQuickAdd() {
+            const quickAddGrid = document.getElementById('quickAddGrid');
+            quickAddGrid.innerHTML = '';
+            
+            Object.entries(commonItems).forEach(([category, items]) => {
+                items.slice(0, 4).forEach(item => {
+                    const btn = document.createElement('button');
+                    btn.className = 'quick-add-btn';
+                    btn.textContent = item;
+                    btn.onclick = () => quickAddItem(item, category);
+                    quickAddGrid.appendChild(btn);
+                });
+            });
+        }
+        
+        function quickAddItem(name, category) {
+            // Check if item already exists
+            const existingItem = groceryList.find(i => i.name.toLowerCase() === name.toLowerCase());
+            if (existingItem) {
+                existingItem.quantity += 1;
+                saveGroceryList();
+                renderGroceryList();
+            } else {
+                const newItem = {
+                    id: Date.now(),
+                    name,
+                    category,
+                    quantity: 1,
+                    price: 0,
+                    notes: '',
+                    completed: false,
+                    addedAt: new Date().toISOString()
+                };
+                
+                groceryList.push(newItem);
+                saveGroceryList();
+                renderGroceryList();
+            }
+        }
+        
+        function populateSmartSuggestions() {
+            const suggestionsContainer = document.getElementById('smartSuggestions');
+            suggestionsContainer.innerHTML = '';
+            
+            // Generate suggestions based on current items
+            const currentItems = groceryList.map(i => i.name.toLowerCase());
+            const suggestions = new Set();
+            
+            Object.entries(smartSuggestions).forEach(([key, relatedItems]) => {
+                if (currentItems.some(item => item.includes(key))) {
+                    relatedItems.forEach(suggestion => {
+                        if (!currentItems.includes(suggestion)) {
+                            suggestions.add(suggestion);
+                        }
+                    });
+                }
+            });
+            
+            Array.from(suggestions).slice(0, 8).forEach(suggestion => {
+                const tag = document.createElement('span');
+                tag.className = 'suggestion-tag';
+                tag.textContent = suggestion;
+                tag.onclick = () => quickAddItem(suggestion, 'pantry');
+                suggestionsContainer.appendChild(tag);
+            });
+        }
+        
+        function populateMealSuggestions() {
+            const suggestionsContainer = document.getElementById('mealSuggestions');
+            suggestionsContainer.innerHTML = '';
+            
+            const mealIdeas = [
+                { name: 'Pasta Night', items: ['pasta', 'tomato sauce', 'parmesan cheese', 'garlic bread'] },
+                { name: 'Taco Tuesday', items: ['ground beef', 'tortillas', 'lettuce', 'tomatoes', 'cheese'] },
+                { name: 'Breakfast for Dinner', items: ['eggs', 'bacon', 'pancake mix', 'syrup', 'butter'] },
+                { name: 'Grilled Chicken Salad', items: ['chicken breast', 'mixed greens', 'cucumber', 'olive oil'] }
+            ];
+            
+            mealIdeas.forEach(meal => {
+                const mealElement = document.createElement('div');
+                mealElement.className = 'suggestion-item';
+                mealElement.innerHTML = `
+                    <div class="suggestion-title">${meal.name}</div>
+                    <div class="suggestion-ingredients">${meal.items.join(', ')}</div>
+                `;
+                mealElement.onclick = () => addMealItems(meal.items);
+                suggestionsContainer.appendChild(mealElement);
+            });
+        }
+        
+        function addMealItems(items) {
+            items.forEach(item => {
+                const existingItem = groceryList.find(i => i.name.toLowerCase() === item.toLowerCase());
+                if (existingItem) {
+                    existingItem.quantity += 1;
+                } else {
+                    const newItem = {
+                        id: Date.now() + Math.random(),
+                        name: item,
+                        category: 'pantry',
+                        quantity: 1,
+                        price: 0,
+                        notes: '',
+                        completed: false,
+                        addedAt: new Date().toISOString()
+                    };
+                    groceryList.push(newItem);
+                }
+            });
+            
+            saveGroceryList();
+            renderGroceryList();
+        }
+        
+        function updateBudgetSummary() {
+            const totalItems = groceryList.length;
+            const totalCost = groceryList.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            const remaining = budget - totalCost;
+            
+            document.getElementById('totalItems').textContent = totalItems;
+            document.getElementById('totalCost').textContent = `$${totalCost.toFixed(2)}`;
+            document.getElementById('budgetRemaining').textContent = `$${remaining.toFixed(2)}`;
+            
+            // Update budget bar
+            const budgetBar = document.getElementById('budgetBar');
+            const percentage = (totalCost / budget) * 100;
+            budgetBar.style.width = Math.min(percentage, 100) + '%';
+            
+            // Update bar color based on budget usage
+            budgetBar.className = 'budget-bar';
+            if (percentage > 80) {
+                budgetBar.classList.add('danger');
+            } else if (percentage > 60) {
+                budgetBar.classList.add('warning');
+            }
+        }
+        
+        function exportList() {
+            if (groceryList.length === 0) {
+                alert('No items to export!');
+                return;
+            }
+            
+            let exportText = 'GROCERY LIST\n';
+            exportText += 'Generated on: ' + new Date().toLocaleDateString() + '\n\n';
+            
+            Object.entries(categories).forEach(([categoryKey, categoryName]) => {
+                const categoryItems = groceryList.filter(item => item.category === categoryKey);
+                if (categoryItems.length > 0) {
+                    exportText += `${categoryName.toUpperCase()}:\n`;
+                    categoryItems.forEach(item => {
+                        const checkbox = item.completed ? '[x]' : '[ ]';
+                        exportText += `${checkbox} ${item.name} (${item.quantity})\n`;
+                    });
+                    exportText += '\n';
+                }
+            });
+            
+            exportText += `Total Items: ${groceryList.length}\n`;
+            exportText += `Estimated Cost: $${groceryList.reduce((sum, item) => sum + (item.price * item.quantity), 0).toFixed(2)}`;
+            
+            const blob = new Blob([exportText], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'grocery-list.txt';
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+        
+        function saveGroceryList() {
+            localStorage.setItem('groceryList', JSON.stringify(groceryList));
+        }
+        
+        // Search functionality
+        document.getElementById('searchBox').addEventListener('input', function(e) {
+            const searchTerm = e.target.value.toLowerCase();
+            const groceryItems = document.querySelectorAll('.grocery-item');
+            
+            groceryItems.forEach(item => {
+                const name = item.querySelector('.item-name').textContent.toLowerCase();
+                if (name.includes(searchTerm)) {
+                    item.style.display = 'flex';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

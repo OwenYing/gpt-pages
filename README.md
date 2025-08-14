@@ -7,6 +7,7 @@ Redo the footer.
 Redo readme page
 Add sponsorship at the footer
 some pages have: page not found error. 
+cleanup
 
 "Can you brainstorm 100 useful ideas that can be used via 1-page static pages? "
 "Can you implement each of them as a 1-pager static page?"
