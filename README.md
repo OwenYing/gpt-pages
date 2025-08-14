@@ -120,17 +120,17 @@ Home & Lifestyle
 	75.	✅Plant watering schedule
 	76.	✅Recipe scaling calculator
 	77.	✅Home maintenance checklist
-	78.	Pet care schedule
-	79.	Pantry inventory list
-	80.	Household bill split calculator
+	78.	✅Pet care schedule
+	79.	✅Pantry inventory list
+	80.	✅Household bill split calculator
 
 ⸻
 
 Fun & Entertainment
-	81.	Daily trivia question
-	82.	Random joke generator
-	83.	Simple meme maker
-	84.	Movie night picker
+	81.	✅Daily trivia question
+	82.	✅Random joke generator
+	83.	✅Simple meme maker
+	84.	✅Movie night picker
 	85.	Book recommendation randomizer
 	86.	Song lyric finder
 	87.	Quote of the day

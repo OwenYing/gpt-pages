@@ -1,0 +1,1224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random "Would You Rather" Question - GPT Ideas Hub</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .page-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        .page-header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 40px 0;
+            background: var(--gradient-primary);
+            color: white;
+            border-radius: var(--border-radius);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .page-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="75" cy="75" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="50" cy="10" r="0.5" fill="rgba(255,255,255,0.1)"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+            opacity: 0.3;
+        }
+        
+        .page-header-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .page-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+            font-family: 'Space Grotesk', sans-serif;
+        }
+        
+        .page-meta {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .page-category-badge {
+            padding: 8px 16px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+        
+        .page-number-badge {
+            padding: 8px 16px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+        
+        .back-button {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: var(--primary-color);
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: var(--border-radius);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .back-button:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .content-section {
+            background: white;
+            padding: 30px;
+            border-radius: var(--border-radius);
+            margin-bottom: 30px;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .content-section h2 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            font-family: 'Space Grotesk', sans-serif;
+        }
+        
+        .content-section p {
+            line-height: 1.8;
+            margin-bottom: 16px;
+            color: var(--text-secondary);
+        }
+        
+        .would-you-rather-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .question-section {
+            background: white;
+            padding: 40px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-md);
+            margin-bottom: 30px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .question-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, var(--bg-tertiary) 0%, white 100%);
+            opacity: 0.1;
+        }
+        
+        .question-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .question-text {
+            font-size: 2rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 40px;
+            line-height: 1.6;
+            position: relative;
+            padding: 0 20px;
+        }
+        
+        .question-text::before {
+            content: '🤔';
+            font-size: 3rem;
+            position: absolute;
+            top: -40px;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0.8;
+        }
+        
+        .options-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 40px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .option-card {
+            background: white;
+            padding: 30px;
+            border-radius: var(--border-radius);
+            border: 3px solid var(--border-color);
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .option-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--primary-color);
+        }
+        
+        .option-card.selected {
+            border-color: var(--primary-color);
+            background: var(--primary-color);
+            color: white;
+            transform: scale(1.05);
+        }
+        
+        .option-card.selected .option-text {
+            color: white;
+        }
+        
+        .option-card.selected .option-icon {
+            color: white;
+        }
+        
+        .option-text {
+            font-size: 1.2rem;
+            font-weight: 500;
+            color: var(--text-primary);
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+        
+        .option-icon {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+        
+        .question-actions {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .action-btn {
+            padding: 15px 30px;
+            border: none;
+            border-radius: var(--border-radius);
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .new-question-btn {
+            background: var(--primary-color);
+            color: white;
+        }
+        
+        .new-question-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .favorite-btn {
+            background: var(--warning-color);
+            color: white;
+        }
+        
+        .favorite-btn:hover {
+            background: #e0a800;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .favorite-btn.favorited {
+            background: #dc3545;
+        }
+        
+        .favorite-btn.favorited:hover {
+            background: #c82333;
+        }
+        
+        .share-btn {
+            background: var(--info-color);
+            color: white;
+        }
+        
+        .share-btn:hover {
+            background: #0c7a8a;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .categories-section {
+            background: white;
+            padding: 30px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-md);
+            margin-bottom: 30px;
+        }
+        
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .category-card {
+            background: var(--bg-tertiary);
+            padding: 20px;
+            border-radius: var(--border-radius);
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+            border: 2px solid transparent;
+        }
+        
+        .category-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--primary-color);
+        }
+        
+        .category-card.active {
+            border-color: var(--primary-color);
+            background: var(--primary-color);
+            color: white;
+        }
+        
+        .category-card i {
+            font-size: 2rem;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+        }
+        
+        .category-card.active i {
+            color: white;
+        }
+        
+        .category-card h3 {
+            margin-bottom: 8px;
+            font-size: 1.1rem;
+        }
+        
+        .category-card p {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            margin: 0;
+        }
+        
+        .favorites-section {
+            background: white;
+            padding: 30px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-md);
+            margin-bottom: 30px;
+        }
+        
+        .favorite-question {
+            background: var(--bg-tertiary);
+            padding: 25px;
+            border-radius: var(--border-radius);
+            margin-bottom: 20px;
+            border-left: 4px solid var(--warning-color);
+        }
+        
+        .favorite-question:last-child {
+            margin-bottom: 0;
+        }
+        
+        .favorite-question-text {
+            font-size: 1.2rem;
+            font-weight: 500;
+            color: var(--text-primary);
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+        
+        .favorite-question-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .favorite-question-info {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+        
+        .favorite-question-actions {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .action-btn-small {
+            padding: 6px 12px;
+            border: none;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: var(--transition);
+        }
+        
+        .share-favorite-btn {
+            background: var(--info-color);
+            color: white;
+        }
+        
+        .share-favorite-btn:hover {
+            background: #0c7a8a;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .remove-favorite-btn {
+            background: var(--danger-color);
+            color: white;
+        }
+        
+        .remove-favorite-btn:hover {
+            background: #c82333;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .stats-section {
+            background: white;
+            padding: 25px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-md);
+            margin-bottom: 30px;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+        }
+        
+        .stat-card {
+            text-align: center;
+            padding: 20px;
+            background: var(--bg-tertiary);
+            border-radius: var(--border-radius);
+        }
+        
+        .stat-number {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 8px;
+        }
+        
+        .stat-label {
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+        
+        .export-section {
+            text-align: center;
+            margin-top: 30px;
+        }
+        
+        .export-btn {
+            background: var(--info-color);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: var(--border-radius);
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            margin: 0 10px;
+            transition: var(--transition);
+        }
+        
+        .export-btn:hover {
+            background: #0c7a8a;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--text-secondary);
+        }
+        
+        .empty-state i {
+            font-size: 3rem;
+            color: var(--text-muted);
+            margin-bottom: 15px;
+        }
+        
+        .empty-state h3 {
+            margin-bottom: 10px;
+            color: var(--text-primary);
+        }
+        
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 20px;
+            border-radius: var(--border-radius);
+            color: white;
+            font-weight: 500;
+            z-index: 1001;
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+        }
+        
+        .notification.show {
+            transform: translateX(0);
+        }
+        
+        .notification.success {
+            background: #28a745;
+        }
+        
+        .notification.error {
+            background: #dc3545;
+        }
+        
+        @media (max-width: 768px) {
+            .question-text {
+                font-size: 1.5rem;
+            }
+            
+            .options-container {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .question-actions {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .action-btn {
+                width: 100%;
+                max-width: 250px;
+                justify-content: center;
+            }
+            
+            .category-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .favorite-question-meta {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="../index.html" class="back-button">
+        <i class="fas fa-arrow-left"></i>
+        Back to Hub
+    </a>
+    
+    <div class="page-content">
+        <div class="page-header">
+            <div class="page-header-content">
+                <h1 class="page-title">🤔 Random "Would You Rather" Question</h1>
+                <div class="page-meta">
+                    <span class="page-category-badge">Fun & Entertainment</span>
+                    <span class="page-number-badge">Page 88</span>
+                </div>
+                <p style="margin-top: 16px; font-size: 1.1rem; opacity: 0.9;">Challenge yourself with thought-provoking dilemmas and fun choices</p>
+            </div>
+        </div>
+        
+        <div class="would-you-rather-container">
+            <!-- Question Section -->
+            <div class="question-section">
+                <div class="question-content">
+                    <div class="question-text" id="questionText">
+                        Click "New Question" to get started with your first dilemma
+                    </div>
+                    
+                    <div class="options-container" id="optionsContainer" style="display: none;">
+                        <div class="option-card" onclick="selectOption(0)">
+                            <div class="option-icon">A</div>
+                            <div class="option-text" id="optionA">Option A</div>
+                        </div>
+                        <div class="option-card" onclick="selectOption(1)">
+                            <div class="option-icon">B</div>
+                            <div class="option-text" id="optionB">Option B</div>
+                        </div>
+                    </div>
+                    
+                    <div class="question-actions">
+                        <button class="action-btn new-question-btn" onclick="getNewQuestion()">
+                            <i class="fas fa-sync-alt"></i> New Question
+                        </button>
+                        <button class="action-btn favorite-btn" id="favoriteBtn" onclick="toggleFavorite()" style="display: none;">
+                            <i class="fas fa-heart"></i> Favorite
+                        </button>
+                        <button class="action-btn share-btn" onclick="shareQuestion()" style="display: none;">
+                            <i class="fas fa-share"></i> Share
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Categories Section -->
+            <div class="categories-section">
+                <h2><i class="fas fa-tags"></i> Question Categories</h2>
+                <p>Choose a category to get questions that match your interests</p>
+                
+                <div class="category-grid">
+                    <div class="category-card" data-category="fun" onclick="selectCategory('fun')">
+                        <i class="fas fa-laugh"></i>
+                        <h3>Fun & Silly</h3>
+                        <p>Light-hearted and amusing choices</p>
+                    </div>
+                    <div class="category-card" data-category="deep" onclick="selectCategory('deep')">
+                        <i class="fas fa-brain"></i>
+                        <h3>Deep & Philosophical</h3>
+                        <p>Thought-provoking life questions</p>
+                    </div>
+                    <div class="category-card" data-category="adventure" onclick="selectCategory('adventure')">
+                        <i class="fas fa-mountain"></i>
+                        <h3>Adventure & Travel</h3>
+                        <p>Exploration and journey choices</p>
+                    </div>
+                    <div class="category-card" data-category="supernatural" onclick="selectCategory('supernatural')">
+                        <i class="fas fa-magic"></i>
+                        <h3>Supernatural & Fantasy</h3>
+                        <p>Magical and impossible scenarios</p>
+                    </div>
+                    <div class="category-card" data-category="technology" onclick="selectCategory('technology')">
+                        <i class="fas fa-microchip"></i>
+                        <h3>Technology & Future</h3>
+                        <p>Tech and sci-fi dilemmas</p>
+                    </div>
+                    <div class="category-card" data-category="random" onclick="selectCategory('random')">
+                        <i class="fas fa-random"></i>
+                        <h3>Random Mix</h3>
+                        <p>Questions from all categories</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Favorites Section -->
+            <div class="favorites-section" id="favoritesSection" style="display: none;">
+                <h2><i class="fas fa-heart"></i> Your Favorite Questions</h2>
+                <div id="favoritesList">
+                    <!-- Favorite questions will be displayed here -->
+                </div>
+            </div>
+
+            <!-- Statistics -->
+            <div class="stats-section">
+                <h2><i class="fas fa-chart-bar"></i> Question Statistics</h2>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-number" id="totalQuestions">0</div>
+                        <div class="stat-label">Questions Viewed</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="favoriteQuestions">0</div>
+                        <div class="stat-label">Favorite Questions</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="categoriesExplored">0</div>
+                        <div class="stat-label">Categories Explored</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="lastViewed">Never</div>
+                        <div class="stat-label">Last Viewed</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Export Section -->
+            <div class="export-section">
+                <button class="export-btn" onclick="exportFavorites()">
+                    <i class="fas fa-download"></i> Export Favorites
+                </button>
+                <button class="export-btn" onclick="exportQuestionHistory()">
+                    <i class="fas fa-history"></i> Export Question History
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentQuestion = null;
+        let favoriteQuestions = [];
+        let questionHistory = [];
+        let selectedCategory = 'random';
+        let selectedOption = null;
+        let stats = {
+            totalQuestions: 0,
+            favoriteQuestions: 0,
+            categoriesExplored: 0,
+            lastViewed: 'Never'
+        };
+
+        // Question database
+        const questionsDatabase = {
+            fun: [
+                {
+                    question: "Would you rather have unlimited pizza or unlimited ice cream?",
+                    optionA: "Unlimited pizza",
+                    optionB: "Unlimited ice cream",
+                    category: "fun"
+                },
+                {
+                    question: "Would you rather be able to fly or be invisible?",
+                    optionA: "Fly",
+                    optionB: "Be invisible",
+                    category: "fun"
+                },
+                {
+                    question: "Would you rather have a pet dragon or a pet unicorn?",
+                    optionA: "Pet dragon",
+                    optionB: "Pet unicorn",
+                    category: "fun"
+                },
+                {
+                    question: "Would you rather always be too hot or always be too cold?",
+                    optionA: "Always too hot",
+                    optionB: "Always too cold",
+                    category: "fun"
+                },
+                {
+                    question: "Would you rather have a million dollars or a million friends?",
+                    optionA: "Million dollars",
+                    optionB: "Million friends",
+                    category: "fun"
+                }
+            ],
+            deep: [
+                {
+                    question: "Would you rather know the date of your death or the cause of your death?",
+                    optionA: "Know the date",
+                    optionB: "Know the cause",
+                    category: "deep"
+                },
+                {
+                    question: "Would you rather live a short life of fame or a long life of obscurity?",
+                    optionA: "Short life of fame",
+                    optionB: "Long life of obscurity",
+                    category: "deep"
+                },
+                {
+                    question: "Would you rather be loved by everyone or respected by everyone?",
+                    optionA: "Loved by everyone",
+                    optionB: "Respected by everyone",
+                    category: "deep"
+                },
+                {
+                    question: "Would you rather have unlimited knowledge or unlimited wisdom?",
+                    optionA: "Unlimited knowledge",
+                    optionB: "Unlimited wisdom",
+                    category: "deep"
+                },
+                {
+                    question: "Would you rather be remembered for 100 years or forgotten after 1 year?",
+                    optionA: "Remembered for 100 years",
+                    optionB: "Forgotten after 1 year",
+                    category: "deep"
+                }
+            ],
+            adventure: [
+                {
+                    question: "Would you rather explore the depths of the ocean or outer space?",
+                    optionA: "Ocean depths",
+                    optionB: "Outer space",
+                    category: "adventure"
+                },
+                {
+                    question: "Would you rather climb Mount Everest or dive to the Mariana Trench?",
+                    optionA: "Climb Mount Everest",
+                    optionB: "Dive to Mariana Trench",
+                    category: "adventure"
+                },
+                {
+                    question: "Would you rather travel to the past or the future?",
+                    optionA: "Travel to past",
+                    optionB: "Travel to future",
+                    category: "adventure"
+                },
+                {
+                    question: "Would you rather live in a treehouse or an underwater house?",
+                    optionA: "Treehouse",
+                    optionB: "Underwater house",
+                    category: "adventure"
+                },
+                {
+                    question: "Would you rather be a famous explorer or a famous inventor?",
+                    optionA: "Famous explorer",
+                    optionB: "Famous inventor",
+                    category: "adventure"
+                }
+            ],
+            supernatural: [
+                {
+                    question: "Would you rather have the power of telekinesis or teleportation?",
+                    optionA: "Telekinesis",
+                    optionB: "Teleportation",
+                    category: "supernatural"
+                },
+                {
+                    question: "Would you rather be able to read minds or control time?",
+                    optionA: "Read minds",
+                    optionB: "Control time",
+                    category: "supernatural"
+                },
+                {
+                    question: "Would you rather be a wizard or a superhero?",
+                    optionA: "Wizard",
+                    optionB: "Superhero",
+                    category: "supernatural"
+                },
+                {
+                    question: "Would you rather have a genie grant you 3 wishes or find a magic lamp?",
+                    optionA: "Genie grants 3 wishes",
+                    optionB: "Find magic lamp",
+                    category: "supernatural"
+                },
+                {
+                    question: "Would you rather be immortal or have the ability to resurrect others?",
+                    optionA: "Be immortal",
+                    optionB: "Resurrect others",
+                    category: "supernatural"
+                }
+            ],
+            technology: [
+                {
+                    question: "Would you rather have a robot butler or a flying car?",
+                    optionA: "Robot butler",
+                    optionB: "Flying car",
+                    category: "technology"
+                },
+                {
+                    question: "Would you rather live in a smart home or have a personal AI assistant?",
+                    optionA: "Smart home",
+                    optionB: "Personal AI assistant",
+                    category: "technology"
+                },
+                {
+                    question: "Would you rather have virtual reality that feels real or real life that feels like a game?",
+                    optionA: "VR that feels real",
+                    optionB: "Real life like a game",
+                    category: "technology"
+                },
+                {
+                    question: "Would you rather have unlimited internet or unlimited battery life?",
+                    optionA: "Unlimited internet",
+                    optionB: "Unlimited battery life",
+                    category: "technology"
+                },
+                {
+                    question: "Would you rather be able to download skills or upload memories?",
+                    optionA: "Download skills",
+                    optionB: "Upload memories",
+                    category: "technology"
+                }
+            ]
+        };
+
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function() {
+            loadData();
+            updateStats();
+            renderFavorites();
+            getNewQuestion();
+        });
+
+        // Get New Question
+        function getNewQuestion() {
+            let questions = [];
+            
+            if (selectedCategory === 'random') {
+                // Get questions from all categories
+                Object.values(questionsDatabase).forEach(categoryQuestions => {
+                    questions = questions.concat(categoryQuestions);
+                });
+            } else {
+                questions = questionsDatabase[selectedCategory] || [];
+            }
+            
+            if (questions.length === 0) {
+                showNotification('No questions available for this category.', 'error');
+                return;
+            }
+            
+            // Get random question
+            const randomIndex = Math.floor(Math.random() * questions.length);
+            currentQuestion = questions[randomIndex];
+            
+            // Display question
+            document.getElementById('questionText').textContent = currentQuestion.question;
+            document.getElementById('optionA').textContent = currentQuestion.optionA;
+            document.getElementById('optionB').textContent = currentQuestion.optionB;
+            
+            // Show options
+            document.getElementById('optionsContainer').style.display = 'grid';
+            
+            // Reset selection
+            selectedOption = null;
+            document.querySelectorAll('.option-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+            
+            // Show action buttons
+            document.getElementById('favoriteBtn').style.display = 'inline-flex';
+            document.getElementById('shareBtn').style.display = 'inline-flex';
+            
+            // Update favorite button state
+            updateFavoriteButton();
+            
+            // Add to history
+            addToHistory(currentQuestion);
+            
+            // Update stats
+            stats.totalQuestions++;
+            stats.lastViewed = new Date().toLocaleDateString();
+            updateStats();
+            saveData();
+        }
+
+        // Select Option
+        function selectOption(optionIndex) {
+            // Remove previous selection
+            document.querySelectorAll('.option-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+            
+            // Select new option
+            selectedOption = optionIndex;
+            document.querySelectorAll('.option-card')[optionIndex].classList.add('selected');
+            
+            // Show notification
+            const optionText = optionIndex === 0 ? currentQuestion.optionA : currentQuestion.optionB;
+            showNotification(`You chose: ${optionText}`, 'success');
+        }
+
+        // Select Category
+        function selectCategory(category) {
+            selectedCategory = category;
+            
+            // Update active category
+            document.querySelectorAll('.category-card').forEach(card => {
+                card.classList.remove('active');
+            });
+            document.querySelector(`[data-category="${category}"]`).classList.add('active');
+            
+            // Get new question from selected category
+            getNewQuestion();
+            
+            // Update stats
+            if (!stats.categoriesExplored.includes(category)) {
+                stats.categoriesExplored++;
+                updateStats();
+                saveData();
+            }
+        }
+
+        // Toggle Favorite
+        function toggleFavorite() {
+            if (!currentQuestion) return;
+            
+            const questionId = `${currentQuestion.question}-${currentQuestion.optionA}-${currentQuestion.optionB}`;
+            const favoriteIndex = favoriteQuestions.findIndex(f => f.id === questionId);
+            
+            if (favoriteIndex === -1) {
+                // Add to favorites
+                const favoriteQuestion = {
+                    ...currentQuestion,
+                    id: questionId,
+                    dateAdded: new Date().toISOString()
+                };
+                favoriteQuestions.push(favoriteQuestion);
+                showNotification('Question added to favorites!', 'success');
+            } else {
+                // Remove from favorites
+                favoriteQuestions.splice(favoriteIndex, 1);
+                showNotification('Question removed from favorites!', 'success');
+            }
+            
+            updateFavoriteButton();
+            updateStats();
+            renderFavorites();
+            saveData();
+        }
+
+        // Update Favorite Button
+        function updateFavoriteButton() {
+            if (!currentQuestion) return;
+            
+            const questionId = `${currentQuestion.question}-${currentQuestion.optionA}-${currentQuestion.optionB}`;
+            const isFavorited = favoriteQuestions.some(f => f.id === questionId);
+            const favoriteBtn = document.getElementById('favoriteBtn');
+            
+            if (isFavorited) {
+                favoriteBtn.classList.add('favorited');
+                favoriteBtn.innerHTML = '<i class="fas fa-heart"></i> Favorited';
+            } else {
+                favoriteBtn.classList.remove('favorited');
+                favoriteBtn.innerHTML = '<i class="fas fa-heart"></i> Favorite';
+            }
+        }
+
+        // Share Question
+        function shareQuestion() {
+            if (!currentQuestion) return;
+            
+            const shareText = `Would you rather: ${currentQuestion.optionA} OR ${currentQuestion.optionB}?`;
+            
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Would You Rather Question',
+                    text: shareText
+                });
+            } else {
+                // Fallback: copy to clipboard
+                navigator.clipboard.writeText(shareText).then(() => {
+                    showNotification('Question copied to clipboard!', 'success');
+                }).catch(() => {
+                    showNotification('Failed to copy question.', 'error');
+                });
+            }
+        }
+
+        // Add to History
+        function addToHistory(question) {
+            const questionId = `${question.question}-${question.optionA}-${question.optionB}`;
+            const existingIndex = questionHistory.findIndex(h => h.id === questionId);
+            
+            if (existingIndex !== -1) {
+                // Update existing entry
+                questionHistory[existingIndex].lastViewed = new Date().toISOString();
+                questionHistory[existingIndex].viewCount++;
+            } else {
+                // Add new entry
+                questionHistory.push({
+                    ...question,
+                    id: questionId,
+                    firstViewed: new Date().toISOString(),
+                    lastViewed: new Date().toISOString(),
+                    viewCount: 1
+                });
+            }
+        }
+
+        // Render Favorites
+        function renderFavorites() {
+            const favoritesSection = document.getElementById('favoritesSection');
+            const favoritesList = document.getElementById('favoritesList');
+            
+            if (favoriteQuestions.length === 0) {
+                favoritesSection.style.display = 'none';
+                return;
+            }
+            
+            favoritesSection.style.display = 'block';
+            favoritesList.innerHTML = favoriteQuestions.map(question => `
+                <div class="favorite-question">
+                    <div class="favorite-question-text">${question.question}</div>
+                    <div class="favorite-question-meta">
+                        <div class="favorite-question-info">
+                            <strong>Option A:</strong> ${question.optionA} | 
+                            <strong>Option B:</strong> ${question.optionB} | 
+                            <strong>Category:</strong> ${question.category} | 
+                            <strong>Added:</strong> ${new Date(question.dateAdded).toLocaleDateString()}
+                        </div>
+                        <div class="favorite-question-actions">
+                            <button class="action-btn-small share-favorite-btn" onclick="shareFavoriteQuestion('${question.optionA}', '${question.optionB}')">
+                                <i class="fas fa-share"></i> Share
+                            </button>
+                            <button class="action-btn-small remove-favorite-btn" onclick="removeFavorite('${question.id}')">
+                                <i class="fas fa-trash"></i> Remove
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Share Favorite Question
+        function shareFavoriteQuestion(optionA, optionB) {
+            const shareText = `Would you rather: ${optionA} OR ${optionB}?`;
+            
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Favorite Would You Rather Question',
+                    text: shareText
+                });
+            } else {
+                navigator.clipboard.writeText(shareText).then(() => {
+                    showNotification('Question copied to clipboard!', 'success');
+                }).catch(() => {
+                    showNotification('Failed to copy question.', 'error');
+                });
+            }
+        }
+
+        // Remove Favorite
+        function removeFavorite(questionId) {
+            const question = favoriteQuestions.find(f => f.id === questionId);
+            if (question) {
+                favoriteQuestions = favoriteQuestions.filter(f => f.id !== questionId);
+                updateStats();
+                renderFavorites();
+                saveData();
+                showNotification('Question removed from favorites!', 'success');
+                
+                // Update favorite button if this was the current question
+                if (currentQuestion && `${currentQuestion.question}-${currentQuestion.optionA}-${currentQuestion.optionB}` === questionId) {
+                    updateFavoriteButton();
+                }
+            }
+        }
+
+        // Update Statistics
+        function updateStats() {
+            stats.favoriteQuestions = favoriteQuestions.length;
+            
+            // Update display
+            document.getElementById('totalQuestions').textContent = stats.totalQuestions;
+            document.getElementById('favoriteQuestions').textContent = stats.favoriteQuestions;
+            document.getElementById('categoriesExplored').textContent = stats.categoriesExplored;
+            document.getElementById('lastViewed').textContent = stats.lastViewed;
+        }
+
+        // Export Favorites
+        function exportFavorites() {
+            if (favoriteQuestions.length === 0) {
+                alert('No favorite questions to export!');
+                return;
+            }
+            
+            const exportData = {
+                favorites: favoriteQuestions,
+                exportDate: new Date().toISOString()
+            };
+            
+            const dataStr = JSON.stringify(exportData, null, 2);
+            const dataBlob = new Blob([dataStr], {type: 'application/json'});
+            const url = URL.createObjectURL(dataBlob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = 'favorite-questions.json';
+            link.click();
+            URL.revokeObjectURL(url);
+        }
+
+        // Export Question History
+        function exportQuestionHistory() {
+            if (questionHistory.length === 0) {
+                alert('No question history to export!');
+                return;
+            }
+            
+            const exportData = {
+                questionHistory: questionHistory,
+                exportDate: new Date().toISOString()
+            };
+            
+            const dataStr = JSON.stringify(exportData, null, 2);
+            const dataBlob = new Blob([dataStr], {type: 'application/json'});
+            const url = URL.createObjectURL(dataBlob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = 'question-history.json';
+            link.click();
+            URL.revokeObjectURL(url);
+        }
+
+        // Show Notification
+        function showNotification(message, type = 'success') {
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            notification.textContent = message;
+            
+            document.body.appendChild(notification);
+            
+            // Show notification
+            setTimeout(() => {
+                notification.classList.add('show');
+            }, 100);
+            
+            // Hide and remove notification
+            setTimeout(() => {
+                notification.classList.remove('show');
+                setTimeout(() => {
+                    notification.remove();
+                }, 300);
+            }, 3000);
+        }
+
+        // Save Data
+        function saveData() {
+            localStorage.setItem('wouldYouRatherData', JSON.stringify({
+                favoriteQuestions: favoriteQuestions,
+                questionHistory: questionHistory,
+                stats: stats
+            }));
+        }
+
+        // Load Data
+        function loadData() {
+            const savedData = localStorage.getItem('wouldYouRatherData');
+            if (savedData) {
+                const data = JSON.parse(savedData);
+                favoriteQuestions = data.favoriteQuestions || [];
+                questionHistory = data.questionHistory || [];
+                stats = data.stats || {
+                    totalQuestions: 0,
+                    favoriteQuestions: 0,
+                    categoriesExplored: 0,
+                    lastViewed: 'Never'
+                };
+            }
+        }
+    </script>
+</body>
+</html>

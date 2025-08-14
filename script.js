@@ -98,7 +98,13 @@ const pagesData = [
     { id: 81, title: "Daily Trivia Question", description: "Random daily trivia questions with answers", category: "entertainment", tags: ["Trivia", "Daily Question", "Fun", "Learning"] },
     { id: 83, title: "Random Joke Generator", description: "Generate random jokes for entertainment", category: "entertainment", tags: ["Jokes", "Random Generator", "Fun", "Entertainment"] },
     { id: 84, title: "Simple Meme Maker", description: "Create simple memes with text overlays", category: "entertainment", tags: ["Meme Maker", "Fun", "Creativity", "Entertainment"] },
-    { id: 85, title: "Movie Night Picker", description: "Random movie picker for movie night decisions", category: "entertainment", tags: ["Movie Picker", "Random", "Entertainment", "Decision Making"] }
+    { id: 85, title: "Movie Night Picker", description: "Random movie picker for movie night decisions", category: "entertainment", tags: ["Movie Picker", "Random", "Entertainment", "Decision Making"] },
+    { id: 86, title: "Book Recommendation Randomizer", description: "Get random book recommendations across different genres", category: "entertainment", tags: ["Book Recommendations", "Random", "Reading", "Literature"] },
+    { id: 87, title: "Quote of the Day", description: "Daily inspirational quotes with sharing capabilities", category: "entertainment", tags: ["Quotes", "Inspiration", "Daily", "Motivation"] },
+    { id: 88, title: "Random Would You Rather Question", description: "Generate random 'Would You Rather' questions for fun discussions", category: "entertainment", tags: ["Would You Rather", "Questions", "Fun", "Discussion"] },
+    { id: 89, title: "Party Game Rules Quick Reference", description: "Quick reference guide for popular party games and rules", category: "entertainment", tags: ["Party Game Rules", "Reference", "Entertainment", "Party"] },
+    { id: 90, title: "Mini Pixel Art Drawing Canvas", description: "Simple pixel art drawing tool for creating digital artwork", category: "creative", tags: ["Pixel Art", "Drawing", "Canvas", "Creativity"] },
+    { id: 91, title: "Song Lyric Finder", description: "Find and display song lyrics with search functionality", category: "entertainment", tags: ["Song Lyrics", "Music", "Search", "Entertainment"] }
 ];
 
 // Extensibility functions for unlimited pages
@@ -269,7 +275,7 @@ async function filterExistingPages() {
     // Fallback to hardcoded list if auto-detection didn't work
     if (!autoDetected || existingPages.length === 0) {
         console.log('Using fallback list of existing pages...');
-        const existingPageIds = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 83, 84, 85]; // Only truly existing pages (1-81, 83-85)
+        const existingPageIds = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 83, 84, 85, 86, 87, 88, 89, 90, 91]; // All existing pages (1-81, 83-91)
         
         for (const page of pagesData) {
             if (existingPageIds.includes(page.id)) {
