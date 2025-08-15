@@ -636,3 +636,35 @@ input:focus {
     border-radius: var(--border-radius);
     border: 1px solid var(--border-color);
 }
+
+/* Loading Message Styles */
+.loading-message {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 20px;
+    grid-column: 1 / -1;
+    text-align: center;
+    min-height: 120px;
+    width: 100%;
+    background: var(--bg-secondary);
+    border-radius: var(--border-radius);
+    margin: 20px 0;
+}
+
+.loading-message p {
+    color: var(--text-primary);
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin: 0;
+    opacity: 0.8;
+}
+
+
+
+
+
+/* Hide loading message when pages are loaded */
+.loading-message.hidden {
+    display: none;
+}
