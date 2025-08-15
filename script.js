@@ -309,6 +309,12 @@ async function init() {
     console.log('Initializing application...');
     console.log('Total pages in pagesData:', pagesData.length);
     
+    // Show loading state for better UX
+    const loadingMessage = document.getElementById('loadingMessage');
+    if (loadingMessage) {
+        loadingMessage.classList.remove('hidden');
+    }
+    
     // Filter to only show existing pages
     const existingPages = await filterExistingPages();
     
@@ -316,9 +322,17 @@ async function init() {
     filteredPages = existingPages;
     console.log('Updated filteredPages:', filteredPages.length);
     
+    // Small delay to show loading state (optional, for better UX)
+    await new Promise(resolve => setTimeout(resolve, 500));
+    
     renderPages();
     setupEventListeners();
     updateStats();
+    
+    // Ensure loading message is hidden
+    if (loadingMessage) {
+        loadingMessage.classList.add('hidden');
+    }
     
     console.log('Initialization complete!');
 }
@@ -423,6 +437,12 @@ function updatePageInfo(pages = filteredPages) {
 
 // Render pages in the grid with pagination
 function renderPages(pagesToRender = filteredPages) {
+    // Hide loading message when pages start rendering
+    const loadingMessage = document.getElementById('loadingMessage');
+    if (loadingMessage) {
+        loadingMessage.classList.add('hidden');
+    }
+    
     if (pagesToRender.length === 0) {
         pagesGrid.innerHTML = `
             <div class="no-results">
