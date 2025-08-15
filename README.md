@@ -1,4 +1,9 @@
-# 🚀 GPT Ideas Hub
+# 🚀 [GPT Ideas Hub](https://gpt-pages.com)
+
+<p align="center">
+  <img src="gpt-pages.png" alt="GPT Ideas Hub Screenshot" width="600">
+</p>
+
 
 ## ✨ How this happens? -- Only three prompts
 "Can you brainstorm 100 useful ideas that can be used via 1-page static pages? "
