@@ -16,6 +16,9 @@ Boom!! 💥💥💥💥💥
 
 A curated collection of **100 practical, single-page web tools** built with vanilla HTML, CSS, and JavaScript. Each tool is designed to solve a specific everyday problem with a clean, intuitive interface.
 
+To add a new page: 
+"Add a new "guitar tuner" page, make it consistent with previous pages."
+
 ## ✨ What's Included
 
 **100 Complete Tools** across 10 categories:
