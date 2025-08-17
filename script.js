@@ -120,6 +120,91 @@ const pagesData = [
     { id: 101, title: "Guitar Tuner", description: "Professional guitar tuner with microphone input and visual feedback", category: "music", tags: ["Guitar", "Tuner", "Music", "Audio", "Microphone", "Frequency"] }
 ];
 
+// Pin/Favorite functionality
+let pinnedPages = [];
+
+// Initialize pinned pages from localStorage
+function initializePinnedPages() {
+    const saved = localStorage.getItem('gptPagesPinned');
+    if (saved) {
+        pinnedPages = JSON.parse(saved);
+    }
+    
+    // Add pinned property to all pages
+    pagesData.forEach(page => {
+        page.pinned = pinnedPages.includes(page.id);
+    });
+}
+
+// Save pinned pages to localStorage
+function savePinnedPages() {
+    localStorage.setItem('gptPagesPinned', JSON.stringify(pinnedPages));
+}
+
+// Toggle pin status for a page
+function togglePin(pageId) {
+    const page = pagesData.find(p => p.id === pageId);
+    if (!page) return;
+    
+    if (page.pinned) {
+        // Unpin
+        page.pinned = false;
+        pinnedPages = pinnedPages.filter(id => id !== pageId);
+        showNotification(`${page.title} unpinned`, 'info');
+    } else {
+        // Pin
+        page.pinned = true;
+        pinnedPages.push(pageId);
+        showNotification(`${page.title} pinned to favorites`, 'success');
+    }
+    
+    savePinnedPages();
+    renderPages();
+    renderHomePagePinnedSection(); // Update home page pinned section
+}
+
+// Get pinned pages
+function getPinnedPages() {
+    return pagesData.filter(page => page.pinned);
+}
+
+// Show notification
+function showNotification(message, type = 'info') {
+    const notification = document.createElement('div');
+    notification.className = `notification ${type}`;
+    notification.textContent = message;
+    notification.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: ${type === 'success' ? '#10b981' : '#3b82f6'};
+        color: white;
+        padding: 12px 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        z-index: 1000;
+        transform: translateX(100%);
+        transition: transform 0.3s ease;
+    `;
+    
+    document.body.appendChild(notification);
+    
+    // Animate in
+    setTimeout(() => {
+        notification.style.transform = 'translateX(0)';
+    }, 100);
+    
+    // Remove after 3 seconds
+    setTimeout(() => {
+        notification.style.transform = 'translateX(100%)';
+        setTimeout(() => {
+            if (notification.parentNode) {
+                notification.parentNode.removeChild(notification);
+            }
+        }, 300);
+    }, 3000);
+}
+
 // Extensibility functions for unlimited pages
 function addNewPage(title, description, category, tags) {
     const newId = Math.max(...pagesData.map(p => p.id)) + 1;
@@ -184,14 +269,6 @@ function renderPagination(pages = filteredPages) {
     
     const paginationContainer = document.createElement('div');
     paginationContainer.className = 'pagination';
-    paginationContainer.style.cssText = `
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 10px;
-        margin: 40px 0;
-        flex-wrap: wrap;
-    `;
     
     // Previous button
     if (currentPage > 1) {
@@ -310,6 +387,9 @@ async function init() {
     console.log('Initializing application...');
     console.log('Total pages in pagesData:', pagesData.length);
     
+    // Initialize pinned pages from localStorage
+    initializePinnedPages();
+    
     // Show loading state for better UX
     const loadingMessage = document.getElementById('loadingMessage');
     if (loadingMessage) {
@@ -327,6 +407,7 @@ async function init() {
     await new Promise(resolve => setTimeout(resolve, 500));
     
     renderPages();
+    renderHomePagePinnedSection(); // Initialize home page pinned section
     setupEventListeners();
     updateStats();
     
@@ -444,6 +525,9 @@ function renderPages(pagesToRender = filteredPages) {
         loadingMessage.classList.add('hidden');
     }
     
+    // Render pinned pages section first (context-aware)
+    renderPinnedPagesInContext(pagesToRender);
+    
     if (pagesToRender.length === 0) {
         pagesGrid.innerHTML = `
             <div class="no-results">
@@ -464,8 +548,13 @@ function renderPages(pagesToRender = filteredPages) {
     const pagesToShow = getPaginatedPages(pagesToRender);
     
     pagesGrid.innerHTML = pagesToShow.map(page => `
-        <div class="page-card" data-page-id="${page.id}">
-            <div class="page-number">${page.id}</div>
+        <div class="page-card ${page.pinned ? 'pinned' : ''}" data-page-id="${page.id}">
+            <div class="page-header">
+                <div class="page-number">${page.id}</div>
+                <button class="pin-button ${page.pinned ? 'pinned' : ''}" onclick="event.stopPropagation(); togglePin(${page.id})" title="${page.pinned ? 'Unpin' : 'Pin to favorites'}">
+                    <i class="fas fa-thumbtack"></i>
+                </button>
+            </div>
             <h3 class="page-title">${page.title}</h3>
             <p class="page-description">${page.description}</p>
             <span class="page-category ${page.category}">${getCategoryDisplayName(page.category)}</span>
@@ -496,11 +585,208 @@ function renderPages(pagesToRender = filteredPages) {
     
     const pagination = renderPagination(pagesToRender);
     if (pagination) {
-        pagesGrid.parentNode.appendChild(pagination);
+        // Append pagination to the pages-section container for proper centering
+        const pagesSection = pagesGrid.closest('.pages-section');
+        if (pagesSection) {
+            pagesSection.appendChild(pagination);
+        } else {
+            // Fallback to pagesGrid if pages-section not found
+            pagesGrid.appendChild(pagination);
+        }
     }
     
     // Update page info
     updatePageInfo(pagesToRender);
+}
+
+// Render pinned pages section
+function renderPinnedPages() {
+    const pinnedPagesData = getPinnedPages();
+    
+    // Remove existing pinned section if it exists
+    const existingPinnedSection = document.querySelector('.pinned-pages-section');
+    if (existingPinnedSection) {
+        existingPinnedSection.remove();
+    }
+    
+    if (pinnedPagesData.length === 0) {
+        return; // Don't show anything if no pinned pages
+    }
+    
+    // Create pinned pages section
+    const pinnedSection = document.createElement('div');
+    pinnedSection.className = 'pinned-pages-section';
+    pinnedSection.innerHTML = `
+        <div class="section-header">
+            <h2><i class="fas fa-thumbtack"></i> Pinned Pages</h2>
+            <p>Your favorite tools for quick access</p>
+        </div>
+        <div class="pinned-pages-grid">
+            ${pinnedPagesData.map(page => `
+                <div class="page-card pinned" data-page-id="${page.id}">
+                    <div class="page-header">
+                        <div class="page-number">${page.id}</div>
+                        <button class="pin-button pinned" onclick="event.stopPropagation(); togglePin(${page.id})" title="Unpin">
+                            <i class="fas fa-thumbtack"></i>
+                        </button>
+                    </div>
+                    <h3 class="page-title">${page.title}</h3>
+                    <p class="page-description">${page.description}</p>
+                    <span class="page-category ${page.category}">${getCategoryDisplayName(page.category)}</span>
+                </div>
+            `).join('')}
+        </div>
+    `;
+    
+    // Insert pinned section before the main pages grid
+    const pagesContainer = document.querySelector('.pages-container');
+    if (pagesContainer) {
+        pagesContainer.insertBefore(pinnedSection, pagesContainer.firstChild);
+    }
+    
+    // Add click event listeners to pinned page cards
+    pinnedSection.querySelectorAll('.page-card').forEach(card => {
+        card.addEventListener('click', () => {
+            const pageId = card.dataset.pageId;
+            const page = pagesData.find(p => p.id == pageId);
+            
+            const pageFileName = generatePageFileName(page);
+            const pagePath = `pages/${pageFileName}`;
+            
+            // Navigate to the page
+            window.location.href = pagePath;
+        });
+    });
+    
+    // Also update the home page pinned section
+    renderHomePagePinnedSection();
+}
+
+// Render pinned pages in the home page section
+function renderHomePagePinnedSection() {
+    const pinnedPagesData = getPinnedPages();
+    const pinnedSection = document.getElementById('pinnedSection');
+    const pinnedGrid = document.getElementById('pinnedGrid');
+    
+    if (!pinnedSection || !pinnedGrid) {
+        return; // Home page elements not found
+    }
+    
+    if (pinnedPagesData.length === 0) {
+        pinnedSection.style.display = 'none';
+        return;
+    }
+    
+    // Show the pinned section
+    pinnedSection.style.display = 'block';
+    
+    // Add a subtle animation class for better UX
+    pinnedSection.classList.add('fade-in');
+    
+    // Render pinned pages in the home page grid
+    pinnedGrid.innerHTML = pinnedPagesData.map(page => `
+        <div class="home-pinned-card" data-page-id="${page.id}">
+            <div class="home-pinned-card-header">
+                <div class="home-pinned-number">${page.id}</div>
+                <button class="home-pin-button pinned" onclick="event.stopPropagation(); togglePin(${page.id})" title="Unpin">
+                    <i class="fas fa-thumbtack"></i>
+                </button>
+            </div>
+            <h3 class="home-pinned-title">${page.title}</h3>
+            <p class="home-pinned-description">${page.description}</p>
+            <span class="home-pinned-category ${page.category}">${getCategoryDisplayName(page.category)}</span>
+        </div>
+    `).join('');
+    
+    // Update the header to show count
+    const pinnedHeader = pinnedSection.querySelector('.home-pinned-header h2');
+    if (pinnedHeader) {
+        pinnedHeader.innerHTML = `<i class="fas fa-thumbtack"></i> Your Favorite Tools <span class="home-pinned-count">(${pinnedPagesData.length})</span>`;
+    }
+    
+    // Add click event listeners to home page pinned cards
+    pinnedGrid.querySelectorAll('.page-card').forEach(card => {
+        card.addEventListener('click', () => {
+            const pageId = card.dataset.pageId;
+            const page = pagesData.find(p => p.id == pageId);
+            
+            const pageFileName = generatePageFileName(page);
+            const pagePath = `pages/${pageFileName}`;
+            
+            // Navigate to the page
+            window.location.href = pagePath;
+        });
+    });
+}
+
+// Enhanced renderPinnedPages that respects search/filter context
+function renderPinnedPagesInContext(pagesToRender = filteredPages) {
+    const pinnedPagesData = getPinnedPages();
+    
+    // Remove existing pinned section if it exists
+    const existingPinnedSection = document.querySelector('.pinned-pages-section');
+    if (existingPinnedSection) {
+        existingPinnedSection.remove();
+    }
+    
+    if (pinnedPagesData.length === 0) {
+        return; // Don't show anything if no pinned pages
+    }
+    
+    // Filter pinned pages to only show those that match current search/filter
+    const visiblePinnedPages = pinnedPagesData.filter(pinnedPage => {
+        // Check if the pinned page is in the current filtered results
+        return pagesToRender.some(page => page.id === pinnedPage.id);
+    });
+    
+    if (visiblePinnedPages.length === 0) {
+        return; // Don't show pinned section if no pinned pages are visible
+    }
+    
+    // Create pinned pages section
+    const pinnedSection = document.createElement('div');
+    pinnedSection.className = 'pinned-pages-section';
+    pinnedSection.innerHTML = `
+        <div class="section-header">
+            <h2><i class="fas fa-thumbtack"></i> Pinned Pages</h2>
+            <p>Your favorite tools for quick access</p>
+        </div>
+        <div class="pinned-pages-grid">
+            ${visiblePinnedPages.map(page => `
+                <div class="page-card pinned" data-page-id="${page.id}">
+                    <div class="page-header">
+                        <div class="page-number">${page.id}</div>
+                        <button class="pin-button pinned" onclick="event.stopPropagation(); togglePin(${page.id})" title="Unpin">
+                            <i class="fas fa-thumbtack"></i>
+                        </button>
+                    </div>
+                    <h3 class="page-title">${page.title}</h3>
+                    <p class="page-description">${page.description}</p>
+                    <span class="page-category ${page.category}">${getCategoryDisplayName(page.category)}</span>
+                </div>
+            `).join('')}
+        </div>
+    `;
+    
+    // Insert pinned section before the main pages grid
+    const pagesContainer = document.querySelector('.pages-container');
+    if (pagesContainer) {
+        pagesContainer.insertBefore(pinnedSection, pagesContainer.firstChild);
+    }
+    
+    // Add click event listeners to pinned page cards
+    pinnedSection.querySelectorAll('.page-card').forEach(card => {
+        card.addEventListener('click', () => {
+            const pageId = card.dataset.pageId;
+            const page = pagesData.find(p => p.id == pageId);
+            
+            const pageFileName = generatePageFileName(page);
+            const pagePath = `pages/${pageFileName}`;
+            
+            // Navigate to the page
+            window.location.href = pagePath;
+        });
+    });
 }
 
 // Get display name for category

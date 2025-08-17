@@ -14,62 +14,7 @@
             padding: 40px 20px;
         }
         
-        .page-header {
-            text-align: center;
-            margin-bottom: 40px;
-            padding: 40px 0;
-            background: var(--gradient-primary);
-            color: white;
-            border-radius: var(--border-radius);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .page-header::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="75" cy="75" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="50" cy="10" r="0.5" fill="rgba(255,255,255,0.1)"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
-            opacity: 0.3;
-        }
-        
-        .page-header-content {
-            position: relative;
-            z-index: 2;
-        }
-        
-        .page-title {
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin-bottom: 16px;
-            font-family: 'Space Grotesk', sans-serif;
-        }
-        
-        .page-meta {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            flex-wrap: wrap;
-        }
-        
-        .page-category-badge {
-            padding: 8px 16px;
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 20px;
-            font-size: 0.9rem;
-            font-weight: 500;
-        }
-        
-        .page-number-badge {
-            padding: 8px 16px;
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 20px;
-            font-size: 0.9rem;
-            font-weight: 500;
-        }
+        /* Page header styles are now in the global CSS for better centering */
         
         .back-button {
             position: fixed;
@@ -179,7 +124,7 @@
         }
     </style>
 </head>
-<body>
+<body class="individual-page">
     <a href="../index.html" class="back-button">
         <i class="fas fa-arrow-left"></i> Back to Hub
     </a>
