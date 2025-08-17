@@ -310,6 +310,9 @@ body {
     background: var(--bg-primary);
     padding: 40px 0 80px;
     min-height: 600px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .pages-grid {
@@ -317,8 +320,25 @@ body {
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 24px;
     margin-top: 32px;
+    max-width: 1400px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 20px;
 }
 
+/* HOME PAGE PAGE CARD STYLES - DO NOT CHANGE */
+.pages-section .page-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    padding: 24px;
+    transition: var(--transition);
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+
+/* General page card styles (for backward compatibility) */
 .page-card {
     background: var(--bg-card);
     border: 1px solid var(--border-color);
@@ -330,6 +350,30 @@ body {
     overflow: hidden;
 }
 
+/* HOME PAGE PAGE CARD PSEUDO-ELEMENTS AND HOVER EFFECTS - DO NOT CHANGE */
+.pages-section .page-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: var(--gradient-primary);
+    transform: scaleX(0);
+    transition: var(--transition);
+}
+
+.pages-section .page-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-xl);
+    border-color: var(--primary-color);
+}
+
+.pages-section .page-card:hover::before {
+    transform: scaleX(1);
+}
+
+/* General page card pseudo-elements and hover effects (for backward compatibility) */
 .page-card::before {
     content: '';
     position: absolute;
@@ -356,6 +400,25 @@ body {
     display: none;
 }
 
+/* HOME PAGE PAGE NUMBER STYLES - DO NOT CHANGE */
+.pages-section .page-card .page-number {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    background: var(--gradient-secondary);
+    color: white;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    font-weight: 600;
+    z-index: 1; /* Ensure it's above other elements */
+}
+
+/* General page number styles (for backward compatibility) */
 .page-number {
     position: absolute;
     top: 16px;
@@ -370,8 +433,38 @@ body {
     justify-content: center;
     font-size: 0.8rem;
     font-weight: 600;
+    z-index: 1; /* Ensure it's above other elements */
 }
 
+/* HOME PAGE PAGE TEXT STYLES - DO NOT CHANGE */
+.pages-section .page-card .page-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 12px;
+    line-height: 1.4;
+}
+
+.pages-section .page-card .page-description {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    line-height: 1.5;
+    margin-bottom: 16px;
+}
+
+.pages-section .page-card .page-category {
+    display: inline-block;
+    padding: 6px 12px;
+    background: var(--bg-tertiary);
+    color: var(--text-secondary);
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* General page text styles (for backward compatibility) */
 .page-title {
     font-size: 1.2rem;
     font-weight: 600;
@@ -401,9 +494,411 @@ body {
 
 .page-category.tech { background: rgba(99, 102, 241, 0.1); color: var(--primary-color); }
 .page-category.creative { background: rgba(139, 92, 246, 0.1); color: var(--secondary-color); }
-.page-category.business { background: rgba(16, 185, 129, 0.1); color: var(--success-color); }
-.page-category.lifestyle { background: rgba(245, 158, 11, 0.1); color: var(--warning-color); }
+.page-category.personal { background: rgba(16, 185, 129, 0.1); color: var(--success-color); }
+.page-category.finance { background: rgba(245, 158, 11, 0.1); color: var(--warning-color); }
+.page-category.health { background: rgba(6, 182, 212, 0.1); color: var(--accent-color); }
 .page-category.education { background: rgba(6, 182, 212, 0.1); color: var(--accent-color); }
+.page-category.travel { background: rgba(236, 72, 153, 0.1); color: #ec4899; }
+.page-category.productivity { background: rgba(34, 197, 94, 0.1); color: #22c55e; }
+.page-category.lifestyle { background: rgba(168, 85, 247, 0.1); color: #a855f7; }
+.page-category.entertainment { background: rgba(251, 146, 60, 0.1); color: #fb923c; }
+.page-category.music { background: rgba(59, 130, 246, 0.1); color: #3b82f6; }
+
+/* Pinned Pages Styles */
+.pinned-pages-section {
+    margin-bottom: 40px;
+    padding: 32px;
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.05) 0%, rgba(139, 92, 246, 0.05) 100%);
+    border: 1px solid rgba(99, 102, 241, 0.1);
+    border-radius: var(--border-radius-lg);
+}
+
+/* HOME PAGE PINNED SECTION - COMPLETELY SEPARATE FROM MAIN GRID */
+.home-pinned-section {
+    margin: 12px 0; /* Reduced from 40px to 12px (30%) */
+    padding: 12px 0; /* Reduced from 40px to 12px (30%) */
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.08) 0%, rgba(139, 92, 246, 0.08) 100%);
+    border-top: 1px solid rgba(99, 102, 241, 0.1);
+    border-bottom: 1px solid rgba(99, 102, 241, 0.1);
+}
+
+.home-pinned-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.home-pinned-header {
+    text-align: center;
+    margin-bottom: 12px; /* Reduced from 40px to 12px (30%) */
+}
+
+.home-pinned-header h2 {
+    font-size: 0.66rem; /* Reduced from 2.2rem to 0.66rem (30%) */
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-bottom: 4px; /* Reduced from 12px to 4px (30%) */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px; /* Reduced from 16px to 5px (30%) */
+}
+
+.home-pinned-header p {
+    color: var(--text-secondary);
+    font-size: 0.33rem; /* Reduced from 1.1rem to 0.33rem (30%) */
+    font-weight: 500;
+}
+
+.home-pinned-count {
+    font-size: 0.8em;
+    color: var(--text-muted);
+    font-weight: 500;
+    margin-left: 8px;
+}
+
+.home-pinned-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(96px, 1fr)); /* Reduced from 320px to 96px (30%) */
+    gap: 7px; /* Reduced from 24px to 7px (30%) */
+    margin-bottom: 7px; /* Reduced from 24px to 7px (30%) */
+}
+
+/* HOME PAGE PINNED CARDS - COMPLETELY SEPARATE FROM MAIN GRID */
+.home-pinned-card {
+    background: var(--bg-card);
+    border: 1px solid var(--primary-color); /* Reduced from 2px to 1px (50%) */
+    border-radius: var(--border-radius);
+    box-shadow: 0 2px 10px rgba(99, 102, 241, 0.15); /* Reduced from 0 8px 32px (25%) */
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    padding: 7px; /* Reduced from 24px to 7px (30%) */
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+
+.home-pinned-card:hover {
+    transform: translateY(-2px); /* Reduced from -8px to -2px (25%) */
+    box-shadow: 0 5px 15px rgba(99, 102, 241, 0.25); /* Reduced from 0 16px 48px (30%) */
+    border-color: var(--secondary-color);
+}
+
+.home-pinned-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px; /* Reduced from 6px to 2px (33%) */
+    background: var(--gradient-primary);
+    transform: scaleX(1);
+    transition: var(--transition);
+}
+
+/* HOME PINNED CARD ELEMENTS - COMPLETELY SEPARATE */
+.home-pinned-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 8px; /* Reduced from 16px to 8px (50%) */
+    position: relative;
+}
+
+.home-pinned-number {
+    background: var(--gradient-primary);
+    color: white;
+    width: 20px; /* Reduced from 32px to 20px (62%) */
+    height: 20px; /* Reduced from 32px to 20px (62%) */
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.6rem; /* Reduced from 0.8rem to 0.6rem (75%) */
+    font-weight: 600;
+    flex-shrink: 0;
+    box-shadow: 0 1px 4px rgba(99, 102, 241, 0.3);
+}
+
+.home-pin-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px; /* Reduced from 8px to 4px (50%) */
+    border-radius: 50%;
+    transition: var(--transition);
+    color: var(--primary-color);
+    background: rgba(99, 102, 241, 0.1);
+    width: 20px; /* Reduced from 32px to 20px (62%) */
+    height: 20px; /* Reduced from 32px to 20px (62%) */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.home-pin-button:hover {
+    background: rgba(99, 102, 241, 0.2);
+    transform: scale(1.1);
+}
+
+.home-pin-button i {
+    font-size: 0.7rem; /* Reduced from 0.9rem to 0.7rem (78%) */
+    transition: var(--transition);
+}
+
+.home-pinned-title {
+    font-size: 0.7rem; /* Reduced from 1.2rem to 0.7rem (58%) */
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 6px; /* Reduced from 12px to 6px (50%) */
+    line-height: 1.4;
+}
+
+.home-pinned-description {
+    color: var(--text-secondary);
+    font-size: 0.6rem; /* Reduced from 0.95rem to 0.6rem (63%) */
+    line-height: 1.5;
+    margin-bottom: 8px; /* Reduced from 16px to 8px (50%) */
+}
+
+.home-pinned-category {
+    display: inline-block;
+    padding: 3px 6px; /* Reduced from 6px 12px to 3px 6px (50%) */
+    background: var(--bg-tertiary);
+    color: var(--text-secondary);
+    border-radius: 20px;
+    font-size: 0.6rem; /* Reduced from 0.8rem to 0.6rem (75%) */
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Category colors for home pinned cards */
+.home-pinned-category.tech { background: rgba(99, 102, 241, 0.1); color: var(--primary-color); }
+.home-pinned-category.creative { background: rgba(139, 92, 246, 0.1); color: var(--secondary-color); }
+.home-pinned-category.personal { background: rgba(16, 185, 129, 0.1); color: var(--success-color); }
+.home-pinned-category.finance { background: rgba(245, 158, 11, 0.1); color: var(--warning-color); }
+.home-pinned-category.health { background: rgba(6, 182, 212, 0.1); color: var(--accent-color); }
+.home-pinned-category.education { background: rgba(6, 182, 212, 0.1); color: var(--accent-color); }
+.home-pinned-category.travel { background: rgba(236, 72, 153, 0.1); color: #ec4899; }
+.home-pinned-category.productivity { background: rgba(34, 197, 94, 0.1); color: #22c55e; }
+.home-pinned-category.lifestyle { background: rgba(168, 85, 247, 0.1); color: #a855f7; }
+.home-pinned-category.entertainment { background: rgba(251, 146, 60, 0.1); color: #fb923c; }
+.home-pinned-category.music { background: rgba(59, 130, 246, 0.1); color: #3b82f6; }
+
+/* Animation for home pinned section */
+.home-pinned-section.fade-in {
+    animation: fadeInUp 0.6s ease-out;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(6px); /* Reduced from 20px to 6px (30%) */
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.section-header {
+    text-align: center;
+    margin-bottom: 32px;
+}
+
+.section-header h2 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+}
+
+.section-header p {
+    color: var(--text-secondary);
+    font-size: 1rem;
+}
+
+.pinned-pages-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 24px;
+    margin-bottom: 24px;
+}
+
+/* Enhanced Page Card for Pinned Pages */
+.page-card.pinned {
+    border: 2px solid var(--primary-color);
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.02) 0%, rgba(139, 92, 246, 0.02) 100%);
+    box-shadow: 0 8px 32px rgba(99, 102, 241, 0.1);
+}
+
+.page-card.pinned::before {
+    background: var(--gradient-primary);
+    transform: scaleX(1);
+    height: 6px;
+}
+
+.page-card.pinned .page-number {
+    background: var(--gradient-primary);
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+}
+
+/* Page Header with Pin Button */
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 16px;
+    position: relative;
+}
+
+/* Pin Button Styles */
+.pin-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 50%;
+    transition: var(--transition);
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    flex-shrink: 0;
+}
+
+.pin-button:hover {
+    background: rgba(99, 102, 241, 0.1);
+    color: var(--primary-color);
+    transform: scale(1.1);
+}
+
+.pin-button.pinned {
+    color: var(--primary-color);
+    background: rgba(99, 102, 241, 0.1);
+}
+
+.pin-button.pinned:hover {
+    background: rgba(99, 102, 241, 0.2);
+    transform: scale(1.1);
+}
+
+.pin-button i {
+    font-size: 0.9rem;
+    transition: var(--transition);
+}
+
+.pin-button.pinned i {
+    transform: rotate(-45deg);
+}
+
+/* Notification Styles */
+.notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: var(--success-color);
+    color: white;
+    padding: 12px 20px;
+    border-radius: 8px;
+    box-shadow: var(--shadow-lg);
+    z-index: 1000;
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+}
+
+.notification.success {
+    background: var(--success-color);
+}
+
+.notification.info {
+    background: var(--primary-color);
+}
+
+/* Responsive Design for Pinned Pages */
+@media (max-width: 768px) {
+    .pinned-pages-section {
+        padding: 20px;
+        margin-bottom: 24px;
+    }
+    
+    .section-header h2 {
+        font-size: 1.5rem;
+        flex-direction: column;
+        gap: 8px;
+    }
+    
+    .pinned-pages-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+    
+    .page-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+    
+    .page-number {
+        position: relative;
+        top: 0;
+        right: 0;
+    }
+    
+    .pin-button {
+        align-self: flex-end;
+        margin-top: -40px;
+    }
+    
+    /* Home page pinned section mobile styles */
+    .home-pinned-section {
+        margin: 7px 0; /* Reduced from 24px to 7px (30%) */
+        padding: 7px 0; /* Reduced from 24px to 7px (30%) */
+    }
+    
+    .home-pinned-header h2 {
+        font-size: 0.54rem; /* Reduced from 1.8rem to 0.54rem (30%) */
+        flex-direction: column;
+        gap: 2px; /* Reduced from 8px to 2px (25%) */
+    }
+    
+    .home-pinned-grid {
+        grid-template-columns: 1fr;
+        gap: 5px; /* Reduced from 16px to 5px (30%) */
+    }
+    
+    /* Individual page header mobile styles */
+    .individual-page .page-header {
+        padding: 24px 0;
+        margin-bottom: 24px;
+    }
+    
+    .individual-page .page-header-content {
+        padding: 0 16px;
+    }
+    
+    .individual-page .page-header .page-title {
+        font-size: 2rem;
+        margin-bottom: 12px;
+    }
+    
+    .individual-page .page-header .page-meta {
+        gap: 12px;
+    }
+    
+    .individual-page .page-header .page-category-badge,
+    .individual-page .page-header .page-number-badge {
+        padding: 6px 12px;
+        font-size: 0.8rem;
+    }
+}
 
 /* Footer */
 .footer {
@@ -578,8 +1073,11 @@ input:focus {
     justify-content: center;
     align-items: center;
     gap: 10px;
-    margin: 40px 0;
+    margin: 40px auto;
     flex-wrap: wrap;
+    width: 100%;
+    max-width: 1400px;
+    padding: 0 20px;
 }
 
 .pagination-btn {
@@ -635,6 +1133,71 @@ input:focus {
     background: var(--bg-tertiary);
     border-radius: var(--border-radius);
     border: 1px solid var(--border-color);
+}
+
+/* INDIVIDUAL PAGE HEADER STYLES - SEPARATE FROM HOME PAGE */
+.individual-page .page-header {
+    text-align: center;
+    margin-bottom: 40px;
+    padding: 40px 0;
+    background: var(--gradient-primary);
+    color: white;
+    border-radius: var(--border-radius);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.individual-page .page-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="75" cy="75" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="50" cy="10" r="0.5" fill="rgba(255,255,255,0.1)"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+    opacity: 0.3;
+}
+
+.individual-page .page-header-content {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.individual-page .page-header .page-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 16px;
+    font-family: 'Space Grotesk', sans-serif;
+    text-align: center;
+    width: 100%;
+}
+
+.individual-page .page-header .page-meta {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.individual-page .page-header .page-category-badge,
+.individual-page .page-header .page-number-badge {
+    padding: 8px 16px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    text-align: center;
+    white-space: nowrap;
 }
 
 /* Loading Message Styles */
