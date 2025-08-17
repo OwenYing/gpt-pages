@@ -705,7 +705,7 @@ function renderHomePagePinnedSection() {
     }
     
     // Add click event listeners to home page pinned cards
-    pinnedGrid.querySelectorAll('.page-card').forEach(card => {
+    pinnedGrid.querySelectorAll('.home-pinned-card').forEach(card => {
         card.addEventListener('click', () => {
             const pageId = card.dataset.pageId;
             const page = pagesData.find(p => p.id == pageId);
