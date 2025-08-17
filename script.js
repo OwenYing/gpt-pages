@@ -116,7 +116,8 @@ const pagesData = [
     { id: 97, title: "HTTP Status Code Reference", description: "Complete reference for HTTP status codes and their meanings", category: "tech", tags: ["HTTP", "Status Codes", "Reference", "Web Development"] },
     { id: 98, title: "CSS Gradient Generator", description: "Create beautiful CSS gradients with visual preview", category: "tech", tags: ["CSS", "Gradients", "Generator", "Web Design"] },
     { id: 99, title: "ASCII Art Generator", description: "Convert text to ASCII art with various font styles", category: "tech", tags: ["ASCII Art", "Text Art", "Generator", "Creativity"] },
-    { id: 100, title: "Password Strength Tester", description: "Test password strength and get security recommendations", category: "tech", tags: ["Password", "Security", "Strength Tester", "Safety"] }
+    { id: 100, title: "Password Strength Tester", description: "Test password strength and get security recommendations", category: "tech", tags: ["Password", "Security", "Strength Tester", "Safety"] },
+    { id: 101, title: "Guitar Tuner", description: "Professional guitar tuner with microphone input and visual feedback", category: "music", tags: ["Guitar", "Tuner", "Music", "Audio", "Microphone", "Frequency"] }
 ];
 
 // Extensibility functions for unlimited pages
@@ -287,7 +288,7 @@ async function filterExistingPages() {
     // Fallback to hardcoded list if auto-detection didn't work
     if (!autoDetected || existingPages.length === 0) {
         console.log('Using fallback list of existing pages...');
-        const existingPageIds = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100]; // All existing pages (1-100)
+        const existingPageIds = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100, 101]; // All existing pages (1-101)
         
         for (const page of pagesData) {
             if (existingPageIds.includes(page.id)) {
