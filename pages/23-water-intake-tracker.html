@@ -838,16 +838,90 @@
     <script>
         // Water tracker state
         let waterHistory = JSON.parse(localStorage.getItem('waterHistory')) || {};
-        let currentGoal = 64;
+        let currentGoal = 83; // Default calculated goal: 150 lbs * 0.5 * 1.1 (light activity) * 1.0 (temperate) = 82.5, rounded to 83
         let currentDay = new Date().toISOString().split('T')[0];
+        
+        // Load saved settings from localStorage
+        function loadSavedSettings() {
+            const savedWeight = localStorage.getItem('waterTracker_bodyWeight');
+            const savedActivity = localStorage.getItem('waterTracker_activityLevel');
+            const savedClimate = localStorage.getItem('waterTracker_climate');
+            const savedCustomGoal = localStorage.getItem('waterTracker_customGoal');
+            
+            if (savedWeight) document.getElementById('bodyWeight').value = savedWeight;
+            if (savedActivity) document.getElementById('activityLevel').value = savedActivity;
+            if (savedClimate) document.getElementById('climate').value = savedClimate;
+            if (savedCustomGoal) {
+                document.getElementById('customGoal').value = savedCustomGoal;
+                document.getElementById('customGoal').dataset.userModified = 'true';
+                // Update currentGoal to match saved custom goal
+                currentGoal = parseFloat(savedCustomGoal);
+            }
+        }
+        
+        // Save settings to localStorage
+        function saveSettings() {
+            const bodyWeight = document.getElementById('bodyWeight').value;
+            const activityLevel = document.getElementById('activityLevel').value;
+            const climate = document.getElementById('climate').value;
+            const customGoal = document.getElementById('customGoal').value;
+            
+            localStorage.setItem('waterTracker_bodyWeight', bodyWeight);
+            localStorage.setItem('waterTracker_activityLevel', activityLevel);
+            localStorage.setItem('waterTracker_climate', climate);
+            localStorage.setItem('waterTracker_customGoal', customGoal);
+        }
         
         // Initialize the page
         document.addEventListener('DOMContentLoaded', function() {
-            // Set default values
-            document.getElementById('bodyWeight').value = '150';
-            document.getElementById('activityLevel').value = 'light';
-            document.getElementById('climate').value = 'temperate';
-            document.getElementById('customGoal').value = '64';
+            // Load saved settings first
+            loadSavedSettings();
+            
+            // Set default values only if no saved settings exist
+            if (!localStorage.getItem('waterTracker_bodyWeight')) {
+                document.getElementById('bodyWeight').value = '150';
+            }
+            if (!localStorage.getItem('waterTracker_activityLevel')) {
+                document.getElementById('activityLevel').value = 'light';
+            }
+            if (!localStorage.getItem('waterTracker_climate')) {
+                document.getElementById('climate').value = 'temperate';
+            }
+            if (!localStorage.getItem('waterTracker_customGoal')) {
+                // Calculate default goal based on current inputs
+                calculateGoal();
+            } else {
+                // If we have a saved custom goal, use it for display but allow recalculation
+                const savedCustomGoal = parseFloat(localStorage.getItem('waterTracker_customGoal'));
+                if (savedCustomGoal && !isNaN(savedCustomGoal)) {
+                    currentGoal = savedCustomGoal;
+                    // Update display to show the saved goal
+                    updateDisplay();
+                    updateStats();
+                } else {
+                    // Fallback to calculation if saved goal is invalid
+                    calculateGoal();
+                }
+            }
+            
+            // Track custom goal input changes
+            document.getElementById('customGoal').addEventListener('input', function() {
+                this.dataset.userModified = 'true';
+                saveSettings(); // Save when custom goal changes
+            });
+            
+            // Save settings when inputs change (but don't recalculate automatically)
+            document.getElementById('bodyWeight').addEventListener('input', function() {
+                saveSettings(); // Save when body weight changes
+            });
+            
+            document.getElementById('activityLevel').addEventListener('change', function() {
+                saveSettings(); // Save when activity level changes
+            });
+            
+            document.getElementById('climate').addEventListener('change', function() {
+                saveSettings(); // Save when climate changes
+            });
             
             // Load today's data
             loadTodayData();
@@ -861,6 +935,12 @@
             document.getElementById('activityLevel').value = activity;
             document.getElementById('climate').value = climate;
             document.getElementById('customGoal').value = goal;
+            
+            // Reset user modification flag since we're setting a profile
+            document.getElementById('customGoal').dataset.userModified = 'false';
+            
+            // Save the new settings
+            saveSettings();
             
             // Calculate and set goal
             calculateGoal();
@@ -896,10 +976,27 @@
         
         // Calculate hydration goal
         function calculateGoal() {
-            const bodyWeight = parseFloat(document.getElementById('bodyWeight').value) || 150;
-            const activityLevel = document.getElementById('activityLevel').value;
-            const climate = document.getElementById('climate').value;
-            const customGoal = parseFloat(document.getElementById('customGoal').value) || 64;
+            console.log('=== calculateGoal function called! ===');
+            console.log('Current state before calculation:', { currentGoal });
+            
+            // Test if we can access the DOM elements
+            const bodyWeightEl = document.getElementById('bodyWeight');
+            const activityLevelEl = document.getElementById('activityLevel');
+            const climateEl = document.getElementById('climate');
+            const customGoalEl = document.getElementById('customGoal');
+            
+            if (!bodyWeightEl || !activityLevelEl || !climateEl || !customGoalEl) {
+                console.error('ERROR: Could not find required DOM elements!');
+                return;
+            }
+            
+            const bodyWeight = parseFloat(bodyWeightEl.value) || 150;
+            const activityLevel = activityLevelEl.value;
+            const climate = climateEl.value;
+            const customGoal = parseFloat(customGoalEl.value);
+            
+            console.log('DOM elements found successfully');
+            console.log('Input values:', { bodyWeight, activityLevel, climate, customGoal });
             
             // Base calculation: half body weight in ounces
             let baseGoal = bodyWeight * 0.5;
@@ -925,13 +1022,47 @@
             
             baseGoal *= climateMultipliers[climate] || 1.0;
             
-            // Use custom goal if provided, otherwise use calculated
-            currentGoal = customGoal > 0 ? customGoal : Math.round(baseGoal);
+            // Calculate the new goal based on current inputs
+            const calculatedGoal = Math.round(baseGoal);
+            
+            console.log('Calculation steps:', { baseGoal, calculatedGoal });
+            
+            // Always use the calculated goal when Calculate Goal button is clicked
+            // This ensures the goal updates when inputs change
+            currentGoal = calculatedGoal;
+            console.log('Using calculated goal:', currentGoal);
+            
+            // Update the custom goal input to show the calculated value
+            customGoalEl.value = currentGoal;
+            // Reset user modification flag since we're using calculated value
+            customGoalEl.dataset.userModified = 'false';
+            
+            console.log('Final goal:', currentGoal);
             
             // Update display
+            console.log('Calling updateDisplay...');
             updateDisplay();
+            console.log('Calling updateStats...');
             updateStats();
+            
+            // Save settings after updating
+            console.log('Saving settings...');
+            saveSettings();
+            
+            // Clear the saved custom goal since we're now using calculated values
+            // This ensures future page loads will recalculate instead of using old custom goals
+            localStorage.removeItem('waterTracker_customGoal');
+            console.log('Cleared saved custom goal to allow future recalculation');
+            
+            // Show success message
+            console.log('Showing success message...');
+            showMessage(`Goal updated to ${currentGoal} oz`);
+            
+            console.log('=== calculateGoal function completed successfully ===');
         }
+        
+        // Make calculateGoal globally accessible for onclick
+        window.calculateGoal = calculateGoal;
         
         // Add water
         function addWater(amount) {
@@ -980,7 +1111,16 @@
         // Update display
         function updateDisplay() {
             const todayIntake = getTodayIntake();
+            
+            // Ensure currentGoal is valid
+            if (typeof currentGoal !== 'number' || isNaN(currentGoal) || currentGoal <= 0) {
+                console.warn('Invalid currentGoal:', currentGoal, 'Setting to default 83');
+                currentGoal = 83;
+            }
+            
             const progress = Math.min(100, (todayIntake / currentGoal) * 100);
+            
+            console.log('Updating display:', { todayIntake, currentGoal, progress });
             
             document.getElementById('displayGoal').textContent = `${currentGoal} oz`;
             document.getElementById('displayProgress').textContent = `${todayIntake} / ${currentGoal} oz (${progress.toFixed(1)}%)`;
@@ -990,8 +1130,17 @@
         // Update statistics
         function updateStats() {
             const todayIntake = getTodayIntake();
+            
+            // Ensure currentGoal is valid
+            if (typeof currentGoal !== 'number' || isNaN(currentGoal) || currentGoal <= 0) {
+                console.warn('Invalid currentGoal in updateStats:', currentGoal, 'Setting to default 83');
+                currentGoal = 83;
+            }
+            
             const progress = Math.min(100, (todayIntake / currentGoal) * 100);
             const streak = calculateStreak();
+            
+            console.log('Updating stats:', { todayIntake, currentGoal, progress, streak });
             
             document.getElementById('statToday').textContent = todayIntake;
             document.getElementById('statGoal').textContent = currentGoal;
@@ -1119,9 +1268,29 @@
             document.getElementById('bodyWeight').value = '150';
             document.getElementById('activityLevel').value = 'light';
             document.getElementById('climate').value = 'temperate';
-            document.getElementById('customGoal').value = '64';
             
-            currentGoal = 64;
+            // Calculate default goal based on default body weight (150 lbs)
+            const defaultWeight = 150;
+            const defaultActivity = 'light';
+            const defaultClimate = 'temperate';
+            
+            let defaultGoal = defaultWeight * 0.5; // Base: half body weight in ounces
+            defaultGoal *= 1.1; // Light activity multiplier
+            defaultGoal *= 1.0; // Temperate climate multiplier
+            
+            const calculatedDefaultGoal = Math.round(defaultGoal);
+            document.getElementById('customGoal').value = calculatedDefaultGoal;
+            
+            // Reset user modification flag
+            document.getElementById('customGoal').dataset.userModified = 'false';
+            
+            // Clear saved settings
+            localStorage.removeItem('waterTracker_bodyWeight');
+            localStorage.removeItem('waterTracker_activityLevel');
+            localStorage.removeItem('waterTracker_climate');
+            localStorage.removeItem('waterTracker_customGoal');
+            
+            currentGoal = calculatedDefaultGoal;
             updateDisplay();
             updateStats();
         }
