@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 192" width="192" height="192">
+  <defs>
+    <linearGradient id="rocketGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#6366f1;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#8b5cf6;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="flameGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#f59e0b;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#ef4444;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background circle -->
+  <circle cx="96" cy="96" r="90" fill="url(#rocketGradient)"/>
+  
+  <!-- Rocket body -->
+  <path d="M96 36 L120 78 L96 120 L72 78 Z" fill="#ffffff" opacity="0.95"/>
+  
+  <!-- Rocket nose -->
+  <path d="M96 36 L108 48 L96 60 L84 48 Z" fill="#ffffff"/>
+  
+  <!-- Rocket fins -->
+  <path d="M72 78 L60 108 L72 96 Z" fill="#ffffff" opacity="0.8"/>
+  <path d="M120 78 L132 108 L120 96 Z" fill="#ffffff" opacity="0.8"/>
+  
+  <!-- Flame -->
+  <path d="M84 120 L96 150 L108 120 Z" fill="url(#flameGradient)"/>
+  
+  <!-- Sparkles/stars -->
+  <circle cx="48" cy="48" r="6" fill="#ffffff" opacity="0.9"/>
+  <circle cx="144" cy="60" r="5" fill="#ffffff" opacity="0.7"/>
+  <circle cx="36" cy="120" r="4" fill="#ffffff" opacity="0.8"/>
+  <circle cx="156" cy="144" r="4.5" fill="#ffffff" opacity="0.6"/>
+  <circle cx="60" cy="36" r="3" fill="#ffffff" opacity="0.5"/>
+  <circle cx="132" cy="36" r="3.5" fill="#ffffff" opacity="0.6"/>
+  <circle cx="24" cy="84" r="2.5" fill="#ffffff" opacity="0.4"/>
+  <circle cx="168" cy="84" r="2" fill="#ffffff" opacity="0.5"/>
+</svg>
