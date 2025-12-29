@@ -119,7 +119,8 @@ const pagesData = [
     { id: 100, title: "Password Strength Tester", description: "Test password strength and get security recommendations", category: "tech", tags: ["Password", "Security", "Strength Tester", "Safety"] },
     { id: 101, title: "Guitar Tuner", description: "Professional guitar tuner with microphone input and visual feedback", category: "music", tags: ["Guitar", "Tuner", "Music", "Audio", "Microphone", "Frequency"] },
     { id: 102, title: "Mermaid Diagram Renderer", description: "Create beautiful diagrams using Mermaid syntax with real-time rendering and export options", category: "tech", tags: ["Mermaid", "Diagrams", "Flowcharts", "Charts", "Export", "Tech"] },
-    { id: 103, title: "Salary Per Second Counter", description: "Track how much you earn every second based on your annual salary", category: "finance", tags: ["Salary", "Income", "Per Second", "Calculator", "Timer"] }
+    { id: 103, title: "Salary Per Second Counter", description: "Track how much you earn every second based on your annual salary", category: "finance", tags: ["Salary", "Income", "Per Second", "Calculator", "Timer"] },
+    { id: 104, title: "ChatGPT Answer Formatter", description: "Paste ChatGPT answers, restyle them, and export as a matching PDF", category: "productivity", tags: ["ChatGPT", "Formatter", "PDF", "Markdown", "Export"] }
 ];
 
 // Pin/Favorite functionality
