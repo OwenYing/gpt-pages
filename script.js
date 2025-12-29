@@ -118,7 +118,8 @@ const pagesData = [
     { id: 99, title: "ASCII Art Generator", description: "Convert text to ASCII art with various font styles", category: "tech", tags: ["ASCII Art", "Text Art", "Generator", "Creativity"] },
     { id: 100, title: "Password Strength Tester", description: "Test password strength and get security recommendations", category: "tech", tags: ["Password", "Security", "Strength Tester", "Safety"] },
     { id: 101, title: "Guitar Tuner", description: "Professional guitar tuner with microphone input and visual feedback", category: "music", tags: ["Guitar", "Tuner", "Music", "Audio", "Microphone", "Frequency"] },
-    { id: 102, title: "Mermaid Diagram Renderer", description: "Create beautiful diagrams using Mermaid syntax with real-time rendering and export options", category: "tech", tags: ["Mermaid", "Diagrams", "Flowcharts", "Charts", "Export", "Tech"] }
+    { id: 102, title: "Mermaid Diagram Renderer", description: "Create beautiful diagrams using Mermaid syntax with real-time rendering and export options", category: "tech", tags: ["Mermaid", "Diagrams", "Flowcharts", "Charts", "Export", "Tech"] },
+    { id: 103, title: "Salary Per Second Counter", description: "Track how much you earn every second based on your annual salary", category: "finance", tags: ["Salary", "Income", "Per Second", "Calculator", "Timer"] }
 ];
 
 // Pin/Favorite functionality
