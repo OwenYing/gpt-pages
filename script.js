@@ -120,7 +120,8 @@ const pagesData = [
     { id: 101, title: "Guitar Tuner", description: "Professional guitar tuner with microphone input and visual feedback", category: "music", tags: ["Guitar", "Tuner", "Music", "Audio", "Microphone", "Frequency"] },
     { id: 102, title: "Mermaid Diagram Renderer", description: "Create beautiful diagrams using Mermaid syntax with real-time rendering and export options", category: "tech", tags: ["Mermaid", "Diagrams", "Flowcharts", "Charts", "Export", "Tech"] },
     { id: 103, title: "Salary Per Second Counter", description: "Track how much you earn every second based on your annual salary", category: "finance", tags: ["Salary", "Income", "Per Second", "Calculator", "Timer"] },
-    { id: 104, title: "ChatGPT Answer Formatter", description: "Paste ChatGPT answers, restyle them, and export as a matching PDF", category: "productivity", tags: ["ChatGPT", "Formatter", "PDF", "Markdown", "Export"] }
+    { id: 104, title: "ChatGPT Answer Formatter", description: "Paste ChatGPT answers, restyle them, and export as a matching PDF", category: "productivity", tags: ["ChatGPT", "Formatter", "PDF", "Markdown", "Export"] },
+    { id: 105, title: "D3 Visualization Playground", description: "Interactive D3 demo charts with animated transitions", category: "tech", tags: ["D3", "Visualization", "Charts", "Demo", "Data"] }
 ];
 
 // Pin/Favorite functionality
