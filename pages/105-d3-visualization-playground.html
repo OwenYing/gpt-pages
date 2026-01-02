@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Google Analytics 4 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-T69M8TNFWB"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-T69M8TNFWB');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>D3 Visualization Playground - GPT Ideas Hub</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .page-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        .page-header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 40px 0;
+            background: var(--gradient-primary);
+            color: white;
+            border-radius: var(--border-radius);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .page-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="75" cy="75" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="50" cy="10" r="0.5" fill="rgba(255,255,255,0.1)"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+            opacity: 0.3;
+        }
+        
+        .page-header-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .page-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+            font-family: 'Space Grotesk', sans-serif;
+        }
+        
+        .page-meta {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .page-category-badge,
+        .page-number-badge {
+            padding: 8px 16px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+        
+        .back-button {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: var(--primary-color);
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: var(--border-radius);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .back-button:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .content-section {
+            background: white;
+            padding: 30px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-md);
+            margin-bottom: 30px;
+        }
+        
+        .chart-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 24px;
+            margin-top: 24px;
+        }
+        
+        .chart-card {
+            background: var(--bg-secondary);
+            border-radius: var(--border-radius);
+            padding: 20px;
+            border: 1px solid var(--border-color);
+        }
+        
+        .chart-card h3 {
+            margin-bottom: 12px;
+            color: var(--text-primary);
+        }
+        
+        .chart-area {
+            width: 100%;
+            min-height: 360px;
+        }
+        
+        .chart-note {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-top: 12px;
+        }
+        
+        .btn-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 16px;
+        }
+
+        .control-panel {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin-top: 20px;
+            padding: 16px;
+            background: var(--bg-tertiary);
+            border-radius: var(--border-radius);
+            border: 1px solid var(--border-color);
+        }
+
+        .control-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--text-primary);
+        }
+
+        .control-group input[type="range"],
+        .control-group select {
+            width: 100%;
+        }
+        
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .btn-primary {
+            background: var(--primary-color);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .btn-secondary {
+            background: var(--bg-tertiary);
+            color: var(--text-primary);
+            border: 2px solid var(--border-color);
+        }
+        
+        .btn-secondary:hover {
+            background: var(--border-color);
+        }
+        
+        .axis path,
+        .axis line {
+            stroke: #cbd5f5;
+        }
+        
+        @media (max-width: 768px) {
+            .page-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body class="individual-page">
+    <a href="../index.html" class="back-button">
+        <i class="fas fa-arrow-left"></i>
+        Back to Hub
+    </a>
+
+    <div class="page-content">
+        <header class="page-header">
+            <div class="page-header-content">
+                <h1 class="page-title">📊 D3 Visualization Playground</h1>
+                <div class="page-meta">
+                    <span class="page-category-badge">Tech & Coding</span>
+                    <span class="page-number-badge">Page 105</span>
+                </div>
+                <p style="margin-top: 20px; font-size: 1.1rem; opacity: 0.9;">
+                    A live showcase of D3-powered charts with interactive updates
+                </p>
+            </div>
+        </header>
+
+        <div class="content-section">
+            <h2>Explore D3 in Action</h2>
+            <p>Each visualization below is generated with D3. Shuffle the data to see transitions and dynamic updates.</p>
+            <div class="btn-row">
+                <button class="btn btn-primary" id="randomizeBtn">
+                    <i class="fas fa-bolt"></i>
+                    Randomize Viz
+                </button>
+            </div>
+            <div class="control-panel">
+                <div class="control-group">
+                    <label for="speedControl">Motion Speed</label>
+                    <input type="range" id="speedControl" min="0.4" max="1.6" step="0.1" value="1">
+                </div>
+                <div class="control-group">
+                    <label for="densityControl">Density</label>
+                    <input type="range" id="densityControl" min="0.6" max="1.6" step="0.1" value="1">
+                </div>
+                <div class="control-group">
+                    <label for="paletteControl">Palette</label>
+                    <select id="paletteControl">
+                        <option value="auto" selected>Auto</option>
+                        <option value="set2">Soft Set2</option>
+                        <option value="tableau">Tableau</option>
+                        <option value="pastel">Pastel</option>
+                        <option value="set3">Set3</option>
+                        <option value="dark2">Dark2</option>
+                    </select>
+                </div>
+                <div class="control-group">
+                    <label for="modeControl">Mode</label>
+                    <select id="modeControl">
+                        <option value="auto" selected>Auto</option>
+                        <option value="force">Force Galaxy</option>
+                        <option value="rings">Radial Rings</option>
+                        <option value="heat">Topography</option>
+                        <option value="stream">Streamflow</option>
+                        <option value="orbit">Orbiting Swarm</option>
+                        <option value="voronoi">Voronoi Field</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="chart-grid">
+                <div class="chart-card">
+                    <h3 id="randomTitle">Randomized Force Galaxy</h3>
+                    <div class="chart-area" id="randomChart"></div>
+                    <p class="chart-note" id="randomNote">A fresh, complex layout on every click.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script>
+        const randomTitle = document.getElementById('randomTitle');
+        const randomNote = document.getElementById('randomNote');
+        const randomConfig = { width: 760, height: 380 };
+        let activeAnimation = null;
+        let currentSimulation = null;
+        const speedControl = document.getElementById('speedControl');
+        const densityControl = document.getElementById('densityControl');
+        const paletteControl = document.getElementById('paletteControl');
+        const modeControl = document.getElementById('modeControl');
+
+        function createSvg(container, { width, height, margin }) {
+            const svg = d3.select(container)
+                .append('svg')
+                .attr('viewBox', `0 0 ${width} ${height}`)
+                .attr('width', '100%')
+                .attr('height', '100%');
+
+            if (margin) {
+                return svg.append('g')
+                    .attr('transform', `translate(${margin.left}, ${margin.top})`);
+            }
+            return svg;
+        }
+
+        const randomSvg = createSvg('#randomChart', randomConfig);
+
+        function stopActiveAnimation() {
+            if (activeAnimation) {
+                activeAnimation.stop();
+                activeAnimation = null;
+            }
+            if (currentSimulation) {
+                currentSimulation.stop();
+                currentSimulation = null;
+            }
+        }
+
+        function randomizeVisualization() {
+            const { width, height } = randomConfig;
+            const svg = d3.select('#randomChart svg');
+            svg.selectAll('*').remove();
+            stopActiveAnimation();
+
+            const rand = (min, max) => min + Math.random() * (max - min);
+            const pick = (arr) => arr[Math.floor(Math.random() * arr.length)];
+            const speedFactor = Number(speedControl.value) || 1;
+            const densityFactor = Number(densityControl.value) || 1;
+            const paletteMap = {
+                set2: d3.schemeSet2,
+                tableau: d3.schemeTableau10,
+                pastel: d3.schemePastel2,
+                set3: d3.schemeSet3,
+                dark2: d3.schemeDark2
+            };
+            const palette = paletteControl.value === 'auto'
+                ? pick(Object.values(paletteMap))
+                : paletteMap[paletteControl.value];
+
+            const modeMap = {
+                force: 0,
+                rings: 1,
+                heat: 2,
+                stream: 3,
+                orbit: 4,
+                voronoi: 5
+            };
+            const modeValue = modeControl.value;
+            const stylePick = modeValue === 'auto'
+                ? Math.floor(Math.random() * 6)
+                : modeMap[modeValue];
+            const backgroundMode = Math.floor(Math.random() * 3);
+            const mood = {
+                glow: rand(0.2, 0.45),
+                stroke: pick(['#0f172a', '#111827', '#1e293b']),
+                link: pick(['#64748b', '#94a3b8', '#cbd5f5']),
+                blend: pick(['normal', 'screen', 'multiply', 'overlay'])
+            };
+
+            const defs = svg.append('defs');
+            if (backgroundMode === 0) {
+                const gradientId = `bg-${Date.now()}`;
+                const linear = defs.append('linearGradient')
+                    .attr('id', gradientId)
+                    .attr('x1', '0%')
+                    .attr('y1', '0%')
+                    .attr('x2', '100%')
+                    .attr('y2', '100%');
+                linear.selectAll('stop').data([
+                    { offset: '0%', color: pick(palette) },
+                    { offset: '50%', color: pick(palette) },
+                    { offset: '100%', color: pick(palette) }
+                ]).join('stop')
+                    .attr('offset', d => d.offset)
+                    .attr('stop-color', d => d.color);
+                svg.append('rect')
+                    .attr('width', width)
+                    .attr('height', height)
+                    .attr('fill', `url(#${gradientId})`)
+                    .attr('opacity', mood.glow);
+            } else if (backgroundMode === 1) {
+                svg.append('rect')
+                    .attr('width', width)
+                    .attr('height', height)
+                    .attr('fill', pick(['#0f172a', '#111827', '#1e293b']))
+                    .attr('opacity', 0.2);
+                svg.append('g')
+                    .selectAll('circle')
+                    .data(d3.range(40))
+                    .join('circle')
+                    .attr('cx', () => rand(0, width))
+                    .attr('cy', () => rand(0, height))
+                    .attr('r', () => rand(6, 28))
+                    .attr('fill', pick(palette))
+                    .attr('opacity', rand(0.05, 0.2));
+            } else {
+                svg.append('rect')
+                    .attr('width', width)
+                    .attr('height', height)
+                    .attr('fill', '#f8fafc')
+                    .attr('opacity', 0.25);
+                svg.append('path')
+                    .attr('d', `M0 ${height * rand(0.3, 0.7)} Q ${width * 0.35} ${height * rand(0.1, 0.9)} ${width} ${height * rand(0.2, 0.8)} L ${width} ${height} L 0 ${height} Z`)
+                    .attr('fill', pick(palette))
+                    .attr('opacity', rand(0.08, 0.2));
+            }
+
+            if (stylePick === 0) {
+                randomTitle.textContent = 'Randomized Force Galaxy';
+                randomNote.textContent = 'Force-driven constellation with shifting gravity wells and motion trails.';
+
+                const nodeCount = Math.floor(rand(24, 60) * densityFactor);
+                const linkCount = Math.floor(nodeCount * rand(0.6, 1.5));
+                const shapePick = pick(['circle', 'rounded', 'ring']);
+                const nodes = d3.range(nodeCount).map(i => ({
+                    id: i,
+                    group: Math.floor(Math.random() * palette.length),
+                    radius: rand(4, 16),
+                    wobble: rand(0.6, 2.1)
+                }));
+                const links = d3.range(linkCount).map(() => ({
+                    source: Math.floor(Math.random() * nodeCount),
+                    target: Math.floor(Math.random() * nodeCount)
+                }));
+
+                const gradientId = `glow-${Date.now()}`;
+                const radial = defs.append('radialGradient')
+                    .attr('id', gradientId);
+                radial.append('stop').attr('offset', '0%').attr('stop-color', pick(palette));
+                radial.append('stop').attr('offset', '100%').attr('stop-color', pick(['#0f172a', '#1e293b', '#0b1020']));
+
+                const linkGroup = svg.append('g')
+                    .attr('stroke', mood.link)
+                    .attr('stroke-opacity', rand(0.2, 0.5))
+                    .attr('mix-blend-mode', mood.blend);
+
+                const nodeGroup = svg.append('g');
+
+                const link = linkGroup.selectAll('line')
+                    .data(links)
+                    .join('line')
+                    .attr('stroke-width', rand(0.6, 1.6))
+                    .attr('stroke-dasharray', pick(['', '2 2', '4 3']));
+
+                const node = nodeGroup.selectAll('circle')
+                    .data(nodes)
+                    .join('circle')
+                    .attr('r', d => d.radius)
+                    .attr('fill', d => palette[d.group % palette.length])
+                    .attr('stroke', mood.stroke)
+                    .attr('stroke-width', rand(0.6, 1.4))
+                    .attr('opacity', rand(0.7, 0.95));
+
+                if (shapePick === 'rounded') {
+                    node.attr('r', d => d.radius * 0.8);
+                }
+                if (shapePick === 'ring') {
+                    node.attr('fill', 'none').attr('stroke', d => palette[d.group % palette.length]).attr('stroke-width', rand(1.2, 2.4));
+                }
+
+                const simulation = d3.forceSimulation(nodes)
+                    .force('link', d3.forceLink(links).distance(rand(24, 72)).strength(rand(0.4, 0.9)))
+                    .force('charge', d3.forceManyBody().strength(-rand(70, 150)))
+                    .force('center', d3.forceCenter(width / 2, height / 2))
+                    .force('collision', d3.forceCollide().radius(d => d.radius + 4))
+                    .on('tick', () => {
+                        link
+                            .attr('x1', d => d.source.x)
+                            .attr('y1', d => d.source.y)
+                            .attr('x2', d => d.target.x)
+                            .attr('y2', d => d.target.y);
+
+                        node
+                            .attr('cx', d => d.x + Math.sin(Date.now() / 300) * d.wobble)
+                            .attr('cy', d => d.y + Math.cos(Date.now() / 300) * d.wobble);
+                    });
+
+                node.call(d3.drag()
+                    .on('start', (event, d) => {
+                        if (!event.active) {
+                            simulation.alphaTarget(0.3).restart();
+                        }
+                        d.fx = d.x;
+                        d.fy = d.y;
+                    })
+                    .on('drag', (event, d) => {
+                        d.fx = event.x;
+                        d.fy = event.y;
+                    })
+                    .on('end', (event, d) => {
+                        if (!event.active) {
+                            simulation.alphaTarget(0);
+                        }
+                        d.fx = null;
+                        d.fy = null;
+                    }));
+
+                setTimeout(() => {
+                    simulation.alphaTarget(0);
+                }, 1800);
+                currentSimulation = simulation;
+            } else if (stylePick === 1) {
+                randomTitle.textContent = 'Radial Pulse Rings';
+                randomNote.textContent = 'Layered rings with randomized intensities, textures, and pulse.';
+
+                const ringCount = Math.floor(rand(4, 9) * densityFactor);
+                const arcData = d3.range(ringCount).map(ringIndex => ({
+                    radius: 30 + ringIndex * rand(22, 32),
+                    segments: d3.range(10 + Math.floor(Math.random() * 12)).map(segment => ({
+                        value: rand(0.2, 0.9),
+                        color: palette[(segment + ringIndex) % palette.length],
+                        stroke: pick(palette)
+                    }))
+                }));
+
+                const g = svg.append('g')
+                    .attr('transform', `translate(${width / 2}, ${height / 2})`);
+
+                arcData.forEach(ring => {
+                    const arc = d3.arc()
+                        .innerRadius(ring.radius - 12)
+                        .outerRadius(ring.radius + 10);
+
+                    const pie = d3.pie()
+                        .value(() => 1)
+                        .sort(null);
+
+                    g.selectAll(`.ring-${ring.radius}`)
+                        .data(pie(ring.segments))
+                        .join('path')
+                        .attr('d', arc)
+                        .attr('fill', d => d.data.color)
+                        .attr('opacity', d => d.data.value)
+                        .attr('stroke', d => d.data.stroke)
+                        .attr('stroke-width', rand(0.2, 0.9))
+                        .attr('mix-blend-mode', mood.blend);
+                });
+
+                g.append('circle')
+                    .attr('r', rand(18, 34))
+                    .attr('fill', palette[Math.floor(Math.random() * palette.length)])
+                    .attr('opacity', rand(0.6, 0.95));
+                
+                const rings = g.selectAll('path');
+                const pulseSpeed = rand(1200, 2000) / speedFactor;
+                activeAnimation = d3.timer((elapsed) => {
+                    const pulse = 0.4 + 0.2 * Math.sin(elapsed / pulseSpeed);
+                    rings.attr('opacity', (d, idx) => Math.max(0.2, d.data.value * (pulse + idx * 0.015)));
+                });
+            } else if (stylePick === 2) {
+                randomTitle.textContent = 'Topography Heatfield';
+                randomNote.textContent = 'Layered contours with automated color drift and terrain noise.';
+
+                const points = d3.range(Math.floor(80 * densityFactor)).map(() => ([
+                    Math.random() * width,
+                    Math.random() * height,
+                    Math.random()
+                ]));
+
+                const contours = d3.contours()
+                    .size([width, height])
+                    .thresholds(12);
+
+                const values = new Array(width * height).fill(0).map((_, idx) => {
+                    const x = idx % width;
+                    const y = Math.floor(idx / width);
+                    let sum = 0;
+                    points.forEach(p => {
+                        const dx = x - p[0];
+                        const dy = y - p[1];
+                        const dist = Math.sqrt(dx * dx + dy * dy);
+                        sum += Math.exp(-dist / (20 + p[2] * 40)) * (0.4 + p[2]);
+                    });
+                    return sum;
+                });
+
+                const color = d3.scaleSequential()
+                    .domain([0, d3.max(values)])
+                    .interpolator(pick([d3.interpolateTurbo, d3.interpolateViridis, d3.interpolatePlasma]));
+
+                const layers = svg.selectAll('path')
+                    .data(contours(values))
+                    .join('path')
+                    .attr('d', d3.geoPath())
+                    .attr('fill', d => color(d.value))
+                    .attr('opacity', rand(0.75, 0.95))
+                    .attr('mix-blend-mode', mood.blend);
+
+                const driftSpeed = rand(1400, 2200) / speedFactor;
+                activeAnimation = d3.timer((elapsed) => {
+                    const shift = 0.18 * Math.sin(elapsed / driftSpeed);
+                    layers.attr('fill', d => color(d.value * (1 + shift)));
+                });
+            }
+            
+            if (stylePick === 3) {
+                randomTitle.textContent = 'Streamflow Ribbons';
+                randomNote.textContent = 'Animated ribbons with flowing amplitude and jittered thickness.';
+
+                const streamCount = 6 + Math.floor(Math.random() * 6 * densityFactor);
+                const points = d3.range(40).map(i => i / 39);
+                const colorScale = d3.scaleOrdinal(palette);
+                const g = svg.append('g').attr('transform', `translate(0, ${height / 2})`);
+                const amplitude = 30 + Math.random() * 70;
+                const phaseOffsets = d3.range(streamCount).map(() => Math.random() * Math.PI * 2);
+                const jitter = d3.range(streamCount).map(() => rand(6, 18));
+
+                function streamPath(phase, index) {
+                    const offset = (index - streamCount / 2) * 16;
+                    return d3.area()
+                        .x(d => d * width)
+                        .y0(d => offset + Math.sin(d * Math.PI * 2 + phase) * amplitude * 0.35 - jitter[index])
+                        .y1(d => offset + Math.sin(d * Math.PI * 2 + phase) * amplitude * 0.95 + jitter[index]);
+                }
+
+                const streams = g.selectAll('path')
+                    .data(phaseOffsets)
+                    .join('path')
+                    .attr('fill', (_, i) => colorScale(i))
+                    .attr('opacity', rand(0.6, 0.9))
+                    .attr('mix-blend-mode', mood.blend);
+
+                const streamSpeed = rand(1200, 2000) / speedFactor;
+                activeAnimation = d3.timer((elapsed) => {
+                    streams.attr('d', (phase, index) => streamPath(phase + elapsed / streamSpeed, index)(points));
+                });
+            }
+
+            if (stylePick === 4) {
+                randomTitle.textContent = 'Orbiting Swarm';
+                randomNote.textContent = 'Automated orbital paths with drifting halos and trails.';
+
+                const nodeCount = 20 + Math.floor(Math.random() * 28 * densityFactor);
+                const nodes = d3.range(nodeCount).map(i => ({
+                    angle: Math.random() * Math.PI * 2,
+                    radius: rand(30, 160),
+                    speed: rand(0.0006, 0.0022),
+                    size: rand(3, 10),
+                    color: palette[i % palette.length]
+                }));
+
+                const g = svg.append('g')
+                    .attr('transform', `translate(${width / 2}, ${height / 2})`);
+
+                const orbit = g.selectAll('circle')
+                    .data(nodes)
+                    .join('circle')
+                    .attr('r', d => d.size)
+                    .attr('fill', d => d.color)
+                    .attr('opacity', rand(0.7, 0.95));
+
+                activeAnimation = d3.timer((elapsed) => {
+                    orbit
+                        .attr('cx', d => Math.cos(d.angle + elapsed * d.speed * 0.6 * speedFactor) * d.radius)
+                        .attr('cy', d => Math.sin(d.angle + elapsed * d.speed * 0.6 * speedFactor) * d.radius);
+                });
+            }
+
+            if (stylePick === 5) {
+                randomTitle.textContent = 'Voronoi Prism Field';
+                randomNote.textContent = 'Animated Voronoi facets with shifting facets and glow.';
+
+                const pointCount = 24 + Math.floor(Math.random() * 24 * densityFactor);
+                const points = d3.range(pointCount).map(() => [
+                    Math.random() * width,
+                    Math.random() * height
+                ]);
+
+                const delaunay = d3.Delaunay.from(points);
+                const voronoi = delaunay.voronoi([0, 0, width, height]);
+                const cells = d3.range(pointCount).map(i => voronoi.renderCell(i));
+                const colorScale = d3.scaleOrdinal(palette);
+
+                const g = svg.append('g');
+                const cellPaths = g.selectAll('path')
+                    .data(cells)
+                    .join('path')
+                    .attr('d', d => d)
+                    .attr('fill', (_, i) => colorScale(i))
+                    .attr('stroke', mood.stroke)
+                    .attr('stroke-width', rand(0.4, 1.1))
+                    .attr('opacity', rand(0.7, 0.95))
+                    .attr('mix-blend-mode', mood.blend);
+
+                const shimmerSpeed = rand(1400, 2200) / speedFactor;
+                activeAnimation = d3.timer((elapsed) => {
+                    const shift = Math.sin(elapsed / shimmerSpeed);
+                    cellPaths
+                        .attr('opacity', (_, i) => 0.5 + 0.3 * Math.sin(shift + i))
+                        .attr('fill', (_, i) => colorScale((i + shift) % palette.length));
+                });
+            }
+        }
+
+        document.getElementById('randomizeBtn').addEventListener('click', randomizeVisualization);
+        speedControl.addEventListener('input', () => {
+            if (modeControl.value === 'force' && currentSimulation) {
+                currentSimulation.alpha(0.6).restart();
+            }
+        });
+        densityControl.addEventListener('input', () => {
+            randomizeVisualization();
+        });
+        paletteControl.addEventListener('change', randomizeVisualization);
+        modeControl.addEventListener('change', randomizeVisualization);
+        randomizeVisualization();
+    </script>
+</body>
+</html>
